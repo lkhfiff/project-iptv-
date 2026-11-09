@@ -209,8 +209,8 @@ export const CURATED_TMDB_SERIES: TMDBMovie[] = [
     name: "Silo",
     overview:
       "In a ruined and toxic future, thousands live in a giant silo deep underground. After its sheriff breaks a cardinal rule and residents die mysteriously, engineer Juliette starts uncovering shocking secrets and the truth about the silo.",
-    poster_path: "/1rW8ep88xK19qS7qj9e2mKq.jpg",
-    backdrop_path: "/8Pq8q3q9Kq7z4y6w5X2v1u9.jpg",
+    poster_path: "/r2QXomqKjkKHVtYGGtkf2l2Y7go.jpg",
+    backdrop_path: "https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=1280&auto=format&fit=crop",
     first_air_date: "2023-05-05",
     vote_average: 8.3,
     vote_count: 1450,
@@ -237,8 +237,8 @@ export const CURATED_TMDB_SERIES: TMDBMovie[] = [
     name: "Shōgun",
     overview:
       "When a mysterious European ship is found marooned in a nearby fishing village, Lord Yoshii Toranaga discovers secrets that could tip the scales of power and devastate his formidable enemies in 17th-century feudal Japan.",
-    poster_path: "/7O4iVfOMQmdCSxhOg1WNzG1AgYT.jpg",
-    backdrop_path: "/2yUSnE3nFk9zO9rV0ZtFv3U0b9z.jpg",
+    poster_path: "/7O4iVfOMQmdCSxhOg1WnzG1AgYT.jpg",
+    backdrop_path: "https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=1280&auto=format&fit=crop",
     first_air_date: "2024-02-27",
     vote_average: 8.6,
     vote_count: 1980,
@@ -264,8 +264,8 @@ export const CURATED_TMDB_SERIES: TMDBMovie[] = [
     name: "Severance",
     overview:
       "Mark leads a team of office workers whose memories have been surgically divided between their work and personal lives. When a mysterious colleague appears outside of work, it begins a journey to discover the truth about their jobs.",
-    poster_path: "/pGbe5k9i6rFwGf7p1e9e2mKq.jpg",
-    backdrop_path: "/uGy4DCBq00q858540b6e9e2.jpg",
+    poster_path: "/lFf6LLrQjYldcZItzOkGmMMigP7.jpg",
+    backdrop_path: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1280&auto=format&fit=crop",
     first_air_date: "2022-02-18",
     vote_average: 8.4,
     vote_count: 2200,
