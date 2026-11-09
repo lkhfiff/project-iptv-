@@ -153,14 +153,14 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
             href="#featured"
             className="px-6 py-2 rounded-full bg-white text-black hover:bg-[#f2f2f2] text-xs font-semibold shadow-lg transition-all active:scale-95"
           >
-            Explore Cinema
+            Explorer le Cinéma
           </a>
-          <a
-            href="#pricing"
+          <Link
+            href="/abonnements"
             className="px-6 py-2 rounded-full bg-white/20 hover:bg-white/30 text-white backdrop-blur-md text-xs font-medium border border-white/15 transition-all active:scale-95"
           >
-            Subscriptions
-          </a>
+            Nos Abonnements
+          </Link>
         </motion.div>
       </div>
 
@@ -234,17 +234,17 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
             <span className="hidden sm:inline-block font-mono text-[11px] text-[#a0a0a0] px-3 py-1 rounded-full bg-white/5 border border-white/10">
               Anti-Freeze™ 9.9 CDN Cluster
             </span>
-            <a
-              href="#pricing"
+            <Link
+              href="/essai-gratuit"
               className="w-10 h-10 rounded-2xl bg-[#151515]/70 hover:bg-[#202020]/90 backdrop-blur-xl border border-white/15 flex items-center justify-center text-white transition-all shadow-xl active:scale-95 group"
-              aria-label="Search and Plans"
+              aria-label="Essai Gratuit 24h"
             >
               <Icon
                 icon="ph:sparkle"
                 width={17}
                 className="group-hover:rotate-12 transition-transform"
               />
-            </a>
+            </Link>
           </div>
         </div>
       </div>

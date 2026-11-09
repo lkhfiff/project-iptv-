@@ -28,17 +28,17 @@ export default function SportsPage() {
   });
 
   return (
-    <div className="pt-28 pb-20 space-y-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="pt-28 pb-20 space-y-12 max-w-7xl mx-auto px-6 sm:px-10 text-white">
       {/* Header */}
-      <div className="text-center max-w-3xl mx-auto space-y-4">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-red-600/10 border border-red-600/20 text-red-500 text-xs font-bold uppercase tracking-widest">
-          <Icon icon="ph:trophy-fill" width={14} />
+      <div className="text-center max-w-3xl mx-auto space-y-3">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/15 text-white text-xs font-mono tracking-wider">
+          <Icon icon="ph:trophy" width={14} />
           <span>Real-Time Sports Center</span>
         </div>
-        <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
-          Live Scores & Match Schedules
+        <h1 className="text-3xl sm:text-5xl font-light text-white tracking-tight">
+          Live Scores &amp; Match Schedules
         </h1>
-        <p className="text-zinc-300 text-sm sm:text-base leading-relaxed">
+        <p className="text-[#a0a0a0] text-xs sm:text-sm max-w-lg mx-auto font-light leading-relaxed">
           Track official match fixtures, live score telemetry, and broadcast channels across the Champions League, Premier League, La Liga, Formula 1, and UFC.
         </p>
 
@@ -64,10 +64,10 @@ export default function SportsPage() {
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
+            className={`px-4 py-2 rounded-full text-xs font-medium transition-all cursor-pointer ${
               activeTab === tab.id
-                ? "bg-white text-black font-extrabold shadow-md"
-                : "bg-white/5 text-zinc-400 hover:text-white"
+                ? "bg-white text-black font-semibold shadow-md"
+                : "bg-white/5 text-[#a0a0a0] hover:text-white"
             }`}
           >
             {tab.label}
@@ -80,22 +80,22 @@ export default function SportsPage() {
         {filteredMatches.map((match) => (
           <div
             key={match.id}
-            className="p-6 rounded-3xl bg-zinc-950/80 border border-white/10 hover:border-orange-500/30 transition-all flex flex-col justify-between space-y-5 shadow-xl"
+            className="p-6 rounded-3xl bg-[#151515] border border-white/10 hover:border-white/30 transition-all flex flex-col justify-between space-y-5 shadow-xl"
           >
             {/* Top Match Header */}
             <div className="flex items-center justify-between border-b border-white/5 pb-3">
               <div className="flex items-center gap-2">
-                <Icon icon="ph:shield-chevron-fill" width={16} className="text-orange-400" />
-                <span className="text-xs font-bold text-zinc-300">{match.competition}</span>
+                <Icon icon="ph:shield-chevron" width={16} className="text-white" />
+                <span className="text-xs font-medium text-[#f2f2f2]">{match.competition}</span>
               </div>
 
               {match.status === "LIVE" ? (
-                <span className="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-red-600 text-white text-[10px] font-black uppercase tracking-wider animate-pulse">
-                  <span className="w-1.5 h-1.5 rounded-full bg-white" />
+                <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white text-black text-[10px] font-bold uppercase tracking-wider">
+                  <span className="w-1.5 h-1.5 rounded-full bg-black animate-pulse" />
                   LIVE {match.minute}
                 </span>
               ) : (
-                <span className="text-[11px] font-mono text-zinc-400 px-2 py-0.5 rounded bg-white/5">
+                <span className="text-[11px] font-mono text-[#a0a0a0] px-2 py-0.5 rounded bg-white/5 border border-white/10">
                   {match.kickoffTime}
                 </span>
               )}
@@ -103,28 +103,28 @@ export default function SportsPage() {
 
             {/* Score / Teams Row */}
             <div className="flex items-center justify-between gap-4 py-2">
-              <div className="flex-1 text-center space-y-2">
-                <h4 className="text-base sm:text-lg font-bold text-white">
+              <div className="flex-1 text-center space-y-1">
+                <h4 className="text-base sm:text-lg font-light text-white">
                   {match.homeTeam.name}
                 </h4>
               </div>
 
-              <div className="flex items-center gap-3 px-4 py-2 rounded-2xl bg-white/5 border border-white/10 font-mono text-xl sm:text-2xl font-black text-white shrink-0">
+              <div className="flex items-center gap-3 px-4 py-2 rounded-2xl bg-white/5 border border-white/10 font-mono text-xl sm:text-2xl font-light text-white shrink-0">
                 {match.status === "LIVE" ? (
                   <>
-                    <span className="text-orange-400">{match.homeTeam.score}</span>
-                    <span className="text-zinc-600">-</span>
-                    <span className="text-orange-400">{match.awayTeam.score}</span>
+                    <span className="text-white font-semibold">{match.homeTeam.score}</span>
+                    <span className="text-[#a0a0a0]">:</span>
+                    <span className="text-white font-semibold">{match.awayTeam.score}</span>
                   </>
                 ) : (
-                  <span className="text-xs font-bold text-zinc-400 uppercase tracking-widest">
+                  <span className="text-xs font-medium text-[#a0a0a0] uppercase tracking-widest">
                     VS
                   </span>
                 )}
               </div>
 
-              <div className="flex-1 text-center space-y-2">
-                <h4 className="text-base sm:text-lg font-bold text-white">
+              <div className="flex-1 text-center space-y-1">
+                <h4 className="text-base sm:text-lg font-light text-white">
                   {match.awayTeam.name}
                 </h4>
               </div>
@@ -132,9 +132,9 @@ export default function SportsPage() {
 
             {/* Bottom Venue & Broadcast Info */}
             <div className="pt-3 border-t border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
-              <div className="text-zinc-400">
-                <span className="text-zinc-500 block text-[10px]">Broadcast Feed:</span>
-                <span className="text-emerald-400 font-medium">{match.channelBroadcast}</span>
+              <div className="text-[#a0a0a0]">
+                <span className="text-[#a0a0a0]/60 block text-[10px]">Broadcast Feed:</span>
+                <span className="text-white font-medium">{match.channelBroadcast}</span>
               </div>
 
               <WhatsAppButton

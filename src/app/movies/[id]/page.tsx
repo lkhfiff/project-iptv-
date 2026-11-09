@@ -234,3 +234,4 @@ export default function MovieDetailsPage({ params }: MovieDetailsPageProps) {
     </div>
   );
 }
+

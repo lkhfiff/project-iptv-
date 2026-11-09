@@ -78,40 +78,35 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Membership */}
+          {/* Navigation Rapide */}
           <div className="space-y-3">
             <h4 className="text-xs font-semibold uppercase tracking-wider text-white">
-              Membership
+              Navigation
             </h4>
             <ul className="space-y-2 text-xs">
               <li>
-                <Link href="/pricing" className="hover:text-white transition-colors">
-                  Subscription Plans
+                <Link href="/" className="hover:text-white transition-colors">
+                  Accueil
                 </Link>
               </li>
               <li>
-                <a
-                  href={generateWhatsAppContactUrl("Free 24h VIP Test Line")}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-white transition-colors text-white underline underline-offset-4"
-                >
-                  Request 24h Free VIP Test
-                </a>
-              </li>
-              <li>
-                <Link href="/faq" className="hover:text-white transition-colors">
-                  Frequently Asked Questions
+                <Link href="/abonnements" className="hover:text-white transition-colors">
+                  Nos Abonnements
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="hover:text-white transition-colors">
-                  Anti-Freeze™ 9.9 CDN
+                <Link href="/essai-gratuit" className="hover:text-white transition-colors text-white underline underline-offset-4">
+                  Essai Gratuit 24H
+                </Link>
+              </li>
+              <li>
+                <Link href="/revendeur" className="hover:text-white transition-colors">
+                  Revendeur IPTV (Packs Grossiste)
                 </Link>
               </li>
               <li>
                 <Link href="/contact" className="hover:text-white transition-colors">
-                  Contact VIP Concierge
+                  Contact Conciergerie
                 </Link>
               </li>
             </ul>
