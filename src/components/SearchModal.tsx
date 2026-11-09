@@ -67,7 +67,7 @@ export function SearchModal({ isOpen, onClose, onSelectMedia }: SearchModalProps
       <div className="relative w-full max-w-3xl rounded-3xl bg-zinc-950 border border-white/10 shadow-2xl overflow-hidden flex flex-col max-h-[80vh] z-10">
         {/* Search Header */}
         <div className="flex items-center gap-3 px-6 py-4 border-b border-white/10 bg-white/[0.02]">
-          <Icon icon="ph:magnifying-glass-bold" width={20} className="text-orange-400 shrink-0" />
+          <Icon icon="ph:magnifying-glass-bold" width={20} className="text-white/80 shrink-0" />
           <input
             type="text"
             value={query}
@@ -146,7 +146,7 @@ export function SearchModal({ isOpen, onClose, onSelectMedia }: SearchModalProps
                             onClose();
                           }
                         }}
-                        className="group flex gap-3 p-2.5 rounded-2xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/5 hover:border-orange-500/30 transition-all cursor-pointer"
+                        className="group flex gap-3 p-2.5 rounded-2xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/5 hover:border-white/30 transition-all cursor-pointer"
                       >
                         <div className="relative w-16 h-20 rounded-xl overflow-hidden shrink-0 bg-zinc-900">
                           <Image
@@ -170,7 +170,7 @@ export function SearchModal({ isOpen, onClose, onSelectMedia }: SearchModalProps
                                 {item.rating}
                               </span>
                             </div>
-                            <h5 className="text-sm font-semibold text-white truncate group-hover:text-orange-400 transition-colors">
+                            <h5 className="text-sm font-semibold text-white truncate group-hover:text-white transition-colors">
                               {item.title}
                             </h5>
                           </div>

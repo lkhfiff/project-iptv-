@@ -45,11 +45,11 @@ export function ContentCarousel({
       <div className="flex items-end justify-between px-4 sm:px-6 md:px-12">
         <div className="space-y-1">
           {badge && (
-            <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-widest bg-orange-500/10 text-orange-400 border border-orange-500/20 mb-1">
+            <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase tracking-widest bg-white/10 text-white/90 border border-white/15 mb-1">
               {badge}
             </span>
           )}
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white tracking-tight">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-light text-white tracking-tight">
             {title}
           </h2>
           {subtitle && (
@@ -64,10 +64,10 @@ export function ContentCarousel({
           {viewAllHref && (
             <Link
               href={viewAllHref}
-              className="text-xs sm:text-sm font-semibold text-orange-400 hover:text-orange-300 flex items-center gap-1 transition-colors"
+              className="text-xs sm:text-sm font-medium text-white/80 hover:text-white flex items-center gap-1 transition-colors"
             >
-              <span>Explore All</span>
-              <Icon icon="ph:arrow-right-bold" width={13} />
+              <span>Tout voir</span>
+              <Icon icon="ph:arrow-right" width={13} />
             </Link>
           )}
 
