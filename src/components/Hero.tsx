@@ -2,8 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { Play, Sparkles, Star, ChevronRight, Shield, Volume2, Info, ArrowUpRight } from "lucide-react";
+import { Icon } from "@iconify/react";
 import { HERO_SLIDES, MediaItem } from "@/data/media";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 
@@ -51,7 +50,6 @@ export function Hero({ onSelectMedia }: HeroProps) {
             className="object-cover object-right md:object-center"
           />
 
-          {/* Warm Cinematic Orange Atmospheric Tint & Vignette (from reference) */}
           <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/70 to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#050508] via-transparent to-black/40" />
         </div>
@@ -75,9 +73,9 @@ export function Hero({ onSelectMedia }: HeroProps) {
               {currentSlide.quality}
             </span>
             {currentSlide.isLive && (
-              <span className="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-red-600 text-white text-xs font-bold animate-pulse-live">
+              <span className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-red-600 text-white text-xs font-bold animate-pulse-live">
                 <span className="w-1.5 h-1.5 rounded-full bg-white" />
-                LIVE
+                LIVE 60FPS
               </span>
             )}
           </div>
@@ -93,7 +91,7 @@ export function Hero({ onSelectMedia }: HeroProps) {
               onClick={() => onSelectMedia(currentSlide)}
               className="px-8 py-3.5 rounded-2xl bg-white/20 hover:bg-white/30 text-white font-bold text-sm backdrop-blur-md border border-white/20 shadow-xl transition-all duration-200 active:scale-95 cursor-pointer flex items-center gap-2"
             >
-              <Play className="w-4 h-4 fill-white" />
+              <Icon icon="ph:play-fill" width={16} />
               <span>Go to Show</span>
             </button>
 

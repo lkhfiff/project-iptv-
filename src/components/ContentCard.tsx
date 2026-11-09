@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { Star, Play, Sparkles } from "lucide-react";
+import { Icon } from "@iconify/react";
 import { MediaItem } from "@/data/media";
 
 interface ContentCardProps {
@@ -37,7 +37,6 @@ export function ContentCard({
             className="object-cover transition-transform duration-500 ease-out group-hover:scale-106"
           />
 
-          {/* Vignette & Gradient */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
 
           {/* Top-Right Badge */}
@@ -55,7 +54,7 @@ export function ContentCard({
               </span>
             </div>
             <div className="w-6 h-6 rounded-full bg-white/20 backdrop-blur-md border border-white/20 flex items-center justify-center text-white text-[10px] font-bold opacity-0 group-hover:opacity-100 transition-opacity">
-              <Play className="w-3 h-3 fill-white ml-0.5" />
+              <Icon icon="ph:play-fill" width={11} className="ml-0.5" />
             </div>
           </div>
         </div>
@@ -69,7 +68,8 @@ export function ContentCard({
             <span>{item.category}</span>
             <span>•</span>
             <span className="text-amber-400 flex items-center gap-1">
-              ★ {item.rating}
+              <Icon icon="ph:star-fill" width={12} />
+              {item.rating}
             </span>
             {item.seasons && (
               <>
@@ -98,10 +98,8 @@ export function ContentCard({
           className="object-cover transition-transform duration-500 ease-out group-hover:scale-106"
         />
 
-        {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent opacity-85 group-hover:opacity-95 transition-opacity" />
 
-        {/* Top Badges */}
         <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between gap-1">
           <span className="px-2 py-0.5 rounded-md bg-black/60 backdrop-blur-md text-[10px] font-bold text-white tracking-wider border border-white/10">
             {item.quality}
@@ -122,7 +120,7 @@ export function ContentCard({
         {/* Center Hover Action */}
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-90 group-hover:scale-100">
           <div className="w-11 h-11 rounded-full bg-orange-500 text-black flex items-center justify-center shadow-lg shadow-orange-500/50">
-            <Play className="w-4 h-4 fill-black ml-0.5" />
+            <Icon icon="ph:play-fill" width={16} className="ml-0.5" />
           </div>
         </div>
 
@@ -131,7 +129,7 @@ export function ContentCard({
           <div className="flex items-center justify-between text-[11px] text-zinc-400">
             {showCategory && <span className="truncate">{item.category}</span>}
             <span className="flex items-center gap-1 text-amber-400 font-semibold shrink-0">
-              <Star className="w-3 h-3 fill-amber-400" />
+              <Icon icon="ph:star-fill" width={11} />
               {item.rating}
             </span>
           </div>

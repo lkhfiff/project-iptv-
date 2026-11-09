@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Star, ShieldCheck, CheckCircle2, MessageCircle } from "lucide-react";
+import { Icon } from "@iconify/react";
 import { SUBSCRIBER_REVIEWS } from "@/data/reviews";
 import { WhatsAppButton } from "./WhatsAppButton";
 
@@ -14,10 +14,10 @@ export function ReviewCarousel() {
           <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-400">
             <span className="flex">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                <Icon key={i} icon="ph:star-fill" width={14} className="text-amber-400" />
               ))}
             </span>
-            <span>4.9 / 5.0 Average Rating (3,400+ Active Subscribers)</span>
+            <span>4.9 / 5.0 Rating (3,400+ Active Subscribers)</span>
           </div>
           <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
             Verified Cinematic Feedback
@@ -45,12 +45,14 @@ export function ReviewCarousel() {
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <span className="text-xl">{rev.flag}</span>
+                  <span className="w-6 h-6 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-[11px] font-bold text-white font-mono">
+                    {rev.country.slice(0, 2).toUpperCase()}
+                  </span>
                   <div>
                     <h4 className="text-sm font-bold text-white flex items-center gap-1.5">
                       <span>{rev.author}</span>
                       {rev.verified && (
-                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                        <Icon icon="ph:check-circle-fill" width={14} className="text-emerald-400" />
                       )}
                     </h4>
                     <span className="text-[10px] text-zinc-400">{rev.country} • {rev.date}</span>
@@ -59,7 +61,7 @@ export function ReviewCarousel() {
 
                 <div className="flex">
                   {[...Array(rev.rating)].map((_, i) => (
-                    <Star key={i} className="w-3 h-3 fill-amber-400 text-amber-400" />
+                    <Icon key={i} icon="ph:star-fill" width={12} className="text-amber-400" />
                   ))}
                 </div>
               </div>
@@ -83,4 +85,3 @@ export function ReviewCarousel() {
     </section>
   );
 }
-

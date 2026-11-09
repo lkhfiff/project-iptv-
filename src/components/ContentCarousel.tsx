@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
+import { Icon } from "@iconify/react";
 import { MediaItem } from "@/data/media";
 import { ContentCard } from "./ContentCard";
 
@@ -37,8 +37,10 @@ export function ContentCarousel({
     });
   };
 
+  const isWide = aspectRatio === "wide" || aspectRatio === "backdrop";
+
   return (
-    <section className="relative py-8 md:py-10 space-y-4">
+    <section className="relative py-6 md:py-8 space-y-4">
       {/* Section Header */}
       <div className="flex items-end justify-between px-4 sm:px-6 md:px-12">
         <div className="space-y-1">
@@ -65,7 +67,7 @@ export function ContentCarousel({
               className="text-xs sm:text-sm font-semibold text-orange-400 hover:text-orange-300 flex items-center gap-1 transition-colors"
             >
               <span>Explore All</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <Icon icon="ph:arrow-right-bold" width={13} />
             </Link>
           )}
 
@@ -73,17 +75,17 @@ export function ContentCarousel({
           <div className="hidden sm:flex items-center gap-1.5">
             <button
               onClick={() => scroll("left")}
-              className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/15 border border-white/10 text-zinc-300 hover:text-white flex items-center justify-center transition-all active:scale-95"
+              className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/15 border border-white/10 text-zinc-300 hover:text-white flex items-center justify-center transition-all active:scale-95 cursor-pointer"
               aria-label="Scroll left"
             >
-              <ChevronLeft className="w-4 h-4" />
+              <Icon icon="ph:caret-left-bold" width={14} />
             </button>
             <button
               onClick={() => scroll("right")}
-              className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/15 border border-white/10 text-zinc-300 hover:text-white flex items-center justify-center transition-all active:scale-95"
+              className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/15 border border-white/10 text-zinc-300 hover:text-white flex items-center justify-center transition-all active:scale-95 cursor-pointer"
               aria-label="Scroll right"
             >
-              <ChevronRight className="w-4 h-4" />
+              <Icon icon="ph:caret-right-bold" width={14} />
             </button>
           </div>
         </div>
@@ -98,9 +100,7 @@ export function ContentCarousel({
           <div
             key={item.id}
             className={`shrink-0 ${
-              aspectRatio === "poster"
-                ? "w-40 sm:w-48 md:w-56"
-                : "w-64 sm:w-80 md:w-96"
+              isWide ? "w-64 sm:w-80 md:w-96" : "w-40 sm:w-48 md:w-56"
             }`}
           >
             <ContentCard
@@ -114,4 +114,3 @@ export function ContentCarousel({
     </section>
   );
 }
-

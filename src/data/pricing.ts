@@ -1,188 +1,87 @@
 export interface SubscriptionPlan {
   id: string;
   name: string;
-  tagline: string;
+  duration: string;
   durationMonths: number;
-  durationLabel: string;
   price: string;
+  periodLabel: string;
   originalPrice?: string;
-  perMonthPrice: string;
-  savingsBadge?: string;
-  isPopular?: boolean;
-  isBestValue?: boolean;
-  defaultConnections: number;
-  supportedConnectionsOptions: {
-    connections: number;
-    price: string;
-    label: string;
-  }[];
-  features: string[];
-  specs: {
-    channels: string;
-    vod: string;
-    resolution: string;
-    antiFreeze: string;
-    deliveryTime: string;
-    epg: boolean;
-    catchup: boolean;
-  };
+  badge?: string;
+  isRecommended?: boolean;
+  connections: number;
+  benefits: string[];
 }
 
 export const SUBSCRIPTION_PLANS: SubscriptionPlan[] = [
   {
-    id: "plan-1-month",
+    id: "plan-1m",
     name: "Starter Pass",
-    tagline: "Ideal for testing our cinema servers and experiencing pristine 4K quality.",
+    duration: "1 Month",
     durationMonths: 1,
-    durationLabel: "1 Month",
     price: "$14.99",
-    originalPrice: "$19.99",
-    perMonthPrice: "$14.99",
-    savingsBadge: "Trial Favorite",
-    isPopular: false,
-    isBestValue: false,
-    defaultConnections: 1,
-    supportedConnectionsOptions: [
-      { connections: 1, price: "$14.99", label: "1 Device" },
-      { connections: 2, price: "$21.99", label: "2 Devices (Multi-Room)" },
-    ],
-    features: [
+    periodLabel: "/month",
+    connections: 1,
+    benefits: [
       "28,500+ Live Worldwide Channels",
-      "135,000+ VOD Movies & Complete TV Shows",
-      "True 4K UHD, 1080p 60fps & HDR10+ Streams",
-      "All Premium Sports & Pay-Per-View Events",
-      "Anti-Freeze™ 9.9 Zero-Buffering CDN",
-      "7-Day Electronic Program Guide (EPG)",
-      "Instant Automated Delivery in < 3 Minutes",
-      "Free Setup Guide for TiviMate, Smart TV & Firestick",
-      "24/7 Dedicated WhatsApp Support",
+      "135,000+ VOD Movies & Series in 4K",
+      "All Premium Sports & Live Events",
+      "Anti-Freeze™ 9.9 Zero-Buffering",
+      "Instant WhatsApp Activation",
     ],
-    specs: {
-      channels: "28,500+",
-      vod: "135,000+",
-      resolution: "4K UHD / 60FPS",
-      antiFreeze: "Version 9.9 Enabled",
-      deliveryTime: "Instant (< 3 min)",
-      epg: true,
-      catchup: true,
-    },
   },
   {
-    id: "plan-3-months",
-    name: "Season Pass",
-    tagline: "Great for sports seasons, tournaments, and continuous entertainment.",
+    id: "plan-3m",
+    name: "Quarterly Pass",
+    duration: "3 Months",
     durationMonths: 3,
-    durationLabel: "3 Months",
     price: "$34.99",
-    originalPrice: "$49.99",
-    perMonthPrice: "$11.66",
-    savingsBadge: "Save 25%",
-    isPopular: false,
-    isBestValue: false,
-    defaultConnections: 1,
-    supportedConnectionsOptions: [
-      { connections: 1, price: "$34.99", label: "1 Device" },
-      { connections: 2, price: "$49.99", label: "2 Devices (Multi-Room)" },
-    ],
-    features: [
+    periodLabel: "/3 months",
+    originalPrice: "$44.99",
+    badge: "Save 25%",
+    connections: 1,
+    benefits: [
       "28,500+ Live Worldwide Channels",
-      "135,000+ VOD Movies & Complete TV Shows",
-      "True 4K UHD, 1080p 60fps & HDR10+ Streams",
-      "All Premium Sports & Pay-Per-View Events",
-      "Priority High-Bandwidth European & US Nodes",
-      "7-Day Electronic Program Guide (EPG)",
-      "Instant Automated Delivery in < 3 Minutes",
-      "Full Device Compatibility (Apple TV, Firestick, Android)",
-      "24/7 VIP WhatsApp Assistance",
+      "135,000+ VOD Movies & Series in 4K",
+      "All Premium Sports & PPV Passes",
+      "Anti-Freeze™ 9.9 Fast CDN Nodes",
+      "Instant WhatsApp Activation",
     ],
-    specs: {
-      channels: "28,500+",
-      vod: "135,000+",
-      resolution: "4K UHD / 60FPS",
-      antiFreeze: "Version 9.9 Enabled",
-      deliveryTime: "Instant (< 3 min)",
-      epg: true,
-      catchup: true,
-    },
   },
   {
-    id: "plan-6-months",
-    name: "Premier Pass",
-    tagline: "Our highly demanded half-year pass with upgraded priority streaming channels.",
+    id: "plan-6m",
+    name: "Semi-Annual",
+    duration: "6 Months",
     durationMonths: 6,
-    durationLabel: "6 Months",
     price: "$54.99",
+    periodLabel: "/6 months",
     originalPrice: "$79.99",
-    perMonthPrice: "$9.16",
-    savingsBadge: "Save 40%",
-    isPopular: true,
-    isBestValue: false,
-    defaultConnections: 1,
-    supportedConnectionsOptions: [
-      { connections: 1, price: "$54.99", label: "1 Device" },
-      { connections: 2, price: "$74.99", label: "2 Devices (Multi-Room)" },
-      { connections: 3, price: "$94.99", label: "3 Devices (Whole Home)" },
-    ],
-    features: [
+    badge: "Save 40%",
+    connections: 2,
+    benefits: [
       "28,500+ Live Worldwide Channels",
-      "135,000+ VOD Movies & Complete TV Shows",
-      "True 4K UHD, 1080p 60fps & HDR10+ Streams",
-      "All Premium Sports & Pay-Per-View Events Included",
-      "Anti-Freeze™ 9.9 Cluster with 99.99% Uptime SLA",
-      "7-Day Electronic Program Guide (EPG) + Catch-Up",
-      "VOD Request Access (Request new releases in WhatsApp)",
-      "Multi-Room Simultaneous Streaming Available",
-      "VIP Dedicated Account Concierge via WhatsApp",
+      "135,000+ VOD Movies & Series in 4K",
+      "2 Devices Multi-Room Streaming",
+      "Anti-Freeze™ 9.9 Priority Cluster",
+      "24/7 Priority WhatsApp Line",
     ],
-    specs: {
-      channels: "28,500+",
-      vod: "135,000+",
-      resolution: "4K UHD / 60FPS",
-      antiFreeze: "Tier 1 Priority Nodes",
-      deliveryTime: "Instant (< 2 min)",
-      epg: true,
-      catchup: true,
-    },
   },
   {
-    id: "plan-12-months",
-    name: "Ultimate VIP Cinema Pass",
-    tagline: "The complete flagship experience. Maximum savings, dedicated 10Gbps CDN nodes, and whole-home streaming.",
+    id: "plan-12m",
+    name: "Annual VIP Cinema",
+    duration: "12 Months",
     durationMonths: 12,
-    durationLabel: "12 Months",
     price: "$79.99",
+    periodLabel: "/year",
     originalPrice: "$159.99",
-    perMonthPrice: "$6.66",
-    savingsBadge: "Best Value • 55% Off",
-    isPopular: false,
-    isBestValue: true,
-    defaultConnections: 2,
-    supportedConnectionsOptions: [
-      { connections: 1, price: "$69.99", label: "1 Device" },
-      { connections: 2, price: "$79.99", label: "2 Devices (Included)" },
-      { connections: 3, price: "$104.99", label: "3 Devices (Family Pack)" },
+    badge: "Best Value • 50% Off",
+    isRecommended: true,
+    connections: 2,
+    benefits: [
+      "28,500+ Live Worldwide Channels in 4K",
+      "135,000+ VOD Movies & TV Series",
+      "2 Devices Multi-Room Included",
+      "Dedicated 10Gbps Private CDN",
+      "VIP Dedicated WhatsApp Concierge",
     ],
-    features: [
-      "28,500+ Live Worldwide Channels in Uncompressed Quality",
-      "135,000+ 4K UHD Movies & Complete Television Series",
-      "2 Devices Included Simultaneously at No Extra Cost",
-      "All Pay-Per-View, Champions League, UFC, F1 & NBA Passes",
-      "Dedicated 10Gbps Private CDN Server Allocation",
-      "Dolby Atmos 7.1 Audio & HDR10+ / Dolby Vision Streams",
-      "Complete 14-Day EPG Guide & Catch-up on Major Channels",
-      "Priority VIP WhatsApp Line with 1-on-1 Remote Setup",
-      "Unlimited VOD Requests with 24h Movie Addition Guarantee",
-      "100% Money-Back Satisfaction Guarantee (7 Days)",
-    ],
-    specs: {
-      channels: "28,500+",
-      vod: "135,000+",
-      resolution: "Pure 4K UHD & Dolby Vision",
-      antiFreeze: "Dedicated 10Gbps Cluster",
-      deliveryTime: "Instant Automated VIP Setup",
-      epg: true,
-      catchup: true,
-    },
   },
 ];
-

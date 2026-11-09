@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import { ChevronDown, HelpCircle, MessageCircle, Search } from "lucide-react";
-import { FAQ_ITEMS, FAQItem } from "@/data/faqs";
+import { Icon } from "@iconify/react";
+import { FAQ_ITEMS } from "@/data/faqs";
 import { WhatsAppButton } from "./WhatsAppButton";
 
 export function FAQAccordion() {
@@ -35,10 +35,10 @@ export function FAQAccordion() {
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
+              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
                 selectedCategory === cat
-                  ? "bg-orange-500 text-black font-bold shadow-md shadow-orange-500/20"
-                  : "bg-white/5 text-zinc-400 hover:text-white hover:bg-white/10"
+                  ? "bg-white text-black font-bold shadow-md"
+                  : "bg-white/5 text-zinc-400 hover:text-white"
               }`}
             >
               {cat}
@@ -47,7 +47,11 @@ export function FAQAccordion() {
         </div>
 
         <div className="relative w-full sm:w-64">
-          <Search className="w-4 h-4 text-zinc-500 absolute left-3 top-1/2 -translate-y-1/2" />
+          <Icon
+            icon="ph:magnifying-glass-bold"
+            width={15}
+            className="text-zinc-500 absolute left-3 top-1/2 -translate-y-1/2"
+          />
           <input
             type="text"
             value={searchQuery}
@@ -85,11 +89,11 @@ export function FAQAccordion() {
                   </h3>
                 </div>
                 <div
-                  className={`w-8 h-8 rounded-full bg-white/5 flex items-center justify-center shrink-0 text-zinc-400 transition-transform duration-200 ${
+                  className={`w-7 h-7 rounded-full bg-white/5 flex items-center justify-center shrink-0 text-zinc-400 transition-transform duration-200 ${
                     isOpen ? "rotate-180 bg-orange-500/20 text-orange-400" : ""
                   }`}
                 >
-                  <ChevronDown className="w-4 h-4" />
+                  <Icon icon="ph:caret-down-bold" width={14} />
                 </div>
               </button>
 
@@ -101,36 +105,7 @@ export function FAQAccordion() {
             </div>
           );
         })}
-
-        {filteredFaqs.length === 0 && (
-          <div className="text-center py-12 space-y-3">
-            <p className="text-zinc-400 text-sm">No matching questions found.</p>
-            <WhatsAppButton
-              variant="outline"
-              size="sm"
-              label="Ask Us on WhatsApp Directly"
-              customMessage="Hello! I have a question regarding AETHER+ IPTV service that wasn't covered in the FAQ."
-            />
-          </div>
-        )}
-      </div>
-
-      {/* Still have questions prompt */}
-      <div className="p-6 rounded-3xl bg-gradient-to-r from-orange-500/10 via-amber-500/10 to-transparent border border-orange-500/20 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div className="space-y-1 text-center sm:text-left">
-          <h4 className="text-sm font-bold text-white">Have a specific device or questions?</h4>
-          <p className="text-xs text-zinc-400">
-            Our IPTV engineers are available 24/7 on WhatsApp to test your connection and guide setup.
-          </p>
-        </div>
-        <WhatsAppButton
-          variant="pill"
-          size="md"
-          label="Chat with Support"
-          customMessage="Hello! I have a question regarding setup and device compatibility with AETHER+ IPTV."
-        />
       </div>
     </div>
   );
 }
-

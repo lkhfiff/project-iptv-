@@ -2,10 +2,9 @@
 
 import React, { useEffect } from "react";
 import Image from "next/image";
-import { X, Play, Star, Sparkles, Tv, ShieldCheck, Volume2, Video } from "lucide-react";
+import { Icon } from "@iconify/react";
 import { MediaItem } from "@/data/media";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
-import { generateWhatsAppContactUrl } from "@/data/config";
 
 interface ContentModalProps {
   item: MediaItem | null;
@@ -37,10 +36,10 @@ export function ContentModal({ item, onClose }: ContentModalProps) {
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-black/60 hover:bg-black/90 border border-white/20 text-white flex items-center justify-center backdrop-blur-md transition-all active:scale-95"
+          className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-black/60 hover:bg-black/90 border border-white/20 text-white flex items-center justify-center backdrop-blur-md transition-all active:scale-95 cursor-pointer"
           aria-label="Close modal"
         >
-          <X className="w-5 h-5" />
+          <Icon icon="ph:x-bold" width={16} />
         </button>
 
         {/* Media Backdrop Header */}
@@ -75,7 +74,7 @@ export function ContentModal({ item, onClose }: ContentModalProps) {
               </span>
               {item.audio && (
                 <span className="px-2.5 py-1 rounded-md bg-white/15 backdrop-blur-md text-white text-xs font-bold flex items-center gap-1">
-                  <Volume2 className="w-3 h-3 text-amber-300" />
+                  <Icon icon="ph:speaker-high-fill" width={13} className="text-amber-300" />
                   {item.audio}
                 </span>
               )}
@@ -92,7 +91,7 @@ export function ContentModal({ item, onClose }: ContentModalProps) {
           {/* Metadata bar */}
           <div className="flex flex-wrap items-center gap-4 text-xs sm:text-sm text-zinc-400 border-b border-white/5 pb-4">
             <span className="flex items-center gap-1 text-amber-400 font-bold">
-              <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+              <Icon icon="ph:star-fill" width={14} className="text-amber-400" />
               {item.rating}
             </span>
             <span>•</span>
@@ -132,28 +131,6 @@ export function ContentModal({ item, onClose }: ContentModalProps) {
             </p>
           </div>
 
-          {/* Match Info if Sport */}
-          {item.matchInfo && (
-            <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 space-y-2">
-              <div className="text-xs font-bold uppercase tracking-wider text-orange-400">
-                Match Broadcast Schedule
-              </div>
-              <div className="flex items-center justify-between text-sm sm:text-base font-semibold text-white">
-                <span>{item.matchInfo.teamHome}</span>
-                <span className="text-xs px-2 py-1 rounded bg-white/10 text-amber-300 font-mono">
-                  VS
-                </span>
-                <span>{item.matchInfo.teamAway}</span>
-              </div>
-              <div className="text-xs text-zinc-400 flex items-center justify-between pt-1">
-                <span>Kickoff / Time: {item.matchInfo.time}</span>
-                <span className="text-emerald-400 font-medium">
-                  {item.matchInfo.channel}
-                </span>
-              </div>
-            </div>
-          )}
-
           {/* Hardware & Streaming Specs */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2 text-xs">
             <div className="p-3 rounded-xl bg-white/[0.02] border border-white/5">
@@ -189,7 +166,7 @@ export function ContentModal({ item, onClose }: ContentModalProps) {
               onClick={onClose}
               className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/15 text-white text-sm font-semibold text-center transition-colors shrink-0"
             >
-              View All Subscription Plans &rarr;
+              View Subscription Passes &rarr;
             </a>
           </div>
         </div>
@@ -197,4 +174,3 @@ export function ContentModal({ item, onClose }: ContentModalProps) {
     </div>
   );
 }
-

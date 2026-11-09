@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { ChevronDown, CheckCircle2, Clock, Sparkles } from "lucide-react";
+import { Icon } from "@iconify/react";
 import { DeviceGuide } from "@/data/devices";
 import { WhatsAppButton } from "./WhatsAppButton";
 
@@ -33,8 +33,8 @@ export function DeviceSetupCard({ device }: DeviceSetupCardProps) {
             </span>
           )}
           <span className="px-2 py-0.5 rounded bg-black/60 backdrop-blur-md text-[10px] font-semibold text-zinc-300 border border-white/10 flex items-center gap-1">
-            <Clock className="w-3 h-3 text-orange-400" />
-            {device.setupTime}
+            <Icon icon="ph:clock-bold" width={11} className="text-orange-400" />
+            <span>{device.setupTime}</span>
           </span>
         </div>
 
@@ -76,10 +76,10 @@ export function DeviceSetupCard({ device }: DeviceSetupCardProps) {
             className="w-full flex items-center justify-between text-xs font-semibold text-orange-400 hover:text-orange-300 transition-colors py-1 cursor-pointer"
           >
             <span>{showSteps ? "Hide Setup Steps" : "View Step-by-Step Setup Guide"}</span>
-            <ChevronDown
-              className={`w-4 h-4 transition-transform duration-200 ${
-                showSteps ? "rotate-180" : ""
-              }`}
+            <Icon
+              icon="ph:caret-down-bold"
+              width={14}
+              className={`transition-transform duration-200 ${showSteps ? "rotate-180" : ""}`}
             />
           </button>
 
@@ -96,7 +96,6 @@ export function DeviceSetupCard({ device }: DeviceSetupCardProps) {
             </div>
           )}
 
-          {/* Direct WhatsApp remote setup CTA */}
           <WhatsAppButton
             variant="luxury"
             size="sm"
@@ -109,4 +108,3 @@ export function DeviceSetupCard({ device }: DeviceSetupCardProps) {
     </div>
   );
 }
-

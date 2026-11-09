@@ -1,9 +1,8 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
-import { Shield, Sparkles, Server, Cpu, Globe, Zap, CheckCircle2, ArrowRight } from "lucide-react";
-import { SITE_CONFIG, generateWhatsAppContactUrl } from "@/data/config";
+import { Icon } from "@iconify/react";
+import { SITE_CONFIG } from "@/data/config";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 
 export default function AboutPage() {
@@ -12,14 +11,14 @@ export default function AboutPage() {
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto space-y-4">
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-bold uppercase tracking-widest">
-          <Sparkles className="w-3.5 h-3.5" />
-          The Pursuit of Streaming Perfection
+          <Icon icon="ph:sparkle-fill" width={14} />
+          <span>The Pursuit of Streaming Perfection</span>
         </div>
         <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
           About {SITE_CONFIG.brandName}
         </h1>
         <p className="text-zinc-300 text-sm sm:text-base leading-relaxed">
-          We were tired of low-bitrate feeds, endless buffering loops during big football derbies, and fake &quot;4K&quot; labels that looked like 720p. We engineered {SITE_CONFIG.brandName} to be the definitive cinematic streaming platform for discerning viewers.
+          We were tired of low-bitrate feeds, endless buffering loops during big football derbies, and fake &quot;4K&quot; labels that looked like 720p. We engineered {SITE_CONFIG.brandName} to be the definitive cinematic streaming platform.
         </p>
       </div>
 
@@ -42,7 +41,9 @@ export default function AboutPage() {
 
             <div className="space-y-3 pt-2">
               <div className="flex items-start gap-3">
-                <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 mt-0.5">
+                  <Icon icon="ph:check-bold" width={12} />
+                </span>
                 <div>
                   <h4 className="text-sm font-bold text-white">Pure 10Gbps Uplink Dedicated Nodes</h4>
                   <p className="text-xs text-zinc-400">Over-provisioned bandwidth prevents bottlenecking at peak evening hours.</p>
@@ -50,7 +51,9 @@ export default function AboutPage() {
               </div>
 
               <div className="flex items-start gap-3">
-                <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 mt-0.5">
+                  <Icon icon="ph:check-bold" width={12} />
+                </span>
                 <div>
                   <h4 className="text-sm font-bold text-white">H.265 / HEVC 10-Bit Hardware Encoding</h4>
                   <p className="text-xs text-zinc-400">Higher compression efficiency means pristine 4K HDR quality with 50% less bandwidth overhead.</p>
@@ -58,7 +61,9 @@ export default function AboutPage() {
               </div>
 
               <div className="flex items-start gap-3">
-                <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 mt-0.5">
+                  <Icon icon="ph:check-bold" width={12} />
+                </span>
                 <div>
                   <h4 className="text-sm font-bold text-white">Encrypted SSL/TLS Transport Streams</h4>
                   <p className="text-xs text-zinc-400">Your streaming data looks like normal encrypted web traffic, bypassing ISP bandwidth throttling completely.</p>
@@ -67,11 +72,11 @@ export default function AboutPage() {
             </div>
           </div>
 
-          {/* Interactive Server Topology Box */}
+          {/* Core CDN Cluster Box */}
           <div className="p-6 rounded-3xl bg-black/80 border border-white/10 space-y-6">
             <div className="flex items-center justify-between pb-4 border-b border-white/10">
               <div className="flex items-center gap-2">
-                <Server className="w-4 h-4 text-orange-400" />
+                <Icon icon="ph:hard-drives-fill" width={18} className="text-orange-400" />
                 <span className="text-xs font-mono font-bold text-white uppercase tracking-wider">
                   Core CDN Cluster Locations
                 </span>
@@ -106,33 +111,9 @@ export default function AboutPage() {
                 </div>
               ))}
             </div>
-
-            <p className="text-[11px] text-zinc-500 text-center font-mono">
-              Dynamic BGP Anycast routing sends your stream to the closest cluster.
-            </p>
           </div>
-        </div>
-      </div>
-
-      {/* Human VIP Concierge Promise */}
-      <div className="rounded-3xl bg-zinc-950/80 border border-white/10 p-8 sm:p-12 text-center space-y-6">
-        <h3 className="text-2xl sm:text-3xl font-black text-white">
-          Why We Choose WhatsApp For Personalized Service
-        </h3>
-        <p className="text-zinc-300 text-xs sm:text-base max-w-2xl mx-auto leading-relaxed">
-          Instead of frustrating automated ticketing bots or abandoned email support desks, every AETHER+ client receives access to our senior engineering team on WhatsApp. Whether you need a bouquet customized, a device set up remotely, or a rare film added to the on-demand library, we reply in minutes.
-        </p>
-
-        <div className="pt-2 flex flex-wrap justify-center gap-4">
-          <WhatsAppButton
-            variant="luxury"
-            size="lg"
-            label="Chat With Senior Engineer on WhatsApp"
-            customMessage="Hello! I would like to learn more about AETHER+ infrastructure and service."
-          />
         </div>
       </div>
     </div>
   );
 }
-

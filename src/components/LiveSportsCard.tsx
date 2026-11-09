@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { Play, Trophy, Tv, Radio, Flame, Sparkles } from "lucide-react";
+import { Icon } from "@iconify/react";
 import { MediaItem } from "@/data/media";
 import { WhatsAppButton } from "./WhatsAppButton";
 
@@ -33,13 +33,13 @@ export function LiveSportsCard({ item, onSelect }: LiveSportsCardProps) {
         {/* Live Pill / Tournament Header */}
         <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
           <span className="px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-[11px] font-bold text-amber-400 border border-white/10 flex items-center gap-1.5">
-            <Trophy className="w-3.5 h-3.5" />
-            {match?.tournament || item.category}
+            <Icon icon="ph:trophy-fill" width={14} />
+            <span>{match?.tournament || item.category}</span>
           </span>
 
           {item.isLive ? (
-            <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-600 text-white text-[11px] font-bold tracking-wider animate-pulse-live shadow-lg shadow-red-600/30">
-              <span className="w-2 h-2 rounded-full bg-white" />
+            <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-600 text-white text-[11px] font-black tracking-wider animate-pulse-live shadow-lg shadow-red-600/30">
+              <span className="w-1.5 h-1.5 rounded-full bg-white" />
               LIVE 4K
             </span>
           ) : (
@@ -52,7 +52,7 @@ export function LiveSportsCard({ item, onSelect }: LiveSportsCardProps) {
         {/* Center Hover Play Icon */}
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
           <div className="w-12 h-12 rounded-full bg-orange-500 text-black flex items-center justify-center shadow-lg shadow-orange-500/50">
-            <Play className="w-5 h-5 fill-black ml-0.5" />
+            <Icon icon="ph:play-fill" width={20} className="ml-0.5" />
           </div>
         </div>
       </div>
@@ -70,7 +70,7 @@ export function LiveSportsCard({ item, onSelect }: LiveSportsCardProps) {
             </div>
 
             <div className="flex items-center justify-between text-xs text-zinc-400 pt-1 border-t border-white/5">
-              <span>Time: {match.time}</span>
+              <span>Kickoff: {match.time}</span>
               <span className="text-emerald-400 font-medium truncate max-w-[180px]">
                 {match.channel}
               </span>
@@ -86,12 +86,12 @@ export function LiveSportsCard({ item, onSelect }: LiveSportsCardProps) {
         )}
 
         {/* Card CTA */}
-        <div className="pt-2 flex items-center justify-between gap-3" onClick={(e) => e.stopPropagation()}>
+        <div className="pt-2" onClick={(e) => e.stopPropagation()}>
           <WhatsAppButton
             variant="luxury"
             size="sm"
             fullWidth
-            customMessage={`Hello AETHER+! I want to watch the match "${item.title}" live in 4K. Please setup my IPTV subscription now.`}
+            customMessage={`Hello AETHER+! I want to watch the match "${item.title}" live in 4K. Please setup my IPTV subscription.`}
             label="Watch Live on WhatsApp"
           />
         </div>
@@ -99,4 +99,3 @@ export function LiveSportsCard({ item, onSelect }: LiveSportsCardProps) {
     </div>
   );
 }
-

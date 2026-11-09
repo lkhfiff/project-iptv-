@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { MessageCircle, Mail, Send, Clock, ShieldCheck, Sparkles, Tv, CheckCircle2 } from "lucide-react";
+import { Icon } from "@iconify/react";
 import { SITE_CONFIG } from "@/data/config";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 
@@ -14,12 +14,12 @@ export default function ContactPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    let message = `Hello ${SITE_CONFIG.brandName} Team!\n\n`;
-    if (name) message += `✦ My Name: ${name}\n`;
-    message += `✦ Device: ${device}\n`;
-    message += `✦ Inquiry: ${inquiryType}\n`;
+    let message = `Hello ${SITE_CONFIG.businessName} Team!\n\n`;
+    if (name) message += `• My Name: ${name}\n`;
+    message += `• Device: ${device}\n`;
+    message += `• Inquiry: ${inquiryType}\n`;
     if (customNotes) {
-      message += `✦ Details / Questions: ${customNotes}\n`;
+      message += `• Details / Questions: ${customNotes}\n`;
     }
     message += `\nPlease guide me with the next steps. Thank you!`;
 
@@ -33,11 +33,11 @@ export default function ContactPage() {
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto space-y-4">
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-widest">
-          <MessageCircle className="w-3.5 h-3.5" />
-          VIP Concierge Line 24/7
+          <Icon icon="ph:whatsapp-logo-fill" width={14} />
+          <span>VIP Concierge Line 24/7</span>
         </div>
         <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
-          Connect With Our Engineering Team
+          Connect With {SITE_CONFIG.businessName}
         </h1>
         <p className="text-zinc-300 text-sm sm:text-base leading-relaxed">
           Need instant playlist delivery, a free 24-hour test line, or device configuration help? Our team is live on WhatsApp with average response times under 2 minutes.
@@ -50,11 +50,11 @@ export default function ContactPage() {
           <div className="p-6 rounded-3xl bg-zinc-950/80 border border-white/10 space-y-4">
             <h3 className="font-bold text-white text-base">Direct Channels</h3>
 
-            <div className="space-y-4 text-xs">
+            <div className="space-y-3 text-xs">
               <div className="p-4 rounded-2xl bg-[#25D366]/10 border border-[#25D366]/20 space-y-1.5">
                 <div className="flex items-center gap-2 text-[#25D366] font-bold">
-                  <MessageCircle className="w-4 h-4" />
-                  <span>WhatsApp VIP Concierge</span>
+                  <Icon icon="ph:whatsapp-logo-fill" width={16} />
+                  <span>{SITE_CONFIG.whatsappDisplayName}</span>
                 </div>
                 <p className="text-zinc-300">
                   Instant activation, M3U/Xtream setup, and live tech support.
@@ -90,16 +90,6 @@ export default function ContactPage() {
               </div>
             </div>
           </div>
-
-          <div className="p-6 rounded-3xl bg-white/[0.02] border border-white/5 space-y-3">
-            <div className="flex items-center gap-2 text-white font-bold text-sm">
-              <Clock className="w-4 h-4 text-orange-400" />
-              <span>Response Time Guarantee</span>
-            </div>
-            <p className="text-xs text-zinc-400 leading-relaxed">
-              We monitor our WhatsApp concierge line around the clock. Your messages are handled directly by senior IPTV engineers who have full authority to activate lines, generate custom playlists, and resolve technical questions.
-            </p>
-          </div>
         </div>
 
         {/* Interactive Message Composer to WhatsApp */}
@@ -109,7 +99,7 @@ export default function ContactPage() {
               Compose Your WhatsApp Setup Request
             </h2>
             <p className="text-xs text-zinc-400">
-              Fill in your device details below. Clicking &ldquo;Send to WhatsApp&rdquo; will launch WhatsApp with your message pre-formatted for instant handling.
+              Fill in your device details below. Clicking &ldquo;Send to WhatsApp&rdquo; will launch WhatsApp with your message pre-formatted.
             </p>
           </div>
 
@@ -141,7 +131,6 @@ export default function ContactPage() {
                   <option value="Request 24h Free VIP Test Line">Request 24h Free VIP Test Line</option>
                   <option value="Technical Setup Help on Device">Technical Setup Help on Device</option>
                   <option value="Specific Channel / Bouquet Availability">Specific Channel / Bouquet Availability</option>
-                  <option value="Multi-Room Connection Upgrade">Multi-Room Connection Upgrade</option>
                 </select>
               </div>
             </div>
@@ -164,7 +153,6 @@ export default function ContactPage() {
                 <option value="iPhone / iPad">iPhone / iPad</option>
                 <option value="Android Mobile / Tablet">Android Mobile / Tablet</option>
                 <option value="Windows PC / Mac">Windows PC / Mac</option>
-                <option value="Other Streaming Device">Other Streaming Device</option>
               </select>
             </div>
 
@@ -184,14 +172,11 @@ export default function ContactPage() {
             <div className="pt-2">
               <button
                 type="submit"
-                className="w-full py-4 px-6 rounded-full bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-400 hover:to-green-500 text-white font-bold text-sm tracking-wide shadow-xl shadow-green-600/30 flex items-center justify-center gap-2 active:scale-[0.99] transition-all cursor-pointer"
+                className="w-full py-3.5 px-6 rounded-2xl bg-[#25D366] hover:bg-[#20ba59] text-white font-bold text-xs tracking-wide shadow-xl shadow-emerald-500/20 flex items-center justify-center gap-2 active:scale-95 transition-all cursor-pointer"
               >
-                <MessageCircle className="w-5 h-5 fill-white text-transparent" />
-                <span>Launch WhatsApp With Formatted Request &rarr;</span>
+                <Icon icon="ph:whatsapp-logo-fill" width={18} />
+                <span>Launch WhatsApp Request &rarr;</span>
               </button>
-              <p className="text-[11px] text-zinc-500 text-center mt-2">
-                Opens directly in WhatsApp web or mobile app. No registration required.
-              </p>
             </div>
           </form>
         </div>
@@ -199,4 +184,3 @@ export default function ContactPage() {
     </div>
   );
 }
-
