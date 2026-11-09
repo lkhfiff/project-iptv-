@@ -1,61 +1,385 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
-import { Hero } from "@/components/Hero";
-import { ContentCarousel } from "@/components/ContentCarousel";
+import { HeroMinimal } from "@/components/HeroMinimal";
 import { PricingCard } from "@/components/PricingCard";
 import { FAQAccordion } from "@/components/FAQAccordion";
-import { ChannelPackageCard } from "@/components/ChannelPackageCard";
-import { LiveSportsCard } from "@/components/LiveSportsCard";
-import { ReviewCarousel } from "@/components/ReviewCarousel";
-import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { useMediaModal } from "@/components/SiteLayout";
 import {
-  TRENDING_MOVIES,
-  POPULAR_SERIES,
-  LIVE_SPORTS_EVENTS,
-  INTERNATIONAL_TV_PACKAGES,
-  KIDS_AND_FAMILY,
-} from "@/data/media";
+  CURATED_TMDB_MOVIES,
+  CURATED_TMDB_SERIES,
+  getTMDBImageUrl,
+} from "@/services/tmdb";
+import { CHANNELS_DATA } from "@/data/channels";
+import { CURATED_LIVE_MATCHES } from "@/data/sports";
 import { SUBSCRIPTION_PLANS } from "@/data/pricing";
 import { SITE_CONFIG, generateWhatsAppContactUrl } from "@/data/config";
+import { MediaItem } from "@/data/media";
 
 export default function HomePage() {
   const { openModal } = useMediaModal();
 
+  const handleOpenMovie = (m: (typeof CURATED_TMDB_MOVIES)[0]) => {
+    const item: MediaItem = {
+      id: `tmdb-${m.id}`,
+      title: m.title || m.name || "Untitled",
+      type: "movie",
+      category: m.genres && m.genres[0] ? m.genres[0].name : "Cinema",
+      genres: m.genres ? m.genres.map((g) => g.name) : ["Cinema"],
+      year: m.release_date ? new Date(m.release_date).getFullYear() : 2024,
+      rating: m.vote_average ? `${m.vote_average.toFixed(1)} / 10` : "8.5 / 10",
+      duration: m.runtime ? `${m.runtime}m` : "4K UHD",
+      quality: "4K UHD",
+      audio: "Dolby Atmos",
+      posterUrl: getTMDBImageUrl(m.poster_path, "w500"),
+      backdropUrl: getTMDBImageUrl(m.backdrop_path, "w1280"),
+      synopsis: m.overview,
+    };
+    openModal(item);
+  };
+
+  const handleOpenSeries = (s: (typeof CURATED_TMDB_SERIES)[0]) => {
+    const item: MediaItem = {
+      id: `tmdb-tv-${s.id}`,
+      title: s.name || s.title || "Untitled Series",
+      type: "series",
+      category: s.genres && s.genres[0] ? s.genres[0].name : "Series",
+      genres: s.genres ? s.genres.map((g) => g.name) : ["Drama"],
+      year: s.first_air_date ? new Date(s.first_air_date).getFullYear() : 2024,
+      rating: s.vote_average ? `${s.vote_average.toFixed(1)} / 10` : "8.6 / 10",
+      duration: s.number_of_seasons ? `${s.number_of_seasons} Seasons` : "4K UHD",
+      quality: "4K UHD",
+      audio: "Dolby Atmos",
+      posterUrl: getTMDBImageUrl(s.poster_path, "w500"),
+      backdropUrl: getTMDBImageUrl(s.backdrop_path, "w1280"),
+      synopsis: s.overview,
+      seasons: s.number_of_seasons || 2,
+    };
+    openModal(item);
+  };
+
   return (
-    <div className="space-y-14 sm:space-y-20 pb-20 overflow-hidden">
-      {/* 1. Cinematic Hero matching Apple TV+ reference */}
-      <Hero onSelectMedia={openModal} />
+    <div className="space-y-24 sm:space-y-32 pb-24 overflow-hidden bg-[#080808] text-white">
+      {/* 1. Full-Screen Hero & Floating Image Gallery (Matching the reference screenshot) */}
+      <HeroMinimal onSelectMedia={openModal} />
 
-      {/* 2. "Up Next on AETHER+" (Exact Apple TV+ widescreen shelf from reference image) */}
-      <ContentCarousel
-        title="Up Next on AETHER+"
-        subtitle="The finest cinematic releases, original productions, and critically acclaimed shows."
-        items={TRENDING_MOVIES}
-        onSelectMedia={openModal}
-        viewAllHref="/movies"
-        aspectRatio="wide"
-      />
-
-      {/* 3. Redesigned Compact Subscription Passes */}
-      <section id="pricing" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-        <div className="text-center max-w-2xl mx-auto space-y-2">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-orange-500/10 text-orange-400 border border-orange-500/20">
-            <Icon icon="ph:sparkle-fill" width={12} />
-            <span>Redesigned Subscription Passes</span>
+      {/* 01. Featured Entertainment — Editorial Style */}
+      <section id="featured" className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 space-y-12">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/10 pb-6">
+          <div className="space-y-1">
+            <span className="text-xs uppercase font-mono tracking-widest text-[#a0a0a0]">
+              01 / Editorial Spotlight
+            </span>
+            <h2 className="text-2xl sm:text-4xl font-light tracking-tight text-white">
+              Featured Entertainment
+            </h2>
           </div>
-          <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Choose Your Streaming Pass
+          <Link
+            href="/movies"
+            className="text-xs font-medium text-[#a0a0a0] hover:text-white transition-colors flex items-center gap-1.5"
+          >
+            <span>Explore Complete Archive</span>
+            <Icon icon="ph:arrow-right" width={13} />
+          </Link>
+        </div>
+
+        {/* Large Editorial Diptych */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+          {/* Main Large Feature */}
+          <div
+            onClick={() => handleOpenMovie(CURATED_TMDB_MOVIES[0])}
+            className="group relative rounded-3xl overflow-hidden bg-[#151515] border border-white/10 hover:border-white/30 transition-all duration-500 cursor-pointer flex flex-col justify-between min-h-[440px]"
+          >
+            <div className="relative w-full h-80 overflow-hidden">
+              <Image
+                src={getTMDBImageUrl(CURATED_TMDB_MOVIES[0].backdrop_path, "w1280")}
+                alt={CURATED_TMDB_MOVIES[0].title}
+                fill
+                sizes="(max-width: 1024px) 100vw, 700px"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105 filter brightness-[0.88]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#151515] via-transparent to-transparent" />
+            </div>
+
+            <div className="p-8 space-y-3 relative z-10">
+              <div className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-wider text-[#a0a0a0]">
+                <span>Science Fiction</span>
+                <span>•</span>
+                <span>4K UHD • Dolby Atmos</span>
+                <span>•</span>
+                <span>★ {CURATED_TMDB_MOVIES[0].vote_average}</span>
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-light text-white tracking-tight">
+                {CURATED_TMDB_MOVIES[0].title}
+              </h3>
+              <p className="text-xs text-[#a0a0a0] line-clamp-2 leading-relaxed font-light">
+                {CURATED_TMDB_MOVIES[0].overview}
+              </p>
+            </div>
+          </div>
+
+          {/* Secondary Editorial Column */}
+          <div className="flex flex-col gap-6 justify-between">
+            {CURATED_TMDB_MOVIES.slice(1, 3).map((item) => (
+              <div
+                key={item.id}
+                onClick={() => handleOpenMovie(item)}
+                className="group relative rounded-3xl overflow-hidden bg-[#151515] border border-white/10 hover:border-white/30 transition-all duration-300 p-6 flex flex-col sm:flex-row gap-6 cursor-pointer flex-1 items-center"
+              >
+                <div className="relative w-full sm:w-48 h-40 rounded-2xl overflow-hidden shrink-0 bg-black">
+                  <Image
+                    src={getTMDBImageUrl(item.backdrop_path, "w500")}
+                    alt={item.title}
+                    fill
+                    sizes="200px"
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+                <div className="space-y-2 flex-1">
+                  <div className="text-[10px] uppercase font-mono tracking-wider text-[#a0a0a0]">
+                    Release {new Date(item.release_date || "").getFullYear()} • 4K HDR
+                  </div>
+                  <h4 className="text-lg font-medium text-white tracking-tight group-hover:text-white">
+                    {item.title}
+                  </h4>
+                  <p className="text-xs text-[#a0a0a0] line-clamp-2 leading-relaxed font-light">
+                    {item.overview}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 02. Trending Movies — Horizontal Poster Gallery */}
+      <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 space-y-8">
+        <div className="flex items-end justify-between border-b border-white/10 pb-6">
+          <div className="space-y-1">
+            <span className="text-xs uppercase font-mono tracking-widest text-[#a0a0a0]">
+              02 / Cinema Gallery
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-light text-white tracking-tight">
+              Trending Blockbusters
+            </h2>
+          </div>
+          <Link
+            href="/movies"
+            className="text-xs font-medium text-[#a0a0a0] hover:text-white transition-colors flex items-center gap-1"
+          >
+            <span>View All</span>
+            <Icon icon="ph:arrow-right" width={13} />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5">
+          {CURATED_TMDB_MOVIES.map((movie) => (
+            <div
+              key={movie.id}
+              onClick={() => handleOpenMovie(movie)}
+              className="group cursor-pointer select-none space-y-2.5"
+            >
+              <div className="relative aspect-[2/3] w-full rounded-2xl overflow-hidden bg-[#151515] border border-white/10 group-hover:border-white/40 transition-all duration-400 group-hover:-translate-y-1 group-hover:shadow-xl">
+                <Image
+                  src={getTMDBImageUrl(movie.poster_path, "w500")}
+                  alt={movie.title}
+                  fill
+                  sizes="(max-width: 640px) 160px, 240px"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-106 filter brightness-95"
+                />
+                <div className="absolute top-2 right-2 px-1.5 py-0.5 rounded bg-black/60 text-[10px] font-mono text-white border border-white/10">
+                  4K
+                </div>
+              </div>
+
+              <div className="space-y-0.5 px-0.5">
+                <h4 className="text-xs font-medium text-white truncate group-hover:text-white">
+                  {movie.title}
+                </h4>
+                <p className="text-[11px] font-mono text-[#a0a0a0]">
+                  ★ {movie.vote_average.toFixed(1)}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 03. Popular Series — Elegant Cards */}
+      <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 space-y-8">
+        <div className="flex items-end justify-between border-b border-white/10 pb-6">
+          <div className="space-y-1">
+            <span className="text-xs uppercase font-mono tracking-widest text-[#a0a0a0]">
+              03 / Television
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-light text-white tracking-tight">
+              Acclaimed Television Series
+            </h2>
+          </div>
+          <Link
+            href="/series"
+            className="text-xs font-medium text-[#a0a0a0] hover:text-white transition-colors flex items-center gap-1"
+          >
+            <span>View All</span>
+            <Icon icon="ph:arrow-right" width={13} />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {CURATED_TMDB_SERIES.map((show) => (
+            <div
+              key={show.id}
+              onClick={() => handleOpenSeries(show)}
+              className="group cursor-pointer select-none space-y-3"
+            >
+              <div className="relative aspect-video w-full rounded-2xl overflow-hidden bg-[#151515] border border-white/10 group-hover:border-white/40 transition-all duration-400 group-hover:-translate-y-1 group-hover:shadow-xl">
+                <Image
+                  src={getTMDBImageUrl(show.backdrop_path, "w780")}
+                  alt={show.name || show.title}
+                  fill
+                  sizes="320px"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-106 filter brightness-95"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                <div className="absolute bottom-3 left-3 right-3">
+                  <span className="text-xs font-semibold text-white drop-shadow">
+                    {show.name || show.title}
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between text-xs text-[#a0a0a0] px-1 font-mono">
+                <span>{show.number_of_seasons} Seasons</span>
+                <span>★ {show.vote_average.toFixed(1)}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 04. Live TV — Minimal Channel Directory Preview */}
+      <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 space-y-8">
+        <div className="flex items-end justify-between border-b border-white/10 pb-6">
+          <div className="space-y-1">
+            <span className="text-xs uppercase font-mono tracking-widest text-[#a0a0a0]">
+              04 / Broadcast Feeds
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-light text-white tracking-tight">
+              Authorized Live Channels
+            </h2>
+          </div>
+          <Link
+            href="/live-tv"
+            className="text-xs font-medium text-[#a0a0a0] hover:text-white transition-colors flex items-center gap-1"
+          >
+            <span>Launch Live TV Player</span>
+            <Icon icon="ph:arrow-right" width={13} />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {CHANNELS_DATA.slice(0, 4).map((ch) => (
+            <Link
+              key={ch.id}
+              href="/live-tv"
+              className="p-5 rounded-2xl bg-[#151515] border border-white/10 hover:border-white/30 transition-all space-y-3 block group"
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-mono uppercase text-[#a0a0a0]">
+                  {ch.countryCode} • {ch.category}
+                </span>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-white">
+                  {ch.resolution.split(" ")[0]}
+                </span>
+              </div>
+              <div>
+                <h4 className="text-sm font-semibold text-white truncate group-hover:text-white">
+                  {ch.name}
+                </h4>
+                <p className="text-xs text-[#a0a0a0] truncate mt-0.5 font-light">
+                  Now: {ch.currentProgram}
+                </p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* 05. Sports — Live Fixtures & Categories */}
+      <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 space-y-8">
+        <div className="flex items-end justify-between border-b border-white/10 pb-6">
+          <div className="space-y-1">
+            <span className="text-xs uppercase font-mono tracking-widest text-[#a0a0a0]">
+              05 / Matchday Hub
+            </span>
+            <h2 className="text-2xl sm:text-4xl font-light text-white tracking-tight">
+              Championship Sports
+            </h2>
+          </div>
+          <Link
+            href="/sports"
+            className="text-xs font-medium text-[#a0a0a0] hover:text-white transition-colors flex items-center gap-1"
+          >
+            <span>Full Matchday Schedule</span>
+            <Icon icon="ph:arrow-right" width={13} />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {CURATED_LIVE_MATCHES.slice(0, 2).map((match) => (
+            <div
+              key={match.id}
+              className="p-6 rounded-3xl bg-[#151515] border border-white/10 flex flex-col justify-between space-y-6"
+            >
+              <div className="flex items-center justify-between border-b border-white/5 pb-3">
+                <span className="text-xs font-mono text-[#a0a0a0] uppercase">
+                  {match.competition}
+                </span>
+                {match.status === "LIVE" ? (
+                  <span className="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-white text-black text-[10px] font-bold">
+                    LIVE {match.minute}
+                  </span>
+                ) : (
+                  <span className="text-xs font-mono text-[#a0a0a0]">
+                    {match.kickoffTime}
+                  </span>
+                )}
+              </div>
+
+              <div className="flex items-center justify-between text-base sm:text-lg font-light text-white">
+                <span className="truncate pr-2">{match.homeTeam.name}</span>
+                <span className="font-mono text-xs px-2.5 py-1 rounded-lg bg-white/5 text-[#a0a0a0]">
+                  VS
+                </span>
+                <span className="truncate pl-2 text-right">{match.awayTeam.name}</span>
+              </div>
+
+              <div className="flex items-center justify-between text-xs text-[#a0a0a0] pt-2 border-t border-white/5">
+                <span>{match.venue}</span>
+                <span className="text-white font-mono text-[11px]">{match.channelBroadcast}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 06. Subscription Plans — Redesigned Compact Monochromatic Cards */}
+      <section id="pricing" className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 space-y-10">
+        <div className="text-center max-w-2xl mx-auto space-y-3">
+          <span className="text-xs uppercase font-mono tracking-widest text-[#a0a0a0]">
+            06 / Membership
+          </span>
+          <h2 className="text-2xl sm:text-4xl font-light text-white tracking-tight">
+            Subscription Passes
           </h2>
-          <p className="text-xs sm:text-sm text-zinc-400">
-            No contracts. Instant automated WhatsApp provisioning within 3 minutes of contact.
+          <p className="text-xs sm:text-sm text-[#a0a0a0] font-light leading-relaxed">
+            Concise, transparent passes with no contracts. Instant WhatsApp line provisioning within 3 minutes of contact.
           </p>
         </div>
 
-        {/* 4 Compact, Equal-Height Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
           {SUBSCRIPTION_PLANS.map((plan) => (
             <PricingCard key={plan.id} plan={plan} />
@@ -63,142 +387,70 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4. Live Sports Showcase Banner */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
-          <div className="space-y-1">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-red-600/10 text-red-500 border border-red-600/20">
-              <span className="w-2 h-2 rounded-full bg-red-600 animate-pulse" />
-              Live Sports Arena
-            </span>
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
-              Every Match. Every Championship. 60 FPS.
-            </h2>
-            <p className="text-xs sm:text-sm text-zinc-400 max-w-2xl">
-              Premier League, Champions League, Formula 1, UFC Pay-Per-Views, and NBA in buttery-smooth 60 frames per second.
-            </p>
-          </div>
-
-          <Link
-            href="/sports"
-            className="text-xs sm:text-sm font-semibold text-orange-400 hover:text-orange-300 flex items-center gap-1 shrink-0"
-          >
-            <span>Full Sports Schedule</span>
-            <Icon icon="ph:arrow-right-bold" width={13} />
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-          {LIVE_SPORTS_EVENTS.map((event) => (
-            <LiveSportsCard key={event.id} item={event} onSelect={openModal} />
-          ))}
-        </div>
-      </section>
-
-      {/* 5. Popular Series Carousel */}
-      <ContentCarousel
-        badge="Critically Acclaimed"
-        title="Popular Television Series"
-        subtitle="Complete multi-season television epics with full episodes, uninterrupted streaming, and crisp subtitles."
-        items={POPULAR_SERIES}
-        onSelectMedia={openModal}
-        viewAllHref="/series"
-        aspectRatio="poster"
-      />
-
-      {/* 6. International TV Bouquets */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
-          <div className="space-y-1">
-            <span className="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-orange-500/10 text-orange-400 border border-orange-500/20">
-              Worldwide Broadcasters
-            </span>
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
-              Over 28,000 Live Global Channels
-            </h2>
-            <p className="text-xs sm:text-sm text-zinc-400 max-w-2xl">
-              Stream live national and premium sports channels from the US, UK, France, Arab World, Spain, Germany, and beyond.
-            </p>
-          </div>
-
-          <Link
-            href="/live-tv"
-            className="text-xs sm:text-sm font-semibold text-orange-400 hover:text-orange-300 flex items-center gap-1 shrink-0"
-          >
-            <span>Explore All 28k Channels</span>
-            <Icon icon="ph:arrow-right-bold" width={13} />
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-          {INTERNATIONAL_TV_PACKAGES.slice(0, 4).map((pkg) => (
-            <ChannelPackageCard key={pkg.code} {...pkg} />
-          ))}
-        </div>
-      </section>
-
-      {/* 7. Kids & Family Carousel */}
-      <ContentCarousel
-        badge="Family & Entertainment"
-        title="Kids, Animation & Nature Documentaries"
-        subtitle="Curated family-friendly entertainment, Disney classics, 4K nature epics, and timeless animated adventures."
-        items={KIDS_AND_FAMILY}
-        onSelectMedia={openModal}
-        aspectRatio="wide"
-      />
-
-      {/* 8. Verified Customer Reviews */}
-      <ReviewCarousel />
-
-      {/* 9. FAQ Section */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      {/* 07. Devices — Minimal Ecosystem Strip */}
+      <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 space-y-6">
         <div className="text-center space-y-2">
-          <span className="text-xs font-bold uppercase tracking-widest text-orange-400">
-            Everything You Need To Know
+          <span className="text-xs uppercase font-mono tracking-widest text-[#a0a0a0]">
+            07 / Compatibility
           </span>
-          <h2 className="text-2xl sm:text-4xl font-extrabold text-white">
-            Frequently Asked Questions
-          </h2>
-          <p className="text-xs sm:text-sm text-zinc-400">
-            Clear answers about device setup, anti-freeze technology, channel line-up, and instant WhatsApp delivery.
-          </p>
+          <h3 className="text-xl sm:text-2xl font-light text-white">
+            Universal Hardware Ecosystem
+          </h3>
         </div>
 
-        <FAQAccordion />
+        <div className="flex flex-wrap items-center justify-center gap-3 text-xs text-[#a0a0a0]">
+          {[
+            "Apple TV 4K",
+            "Amazon Fire TV Stick",
+            "Samsung Tizen Smart TV",
+            "LG webOS Smart TV",
+            "Android TV & Shield",
+            "MAG Box & Formuler",
+            "iPhone & iPad",
+            "Mac & Windows PC",
+          ].map((device) => (
+            <Link
+              key={device}
+              href="/devices"
+              className="px-4 py-2 rounded-full bg-[#151515] border border-white/10 hover:border-white/30 text-white/90 text-xs transition-colors"
+            >
+              {device}
+            </Link>
+          ))}
+        </div>
       </section>
 
-      {/* 10. Final High-Impact WhatsApp CTA Banner */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-orange-600 via-amber-600 to-amber-700 p-8 sm:p-12 lg:p-16 text-black shadow-2xl shadow-orange-500/20">
-          <div className="relative z-10 max-w-2xl space-y-4">
-            <span className="px-3 py-1 rounded-full bg-black/15 text-black font-extrabold text-xs uppercase tracking-widest">
-              Ready In 3 Minutes
-            </span>
-            <h2 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
-              Ready to Upgrade Your Living Room to 4K Cinema?
-            </h2>
-            <p className="text-black/85 text-sm sm:text-base font-medium leading-relaxed">
-              Connect directly with our senior IPTV concierge on WhatsApp. Get your playlist credentials, test streams, and personalized remote setup guide immediately.
-            </p>
-            <div className="pt-2 flex flex-wrap items-center gap-3">
-              <a
-                href={generateWhatsAppContactUrl("Instant VIP Subscription Setup")}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-8 py-3.5 rounded-full bg-black text-white font-black text-sm shadow-2xl hover:bg-zinc-900 active:scale-95 transition-all inline-flex items-center gap-2"
-              >
-                <span>Order On WhatsApp Now</span>
-                <Icon icon="ph:arrow-right-bold" width={14} />
-              </a>
-              <a
-                href={generateWhatsAppContactUrl("Request 24h Free Test Line")}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-6 py-3.5 rounded-full bg-black/10 hover:bg-black/20 text-black font-bold text-xs transition-all border border-black/20"
-              >
-                Request Free 24h Test
-              </a>
-            </div>
+      {/* 08. Contact — Minimal WhatsApp CTA */}
+      <section className="max-w-5xl mx-auto px-6 sm:px-10">
+        <div className="p-8 sm:p-14 rounded-3xl bg-[#151515] border border-white/15 text-center space-y-6">
+          <span className="text-xs uppercase font-mono tracking-widest text-[#a0a0a0]">
+            08 / Direct Assistance
+          </span>
+          <h2 className="text-2xl sm:text-4xl font-light tracking-tight text-white max-w-xl mx-auto">
+            Experience Bespoke 4K Streaming.
+          </h2>
+          <p className="text-xs sm:text-sm text-[#a0a0a0] max-w-md mx-auto font-light leading-relaxed">
+            Connect with our senior engineering team on WhatsApp for instant playlist delivery or a free 24-hour test line.
+          </p>
+
+          <div className="pt-2 flex flex-wrap justify-center gap-3">
+            <a
+              href={generateWhatsAppContactUrl("Instant Activation")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-7 py-3 rounded-full bg-white text-black hover:bg-[#f2f2f2] text-xs font-semibold tracking-wide transition-all shadow-lg active:scale-95 inline-flex items-center gap-2"
+            >
+              <Icon icon="ph:whatsapp-logo" width={16} />
+              <span>{SITE_CONFIG.whatsappDisplayName}</span>
+            </a>
+            <a
+              href={generateWhatsAppContactUrl("24h Free VIP Test")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-3 rounded-full bg-white/10 hover:bg-white/15 text-white text-xs font-medium border border-white/15 transition-all"
+            >
+              Request 24h Free Test Line
+            </a>
           </div>
         </div>
       </section>

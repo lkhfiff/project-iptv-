@@ -4,8 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Icon } from "@iconify/react";
-import { SITE_CONFIG } from "@/data/config";
-import { WhatsAppButton } from "./WhatsAppButton";
+import { SITE_CONFIG, generateWhatsAppContactUrl } from "@/data/config";
 import { SearchModal } from "./SearchModal";
 import { MediaItem } from "@/data/media";
 
@@ -15,125 +14,122 @@ interface NavbarProps {
 
 export function Navbar({ onSelectMedia }: NavbarProps) {
   const pathname = usePathname();
+  const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchModalOpen, setSearchModalOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [pathname]);
 
   const navLinks = [
-    { label: "Watch Now", href: "/", icon: "ph:sparkle-fill" },
-    { label: "Live TV", href: "/live-tv", icon: "ph:television-simple-fill" },
-    { label: "Movies", href: "/movies", icon: "ph:film-strip-fill" },
-    { label: "Series", href: "/series", icon: "ph:stack-fill" },
-    { label: "Sport", href: "/sports", icon: "ph:trophy-fill" },
-    { label: "Pricing", href: "/pricing", icon: "ph:tag-fill" },
-    { label: "Devices", href: "/devices", icon: "ph:device-mobile-camera-fill" },
+    { label: "Home", href: "/" },
+    { label: "Live TV", href: "/live-tv" },
+    { label: "Movies", href: "/movies" },
+    { label: "Series", href: "/series" },
+    { label: "Sports", href: "/sports" },
+    { label: "Pricing", href: "/pricing" },
   ];
+
+  const whatsappUrl = generateWhatsAppContactUrl("VIP Concierge");
 
   return (
     <>
-      <header className="fixed top-0 inset-x-0 z-40 flex items-center justify-between px-4 sm:px-8 py-4 pointer-events-none">
-        {/* Brand Logo */}
-        <Link
-          href="/"
-          className="pointer-events-auto flex items-center gap-2.5 group select-none"
-        >
-          <div className="w-9 h-9 rounded-2xl bg-gradient-to-br from-amber-500 via-orange-500 to-amber-700 flex items-center justify-center shadow-lg shadow-orange-500/20 group-hover:scale-105 transition-all">
-            <span className="text-black font-black text-lg">Æ</span>
+      <header className="fixed top-0 inset-x-0 z-40 px-4 sm:px-8 py-5 transition-all duration-300">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          {/* Brand Logo on Left */}
+          <Link
+            href="/"
+            className="flex items-center gap-2 group select-none transition-opacity hover:opacity-80"
+          >
+            <span className="text-lg sm:text-xl font-bold tracking-tight text-white font-sans">
+              AETHER<span className="text-[#a0a0a0] font-light">ARC</span>
+            </span>
+          </Link>
+
+          {/* Centered Transparent Floating Pill Navigation */}
+          <nav className="hidden md:flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#151515]/75 backdrop-blur-2xl border border-white/12 shadow-2xl">
+            {navLinks.map((item) => {
+              const isActive = pathname === item.href;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`px-3.5 py-1.5 rounded-full text-xs tracking-wide transition-all duration-200 ${
+                    isActive
+                      ? "text-black bg-white font-semibold shadow-md"
+                      : "text-[#a0a0a0] hover:text-white hover:bg-white/5 font-medium"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+
+            <button
+              onClick={() => setSearchModalOpen(true)}
+              className="text-[#a0a0a0] hover:text-white p-1.5 ml-1 rounded-full hover:bg-white/5 cursor-pointer transition-colors"
+              aria-label="Search"
+            >
+              <Icon icon="ph:magnifying-glass" width={15} />
+            </button>
+          </nav>
+
+          {/* WhatsApp Button on Right */}
+          <div className="flex items-center gap-2.5">
+            <button
+              onClick={() => setSearchModalOpen(true)}
+              className="md:hidden w-8 h-8 rounded-full bg-white/5 border border-white/10 text-white flex items-center justify-center"
+              aria-label="Search"
+            >
+              <Icon icon="ph:magnifying-glass" width={15} />
+            </button>
+
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2 rounded-full bg-white text-black hover:bg-[#f2f2f2] text-xs font-semibold tracking-wide transition-all shadow-md active:scale-95 flex items-center gap-1.5"
+            >
+              <Icon icon="ph:whatsapp-logo" width={15} />
+              <span>WhatsApp</span>
+            </a>
+
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden w-8 h-8 rounded-full bg-white/5 border border-white/10 text-white flex items-center justify-center cursor-pointer"
+              aria-label="Toggle navigation"
+            >
+              <Icon icon={mobileMenuOpen ? "ph:x" : "ph:list"} width={16} />
+            </button>
           </div>
-          <span className="hidden sm:inline font-black text-lg tracking-wider text-white">
-            AETHER<span className="text-orange-500">+</span>
-          </span>
-        </Link>
-
-        {/* Center: Apple TV+ Floating Capsule Navigation */}
-        <nav className="pointer-events-auto hidden md:flex items-center gap-1 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-2xl border border-white/15 shadow-2xl shadow-black/80">
-          {navLinks.map((item) => {
-            const isActive = pathname === item.href;
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`relative px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all duration-200 flex items-center gap-1.5 ${
-                  isActive
-                    ? "bg-white text-black font-bold shadow-md shadow-white/20 scale-102"
-                    : "text-zinc-300 hover:text-white hover:bg-white/10"
-                }`}
-              >
-                <span>{item.label}</span>
-              </Link>
-            );
-          })}
-
-          <button
-            onClick={() => setSearchModalOpen(true)}
-            className="w-8 h-8 rounded-full text-zinc-300 hover:text-white hover:bg-white/10 flex items-center justify-center transition-all cursor-pointer ml-1"
-            aria-label="Search Catalog"
-            title="Search Catalog"
-          >
-            <Icon icon="ph:magnifying-glass-bold" width={15} />
-          </button>
-        </nav>
-
-        {/* Right WhatsApp & Mobile Toggle */}
-        <div className="pointer-events-auto flex items-center gap-2">
-          <button
-            onClick={() => setSearchModalOpen(true)}
-            className="md:hidden w-9 h-9 rounded-full bg-black/60 backdrop-blur-xl border border-white/15 text-white flex items-center justify-center"
-            aria-label="Search"
-          >
-            <Icon icon="ph:magnifying-glass-bold" width={16} />
-          </button>
-
-          <WhatsAppButton
-            variant="pill"
-            size="sm"
-            label="Subscribe"
-            showPingDot
-          />
-
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden w-9 h-9 rounded-full bg-black/60 backdrop-blur-xl border border-white/15 text-white flex items-center justify-center"
-            aria-label="Toggle navigation menu"
-          >
-            <Icon icon={mobileMenuOpen ? "ph:x-bold" : "ph:list-bold"} width={18} />
-          </button>
         </div>
 
-        {/* Mobile Navigation Drawer */}
+        {/* Mobile Navigation Dropdown */}
         {mobileMenuOpen && (
-          <div className="pointer-events-auto md:hidden fixed inset-x-4 top-20 bg-zinc-950/95 backdrop-blur-2xl border border-white/15 rounded-3xl p-6 shadow-2xl space-y-4 animate-in fade-in slide-in-from-top-4 duration-200">
-            <div className="grid grid-cols-2 gap-2 text-sm font-semibold">
-              {navLinks.map((item) => {
-                const isActive = pathname === item.href;
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={`p-3 rounded-2xl flex items-center gap-2 transition-all ${
-                      isActive
-                        ? "bg-white text-black font-bold shadow-md"
-                        : "bg-white/5 text-zinc-300 hover:text-white"
-                    }`}
-                  >
-                    <Icon icon={item.icon} width={16} />
-                    <span>{item.label}</span>
-                  </Link>
-                );
-              })}
-            </div>
-
-            <div className="pt-2 border-t border-white/10 space-y-2">
-              <WhatsAppButton
-                variant="pill"
-                size="md"
-                fullWidth
-                label="Subscribe on WhatsApp"
-              />
-            </div>
+          <div className="md:hidden mt-3 max-w-7xl mx-auto bg-[#151515]/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-4 space-y-2 animate-in fade-in duration-200">
+            {navLinks.map((item) => {
+              const isActive = pathname === item.href;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`block px-4 py-2.5 rounded-xl text-xs font-semibold transition-colors ${
+                    isActive ? "bg-white/10 text-white" : "text-[#a0a0a0] hover:text-white"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </div>
         )}
       </header>

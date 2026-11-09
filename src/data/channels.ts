@@ -127,3 +127,4 @@ export const CHANNELS_DATA: ChannelItem[] = [
     nextProgram: "Alle Spiele, Alle Tore UHD",
   },
 ];
+

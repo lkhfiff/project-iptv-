@@ -349,3 +349,17 @@ export async function fetchPopularSeries(): Promise<{ results: TMDBMovie[]; sour
   }
   return { results: CURATED_TMDB_SERIES, source: "curated-tmdb" };
 }
+
+export function getMovieById(id: number | string): TMDBMovie {
+  const numericId = typeof id === "string" ? parseInt(id.replace("tmdb-", ""), 10) : id;
+  const found = CURATED_TMDB_MOVIES.find((m) => m.id === numericId);
+  return found || CURATED_TMDB_MOVIES[0];
+}
+
+export function getSeriesById(id: number | string): TMDBMovie {
+  const numericId = typeof id === "string" ? parseInt(id.replace("tmdb-tv-", "").replace("tmdb-", ""), 10) : id;
+  const found = CURATED_TMDB_SERIES.find((s) => s.id === numericId);
+  return found || CURATED_TMDB_SERIES[0];
+}
+
+

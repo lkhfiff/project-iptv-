@@ -10,49 +10,43 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-black border-t border-white/10 pt-16 pb-12 overflow-hidden text-zinc-400">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-24 bg-orange-500/10 blur-3xl pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    <footer className="relative bg-[#080808] border-t border-white/10 pt-16 pb-12 overflow-hidden text-[#a0a0a0]">
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 space-y-12">
         {/* Main Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
           {/* Brand Info */}
           <div className="lg:col-span-2 space-y-4">
-            <Link href="/" className="inline-flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-2xl bg-gradient-to-br from-amber-500 via-orange-500 to-amber-700 flex items-center justify-center shadow-lg shadow-orange-500/30">
-                <span className="text-black font-black text-lg">Æ</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <span className="text-xl font-black text-white tracking-wider">AETHER</span>
-                <span className="text-xl font-black text-orange-500">+</span>
-              </div>
+            <Link href="/" className="inline-flex items-center gap-2 group">
+              <span className="text-xl font-bold tracking-tight text-white font-sans">
+                AETHER<span className="text-[#a0a0a0] font-light">ARC</span>
+              </span>
             </Link>
 
-            <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed max-w-sm">
+            <p className="text-xs sm:text-sm text-[#a0a0a0] leading-relaxed max-w-sm">
               {SITE_CONFIG.brandDescription}
             </p>
 
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-              </span>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-white text-xs font-mono">
+              <span className="h-1.5 w-1.5 rounded-full bg-white" />
               <span>18 CDN Nodes Active • 99.99% Uptime SLA</span>
             </div>
 
             <div className="pt-2">
-              <WhatsAppButton
-                variant="pill"
-                size="sm"
-                label={SITE_CONFIG.whatsappDisplayName}
-                showPingDot
-              />
+              <a
+                href={generateWhatsAppContactUrl("Concierge Service")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-black hover:bg-[#f2f2f2] text-xs font-semibold tracking-wide transition-all shadow-md active:scale-95"
+              >
+                <Icon icon="ph:whatsapp-logo" width={16} />
+                <span>Chat with Concierge</span>
+              </a>
             </div>
           </div>
 
           {/* Entertainment */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-white">
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-white">
               Entertainment
             </h4>
             <ul className="space-y-2 text-xs">
@@ -73,12 +67,12 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/sports" className="hover:text-white transition-colors">
-                  Live Sports & PPV
+                  Live Sports &amp; Fixtures
                 </Link>
               </li>
               <li>
                 <Link href="/devices" className="hover:text-white transition-colors">
-                  Supported Devices & Apps
+                  Supported Devices &amp; Apps
                 </Link>
               </li>
             </ul>
@@ -86,7 +80,7 @@ export function Footer() {
 
           {/* Membership */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-white">
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-white">
               Membership
             </h4>
             <ul className="space-y-2 text-xs">
@@ -100,7 +94,7 @@ export function Footer() {
                   href={generateWhatsAppContactUrl("Free 24h VIP Test Line")}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-white transition-colors text-orange-400"
+                  className="hover:text-white transition-colors text-white underline underline-offset-4"
                 >
                   Request 24h Free VIP Test
                 </a>
@@ -125,41 +119,41 @@ export function Footer() {
 
           {/* Concierge Info */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-white">
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-white">
               VIP WhatsApp Line
             </h4>
             <div className="space-y-2 text-xs">
-              <p className="text-zinc-400">
+              <p className="text-[#a0a0a0]">
                 Direct WhatsApp activation, remote installation, and custom Xtream/M3U playlist setups.
               </p>
               <div className="pt-1">
-                <span className="text-zinc-500 block">WhatsApp:</span>
-                <span className="font-mono text-white text-xs font-bold">
+                <span className="text-[#a0a0a0]/60 block text-[11px]">WhatsApp:</span>
+                <span className="font-mono text-white text-xs font-semibold">
                   {SITE_CONFIG.whatsappFormattedPhone}
                 </span>
               </div>
               <div className="pt-1">
-                <span className="text-zinc-500 block">Coverage:</span>
-                <span className="text-emerald-400 font-semibold">24/7 Global VIP Support</span>
+                <span className="text-[#a0a0a0]/60 block text-[11px]">Coverage:</span>
+                <span className="text-white font-medium">24/7 Global VIP Support</span>
               </div>
             </div>
           </div>
         </div>
 
         {/* Bottom Disclaimer */}
-        <div className="pt-8 border-t border-white/5 space-y-4">
-          <p className="text-[11px] text-zinc-600 leading-relaxed">
+        <div className="pt-8 border-t border-white/10 space-y-4">
+          <p className="text-[11px] text-[#a0a0a0]/60 leading-relaxed">
             Disclaimer: {SITE_CONFIG.businessName} is an entertainment interface. We do not host or broadcast copyrighted media files directly. All referenced trademarks, sports logos, and channel names belong to their respective proprietary holders. Movie metadata and artwork provided by The Movie Database (TMDB).
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#a0a0a0]">
             <p>
               &copy; {currentYear} {SITE_CONFIG.brandName}. All rights reserved. The Pinnacle of Cinematic Streaming.
             </p>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 text-[11px] font-mono text-[#a0a0a0]/70">
               <span>Anti-Freeze™ 9.9</span>
               <span>•</span>
-              <span>Encrypted SSL Transport</span>
+              <span>Encrypted Transport</span>
             </div>
           </div>
         </div>
