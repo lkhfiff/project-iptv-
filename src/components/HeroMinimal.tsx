@@ -21,6 +21,7 @@ interface GalleryCardItem {
   poster: string;
   fallback: string;
   heightClass: string;
+  bgClass: string;
   movie: TMDBMovie;
 }
 
@@ -54,33 +55,37 @@ function GalleryCard({
         zIndex,
       }}
       onClick={onClick}
-      className={`group relative shrink-0 cursor-pointer select-none rounded-2xl md:rounded-3xl overflow-hidden border border-white/20 hover:border-white/60 transition-all duration-500 hover:!scale-105 hover:!translate-y-[-14px] hover:!rotate-0 hover:z-50 shadow-2xl shadow-black/80 w-36 sm:w-48 md:w-56 bg-black ${item.heightClass}`}
+      className={`group relative shrink-0 cursor-pointer select-none rounded-2xl md:rounded-3xl overflow-hidden border border-white/20 hover:border-white/60 transition-all duration-500 hover:!scale-105 hover:!translate-y-[-14px] hover:!rotate-0 hover:z-50 shadow-2xl shadow-black/80 w-36 sm:w-48 md:w-56 ${item.bgClass} flex items-center justify-center ${item.heightClass}`}
     >
-      {/* Pure Brand Image (matching exact user references with ZERO text/comments on top) */}
-      <Image
-        src={item.poster}
-        alt={item.title}
-        fill
-        unoptimized
-        sizes="(max-width: 640px) 150px, (max-width: 1024px) 200px, 240px"
-        className="object-cover transition-transform duration-700 ease-out group-hover:scale-108"
-      />
+      {/* Pure Brand Image (600x900 portrait card artwork with generous margins & zero cropping) */}
+      <div className="relative w-full h-full flex items-center justify-center">
+        <Image
+          src={item.poster}
+          alt={item.title}
+          fill
+          unoptimized
+          priority
+          sizes="(max-width: 640px) 150px, (max-width: 1024px) 200px, 240px"
+          className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+        />
+      </div>
     </motion.div>
   );
 }
 
 export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
-  // 7 pure cinematic brand cards matching the user's reference images
+  // 7 pure cinematic brand cards matching the user's reference images with seamless backgrounds and generous padding
   const galleryItems: GalleryCardItem[] = [
     {
       id: "gal-1",
       title: "Netflix",
       category: "Streaming 4K",
       network: "NETFLIX",
-      backdrop: "/brands/netflix.png",
-      poster: "/brands/netflix.png",
-      fallback: "/brands/netflix.png",
+      backdrop: "/brands/card-netflix.png",
+      poster: "/brands/card-netflix.png",
+      fallback: "/brands/card-netflix.png",
       heightClass: "h-64 sm:h-72 md:h-80",
+      bgClass: "bg-black",
       movie: CURATED_TMDB_MOVIES[0],
     },
     {
@@ -88,10 +93,11 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
       title: "beIN SPORTS",
       category: "Live Sports",
       network: "beIN SPORTS",
-      backdrop: "/brands/beinsports.png",
-      poster: "/brands/beinsports.png",
-      fallback: "/brands/beinsports.png",
+      backdrop: "/brands/card-beinsports.png",
+      poster: "/brands/card-beinsports.png",
+      fallback: "/brands/card-beinsports.png",
       heightClass: "h-72 sm:h-80 md:h-88",
+      bgClass: "bg-[#5c2c90]",
       movie: CURATED_TMDB_MOVIES[1],
     },
     {
@@ -99,10 +105,11 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
       title: "Apple TV+",
       category: "Apple Originals",
       network: "APPLE TV+",
-      backdrop: "/brands/appletv.png",
-      poster: "/brands/appletv.png",
-      fallback: "/brands/appletv.png",
+      backdrop: "/brands/card-appletv.png",
+      poster: "/brands/card-appletv.png",
+      fallback: "/brands/card-appletv.png",
       heightClass: "h-60 sm:h-68 md:h-76",
+      bgClass: "bg-[#212123]",
       movie: CURATED_TMDB_SERIES[0],
     },
     {
@@ -110,10 +117,11 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
       title: "CANAL+",
       category: "Cinéma & Séries",
       network: "CANAL+",
-      backdrop: "/brands/canalplus.svg",
-      poster: "/brands/canalplus.svg",
-      fallback: "/brands/canalplus.svg",
+      backdrop: "/brands/card-canalplus.png",
+      poster: "/brands/card-canalplus.png",
+      fallback: "/brands/card-canalplus.png",
       heightClass: "h-68 sm:h-76 md:h-84",
+      bgClass: "bg-[#050505]",
       movie: CURATED_TMDB_MOVIES[2],
     },
     {
@@ -121,10 +129,11 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
       title: "Disney+",
       category: "Univers Disney",
       network: "DISNEY+",
-      backdrop: "/brands/disneyplus.jpg",
-      poster: "/brands/disneyplus.jpg",
-      fallback: "/brands/disneyplus.jpg",
+      backdrop: "/brands/card-disneyplus.png",
+      poster: "/brands/card-disneyplus.png",
+      fallback: "/brands/card-disneyplus.png",
       heightClass: "h-72 sm:h-80 md:h-88",
+      bgClass: "bg-[#021526]",
       movie: CURATED_TMDB_SERIES[1],
     },
     {
@@ -132,10 +141,11 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
       title: "Prime Video",
       category: "Amazon Blockbusters",
       network: "PRIME VIDEO",
-      backdrop: "/brands/primevideo.svg",
-      poster: "/brands/primevideo.svg",
-      fallback: "/brands/primevideo.svg",
+      backdrop: "/brands/card-primevideo.png",
+      poster: "/brands/card-primevideo.png",
+      fallback: "/brands/card-primevideo.png",
       heightClass: "h-64 sm:h-72 md:h-80",
+      bgClass: "bg-[#09131d]",
       movie: CURATED_TMDB_MOVIES[3],
     },
     {
@@ -143,10 +153,11 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
       title: "HBO Max",
       category: "Max Originals",
       network: "HBO MAX",
-      backdrop: "/brands/hbomax.svg",
-      poster: "/brands/hbomax.svg",
-      fallback: "/brands/hbomax.svg",
+      backdrop: "/brands/card-hbomax.png",
+      poster: "/brands/card-hbomax.png",
+      fallback: "/brands/card-hbomax.png",
       heightClass: "h-60 sm:h-68 md:h-76",
+      bgClass: "bg-[#140224]",
       movie: CURATED_TMDB_SERIES[2],
     },
   ];
