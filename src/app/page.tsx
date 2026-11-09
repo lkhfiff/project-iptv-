@@ -24,6 +24,7 @@ import { PricingCard } from "@/components/PricingCard";
 import { FAQAccordion } from "@/components/FAQAccordion";
 import { ChannelPackageCard } from "@/components/ChannelPackageCard";
 import { LiveSportsCard } from "@/components/LiveSportsCard";
+import { ReviewCarousel } from "@/components/ReviewCarousel";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { useMediaModal } from "@/components/SiteLayout";
 import {
@@ -398,7 +399,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 11. FAQ Section */}
+      {/* 11. Verified Customer Reviews */}
+      <ReviewCarousel />
+
+      {/* 12. FAQ Section */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <div className="text-center space-y-2">
           <span className="text-xs font-bold uppercase tracking-widest text-orange-400">
@@ -415,7 +419,7 @@ export default function HomePage() {
         <FAQAccordion />
       </section>
 
-      {/* 12. Final High-Impact WhatsApp CTA Banner */}
+      {/* 13. Final High-Impact WhatsApp CTA Banner */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-orange-600 via-amber-600 to-amber-700 p-8 sm:p-12 lg:p-16 text-black shadow-2xl shadow-orange-500/20">
           <div className="relative z-10 max-w-2xl space-y-4">

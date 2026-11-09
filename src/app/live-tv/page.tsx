@@ -6,6 +6,8 @@ import { Search, Tv, Globe, Radio, Play, CheckCircle2, Volume2, Sparkles, ArrowR
 import { INTERNATIONAL_TV_PACKAGES } from "@/data/media";
 import { ChannelPackageCard } from "@/components/ChannelPackageCard";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { LiveChannelPlayerSimulator } from "@/components/LiveChannelPlayerSimulator";
+import { NetworkSpeedTester } from "@/components/NetworkSpeedTester";
 import { generateWhatsAppContactUrl } from "@/data/config";
 
 // Simulated Live EPG Guide items
@@ -117,6 +119,9 @@ export default function LiveTVPage() {
         </div>
       </div>
 
+      {/* Interactive 4K Channel Stream Simulator */}
+      <LiveChannelPlayerSimulator />
+
       {/* Real-Time EPG Guide Preview */}
       <div className="rounded-3xl bg-zinc-950/80 border border-white/10 p-6 sm:p-8 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/5 pb-4">
@@ -176,6 +181,9 @@ export default function LiveTVPage() {
           ))}
         </div>
       </div>
+
+      {/* Network Speed & Stream Latency Checker */}
+      <NetworkSpeedTester />
 
       {/* Filter and Search Bar */}
       <div className="space-y-4">
@@ -249,4 +257,3 @@ export default function LiveTVPage() {
     </div>
   );
 }
-
