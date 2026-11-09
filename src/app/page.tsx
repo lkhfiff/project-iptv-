@@ -42,14 +42,24 @@ export default function HomePage() {
   const { openModal } = useMediaModal();
 
   return (
-    <div className="space-y-16 sm:space-y-24 pb-20 overflow-hidden">
-      {/* 1. Cinematic Hero with Apple TV+ Spotlight */}
+    <div className="space-y-14 sm:space-y-20 pb-20 overflow-hidden">
+      {/* 1. Cinematic Hero matching Apple TV+ reference */}
       <Hero onSelectMedia={openModal} />
 
-      {/* 2. Key Technology Pillars / Metrics Strip */}
+      {/* 2. "Up Next on AETHER+" (Exact Apple TV+ widescreen shelf from reference image) */}
+      <ContentCarousel
+        title="Up Next on AETHER+"
+        subtitle="The finest cinematic releases, original productions, and critically acclaimed shows."
+        items={TRENDING_MOVIES}
+        onSelectMedia={openModal}
+        viewAllHref="/movies"
+        aspectRatio="wide"
+      />
+
+      {/* 3. Key Technology Pillars Strip */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6">
-          <div className="p-4 sm:p-6 rounded-3xl bg-white/[0.02] border border-white/5 backdrop-blur-md flex flex-col justify-between space-y-2 hover:border-orange-500/30 transition-all">
+          <div className="p-4 sm:p-6 rounded-3xl bg-white/[0.03] border border-white/10 backdrop-blur-md flex flex-col justify-between space-y-2 hover:border-orange-500/30 transition-all">
             <div className="w-10 h-10 rounded-2xl bg-orange-500/10 text-orange-400 flex items-center justify-center">
               <Tv className="w-5 h-5" />
             </div>
@@ -62,7 +72,7 @@ export default function HomePage() {
             <span className="text-[10px] text-zinc-500">True 1080p & 4K 60FPS</span>
           </div>
 
-          <div className="p-4 sm:p-6 rounded-3xl bg-white/[0.02] border border-white/5 backdrop-blur-md flex flex-col justify-between space-y-2 hover:border-orange-500/30 transition-all">
+          <div className="p-4 sm:p-6 rounded-3xl bg-white/[0.03] border border-white/10 backdrop-blur-md flex flex-col justify-between space-y-2 hover:border-orange-500/30 transition-all">
             <div className="w-10 h-10 rounded-2xl bg-amber-500/10 text-amber-400 flex items-center justify-center">
               <Film className="w-5 h-5" />
             </div>
@@ -75,7 +85,7 @@ export default function HomePage() {
             <span className="text-[10px] text-zinc-500">Updated Daily with Subtitles</span>
           </div>
 
-          <div className="p-4 sm:p-6 rounded-3xl bg-white/[0.02] border border-white/5 backdrop-blur-md flex flex-col justify-between space-y-2 hover:border-emerald-500/30 transition-all">
+          <div className="p-4 sm:p-6 rounded-3xl bg-white/[0.03] border border-white/10 backdrop-blur-md flex flex-col justify-between space-y-2 hover:border-emerald-500/30 transition-all">
             <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
               <ShieldCheck className="w-5 h-5" />
             </div>
@@ -88,7 +98,7 @@ export default function HomePage() {
             <span className="text-[10px] text-zinc-500">Zero-Buffer 10Gbps Network</span>
           </div>
 
-          <div className="p-4 sm:p-6 rounded-3xl bg-white/[0.02] border border-white/5 backdrop-blur-md flex flex-col justify-between space-y-2 hover:border-purple-500/30 transition-all">
+          <div className="p-4 sm:p-6 rounded-3xl bg-white/[0.03] border border-white/10 backdrop-blur-md flex flex-col justify-between space-y-2 hover:border-purple-500/30 transition-all">
             <div className="w-10 h-10 rounded-2xl bg-purple-500/10 text-purple-400 flex items-center justify-center">
               <Clock className="w-5 h-5" />
             </div>
@@ -102,17 +112,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* 3. Trending Movies Carousel */}
-      <ContentCarousel
-        badge="Cinema In Uncompressed 4K"
-        title="Trending Blockbuster Movies"
-        subtitle="The latest Hollywood, international releases, and original cinema in pure 4K HDR10+ and Dolby Atmos."
-        items={TRENDING_MOVIES}
-        onSelectMedia={openModal}
-        viewAllHref="/movies"
-        aspectRatio="poster"
-      />
 
       {/* 4. Live Sports Showcase Banner */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
@@ -148,8 +147,8 @@ export default function HomePage() {
 
       {/* 5. Popular Series Carousel */}
       <ContentCarousel
-        badge="Binge-Worthy Television"
-        title="Critically Acclaimed Series"
+        badge="Critically Acclaimed"
+        title="Popular Television Series"
         subtitle="Complete multi-season television epics with full episodes, uninterrupted streaming, and crisp subtitle synchronization."
         items={POPULAR_SERIES}
         onSelectMedia={openModal}
@@ -198,10 +197,9 @@ export default function HomePage() {
         aspectRatio="wide"
       />
 
-      {/* 8. Cinematic Features / Anti-Freeze Showcase */}
+      {/* 8. Anti-Freeze™ 9.9 CDN Cluster Showcase */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-zinc-950 via-zinc-900 to-black border border-white/10 p-8 sm:p-12 lg:p-16">
-          {/* Ambient glow */}
           <div className="absolute top-0 right-0 w-96 h-96 bg-orange-500/15 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
 
@@ -282,7 +280,6 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Visual Specs Terminal */}
             <div className="p-6 rounded-3xl bg-black/60 border border-white/10 backdrop-blur-xl space-y-4">
               <div className="flex items-center justify-between pb-3 border-b border-white/10 text-xs text-zinc-400 font-mono">
                 <span>// AETHER+ SERVER TELEMETRY</span>
@@ -337,14 +334,12 @@ export default function HomePage() {
           </p>
         </div>
 
-        {/* Pricing Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
           {SUBSCRIPTION_PLANS.map((plan) => (
             <PricingCard key={plan.id} plan={plan} />
           ))}
         </div>
 
-        {/* WhatsApp Guarantee Banner */}
         <div className="p-6 rounded-3xl bg-zinc-950/80 border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
           <div className="space-y-1">
             <h4 className="text-sm font-bold text-white flex items-center gap-2 justify-center sm:justify-start">

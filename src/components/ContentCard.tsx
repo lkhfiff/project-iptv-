@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { Star, Play, Info, Volume2 } from "lucide-react";
+import { Star, Play, Sparkles } from "lucide-react";
 import { MediaItem } from "@/data/media";
 
 interface ContentCardProps {
@@ -18,29 +18,88 @@ export function ContentCard({
   aspectRatio = "poster",
   showCategory = true,
 }: ContentCardProps) {
-  const isBackdrop = aspectRatio === "backdrop" || aspectRatio === "wide";
+  const isWide = aspectRatio === "backdrop" || aspectRatio === "wide";
 
+  if (isWide) {
+    // Exact Apple TV+ Up Next Landscape Card Style (from reference screenshot)
+    return (
+      <div
+        onClick={() => onSelect(item)}
+        className="group cursor-pointer select-none space-y-2 text-left"
+      >
+        {/* 16:9 Landscape Video Container */}
+        <div className="relative aspect-video w-full rounded-2xl overflow-hidden bg-zinc-900 border border-white/10 group-hover:border-white/30 transition-all duration-300 group-hover:scale-103 group-hover:shadow-2xl group-hover:shadow-black/80">
+          <Image
+            src={item.backdropUrl || item.posterUrl}
+            alt={item.title}
+            fill
+            sizes="(max-width: 640px) 280px, 420px"
+            className="object-cover transition-transform duration-500 ease-out group-hover:scale-106"
+          />
+
+          {/* Vignette & Gradient */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
+
+          {/* Top-Right Badge */}
+          <div className="absolute top-2.5 right-2.5 flex items-center gap-1.5">
+            <span className="px-2 py-0.5 rounded-md bg-black/60 backdrop-blur-md text-[10px] font-bold text-white tracking-wider border border-white/10">
+              {item.quality}
+            </span>
+          </div>
+
+          {/* Bottom-Left Logo Overlay inside artwork (like SILO, platonic in Apple TV+) */}
+          <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between">
+            <div className="max-w-[75%]">
+              <span className="text-base sm:text-lg font-black text-white tracking-wider drop-shadow-lg uppercase leading-tight line-clamp-1">
+                {item.title}
+              </span>
+            </div>
+            <div className="w-6 h-6 rounded-full bg-white/20 backdrop-blur-md border border-white/20 flex items-center justify-center text-white text-[10px] font-bold opacity-0 group-hover:opacity-100 transition-opacity">
+              <Play className="w-3 h-3 fill-white ml-0.5" />
+            </div>
+          </div>
+        </div>
+
+        {/* Text Details Beneath the Card (Just like in the Apple TV+ reference) */}
+        <div className="space-y-0.5 px-0.5">
+          <h4 className="text-sm font-semibold text-white truncate group-hover:text-orange-400 transition-colors">
+            {item.title}
+          </h4>
+          <div className="flex items-center gap-2 text-xs text-zinc-400">
+            <span>{item.category}</span>
+            <span>•</span>
+            <span className="text-amber-400 flex items-center gap-1">
+              ★ {item.rating}
+            </span>
+            {item.seasons && (
+              <>
+                <span>•</span>
+                <span>{item.seasons} Seasons</span>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Vertical Poster Style
   return (
     <div
       onClick={() => onSelect(item)}
-      className="group relative cursor-pointer select-none rounded-2xl overflow-hidden bg-zinc-900/60 border border-white/5 hover:border-orange-500/40 transition-all duration-300 hover:shadow-2xl hover:shadow-orange-500/10 hover:-translate-y-1.5"
+      className="group relative cursor-pointer select-none rounded-2xl overflow-hidden bg-zinc-900 border border-white/10 hover:border-orange-500/40 transition-all duration-300 hover:shadow-2xl hover:shadow-orange-500/10 hover:-translate-y-1.5"
     >
-      {/* Image container */}
-      <div
-        className={`relative w-full overflow-hidden ${
-          isBackdrop ? "aspect-video" : "aspect-[2/3]"
-        }`}
-      >
+      <div className="relative w-full aspect-[2/3] overflow-hidden">
         <Image
-          src={isBackdrop ? item.backdropUrl || item.posterUrl : item.posterUrl}
+          src={item.posterUrl}
           alt={item.title}
           fill
           sizes="(max-width: 640px) 240px, (max-width: 1024px) 320px, 400px"
-          className="object-cover transition-transform duration-500 ease-out group-hover:scale-108"
+          className="object-cover transition-transform duration-500 ease-out group-hover:scale-106"
         />
 
         {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent opacity-85 group-hover:opacity-95 transition-opacity" />
 
         {/* Top Badges */}
         <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between gap-1">
@@ -54,16 +113,16 @@ export function ContentCard({
             </span>
           )}
           {item.badge && !item.isLive && (
-            <span className="px-2 py-0.5 rounded-md bg-orange-500/80 backdrop-blur-md text-[10px] font-bold text-black tracking-wider">
+            <span className="px-2 py-0.5 rounded-md bg-orange-500/90 text-[10px] font-bold text-black tracking-wider">
               {item.badge}
             </span>
           )}
         </div>
 
-        {/* Center Hover Action Icon */}
+        {/* Center Hover Action */}
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-90 group-hover:scale-100">
-          <div className="w-12 h-12 rounded-full bg-orange-500/90 text-black flex items-center justify-center shadow-lg shadow-orange-500/40 backdrop-blur-sm">
-            <Play className="w-5 h-5 fill-black ml-0.5" />
+          <div className="w-11 h-11 rounded-full bg-orange-500 text-black flex items-center justify-center shadow-lg shadow-orange-500/50">
+            <Play className="w-4 h-4 fill-black ml-0.5" />
           </div>
         </div>
 
@@ -101,4 +160,3 @@ export function ContentCard({
     </div>
   );
 }
-
