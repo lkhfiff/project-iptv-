@@ -94,17 +94,6 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
     },
   ];
 
-  const streamingNetworks = [
-    { name: "NETFLIX", icon: "simple-icons:netflix" },
-    { name: "beIN SPORTS", icon: "ph:trophy" },
-    { name: "APPLE TV+", icon: "simple-icons:appletv" },
-    { name: "CANAL+", icon: "ph:television" },
-    { name: "DISNEY+", icon: "simple-icons:disneyplus" },
-    { name: "PRIME VIDEO", icon: "simple-icons:primevideo" },
-    { name: "DAZN", icon: "ph:broadcast" },
-    { name: "SKY SPORTS", icon: "ph:shield-chevron" },
-  ];
-
   const handleCardClick = (item: (typeof galleryItems)[0]) => {
     if (!onSelectMedia) return;
     const m = item.movie;
@@ -149,7 +138,7 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
 
       {/* 2. Centered Typography (Matching Atelier Arc composition with NOUDINE brand) */}
       <div className="relative z-10 max-w-3xl mx-auto px-6 text-center space-y-4 pt-10 sm:pt-14">
-        {/* Network Tag */}
+        {/* Top Tag */}
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -157,7 +146,7 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
           className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-white text-[11px] font-mono tracking-wider"
         >
           <Icon icon="ph:television" width={13} />
-          <span>Bouquet International 4K • Netflix • beIN • Canal+ • Apple TV+</span>
+          <span>Plateforme Cinématographique • 4K UHD &amp; Dolby Atmos</span>
         </motion.div>
 
         <motion.h1
@@ -199,24 +188,6 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
             <span>Nos Abonnements</span>
             <Icon icon="ph:arrow-up-right" width={12} />
           </Link>
-        </motion.div>
-
-        {/* Streaming Networks Minimal Logo Strip */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.4 }}
-          className="pt-3 flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-[10px] font-mono tracking-widest text-[#a0a0a0]"
-        >
-          {streamingNetworks.map((net) => (
-            <div
-              key={net.name}
-              className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/5 border border-white/10 hover:border-white/30 hover:text-white transition-colors"
-            >
-              <Icon icon={net.icon} width={13} className="text-white" />
-              <span>{net.name}</span>
-            </div>
-          ))}
         </motion.div>
       </div>
 
