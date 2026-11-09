@@ -55,9 +55,9 @@ function GalleryCard({
         zIndex,
       }}
       onClick={onClick}
-      className={`group relative shrink-0 cursor-pointer select-none rounded-2xl md:rounded-3xl overflow-hidden border border-white/20 hover:border-white/60 transition-all duration-500 hover:!scale-105 hover:!translate-y-[-14px] hover:!rotate-0 hover:z-50 shadow-2xl shadow-black/80 w-36 sm:w-48 md:w-56 ${item.bgClass} flex items-center justify-center ${item.heightClass}`}
+      className={`group relative shrink-0 cursor-pointer select-none rounded-2xl md:rounded-3xl overflow-hidden border border-white/15 hover:border-white/50 transition-all duration-500 hover:!scale-105 hover:!translate-y-[-14px] hover:!rotate-0 hover:z-50 shadow-2xl shadow-black/90 w-36 sm:w-48 md:w-56 bg-[#0b0b0d] flex items-center justify-center ${item.heightClass}`}
     >
-      {/* Pure Brand Image (600x900 portrait card artwork with generous margins & zero cropping) */}
+      {/* Pure Brand Image (600x900 portrait card artwork with unified luxury obsidian background) */}
       <div className="relative w-full h-full flex items-center justify-center">
         <Image
           src={item.poster}
@@ -74,7 +74,7 @@ function GalleryCard({
 }
 
 export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
-  // 7 pure cinematic brand cards matching the user's reference images with seamless backgrounds and generous padding
+  // 7 pure cinematic brand cards with unified luxury obsidian glass backgrounds and centered logos
   const galleryItems: GalleryCardItem[] = [
     {
       id: "gal-1",
@@ -85,7 +85,7 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
       poster: "/brands/card-netflix.png",
       fallback: "/brands/card-netflix.png",
       heightClass: "h-64 sm:h-72 md:h-80",
-      bgClass: "bg-black",
+      bgClass: "bg-[#0b0b0d]",
       movie: CURATED_TMDB_MOVIES[0],
     },
     {
@@ -97,7 +97,7 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
       poster: "/brands/card-beinsports.png",
       fallback: "/brands/card-beinsports.png",
       heightClass: "h-72 sm:h-80 md:h-88",
-      bgClass: "bg-[#5c2c90]",
+      bgClass: "bg-[#0b0b0d]",
       movie: CURATED_TMDB_MOVIES[1],
     },
     {
@@ -109,7 +109,7 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
       poster: "/brands/card-appletv.png",
       fallback: "/brands/card-appletv.png",
       heightClass: "h-60 sm:h-68 md:h-76",
-      bgClass: "bg-[#212123]",
+      bgClass: "bg-[#0b0b0d]",
       movie: CURATED_TMDB_SERIES[0],
     },
     {
@@ -121,7 +121,7 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
       poster: "/brands/card-canalplus.png",
       fallback: "/brands/card-canalplus.png",
       heightClass: "h-68 sm:h-76 md:h-84",
-      bgClass: "bg-[#050505]",
+      bgClass: "bg-[#0b0b0d]",
       movie: CURATED_TMDB_MOVIES[2],
     },
     {
@@ -133,7 +133,7 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
       poster: "/brands/card-disneyplus.png",
       fallback: "/brands/card-disneyplus.png",
       heightClass: "h-72 sm:h-80 md:h-88",
-      bgClass: "bg-[#021526]",
+      bgClass: "bg-[#0b0b0d]",
       movie: CURATED_TMDB_SERIES[1],
     },
     {
@@ -145,7 +145,7 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
       poster: "/brands/card-primevideo.png",
       fallback: "/brands/card-primevideo.png",
       heightClass: "h-64 sm:h-72 md:h-80",
-      bgClass: "bg-[#09131d]",
+      bgClass: "bg-[#0b0b0d]",
       movie: CURATED_TMDB_MOVIES[3],
     },
     {
@@ -157,7 +157,7 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
       poster: "/brands/card-hbomax.png",
       fallback: "/brands/card-hbomax.png",
       heightClass: "h-60 sm:h-68 md:h-76",
-      bgClass: "bg-[#140224]",
+      bgClass: "bg-[#0b0b0d]",
       movie: CURATED_TMDB_SERIES[2],
     },
   ];
@@ -189,19 +189,19 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
 
   return (
     <div className="hero-cinema relative w-full min-h-screen flex flex-col justify-between overflow-hidden bg-[#080808] pt-28 pb-8">
-      {/* 1. Full-screen Cinematic Photographic Background */}
+      {/* 1. Full-screen Cinematic Photographic Background (Matching Atelier Arc architectural & natural landscape reference) */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?q=80&w=2560&auto=format&fit=crop"
+          src="https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?q=80&w=2560&auto=format&fit=crop"
           alt="Atmosphère Cinématographique NOUDINE"
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center filter brightness-[0.80] contrast-[1.08]"
+          className="object-cover object-center filter brightness-[0.70] contrast-[1.10]"
         />
         {/* Subtle dark vignette overlay for typography readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-black/50 to-black/30 dark:from-[#080808]" />
-        <div className="absolute inset-0 bg-radial-gradient from-transparent via-black/30 to-[#080808]/90" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-black/55 to-black/35 dark:from-[#080808]" />
+        <div className="absolute inset-0 bg-radial-gradient from-transparent via-black/40 to-[#080808]/95" />
       </div>
 
       {/* 2. Centered Typography (Matching Atelier Arc composition with NOUDINE brand) */}
