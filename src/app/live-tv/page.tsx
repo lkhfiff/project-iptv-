@@ -75,8 +75,8 @@ export default function LiveTVPage() {
           <WhatsAppButton
             variant="pill"
             size="sm"
-            customMessage={`Hello! I want full access to stream "${activeChannel.name}" in 4K on my device.`}
-            label={`Stream ${activeChannel.name} via WhatsApp`}
+            customMessage={`Bonjour ! Je souhaite obtenir un accès complet pour visionner "${activeChannel.name}" en 4K.`}
+            label={`Visionner ${activeChannel.name}`}
           />
         </div>
       </div>

@@ -43,7 +43,7 @@ export function NetworkSpeedTester() {
             <span>Diagnostic Tool</span>
           </div>
           <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight">
-            AETHER+ 4K Stream Readiness & Latency Checker
+            NOUDINE 4K Stream Readiness & Latency Checker
           </h3>
         </div>
 
@@ -145,7 +145,7 @@ export function NetworkSpeedTester() {
           {tested && (
             <div className="pt-1 flex items-center justify-between gap-4">
               <p className="text-xs text-zinc-400">
-                Your connection is fully optimized for AETHER+ uncompressed 4K streams.
+                Your connection is fully optimized for NOUDINE uncompressed 4K streams.
               </p>
               <WhatsAppButton
                 variant="luxury"

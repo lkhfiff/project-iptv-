@@ -22,7 +22,7 @@ export default function RevendeurPage() {
         "Panneau de contrôle Xtream Codes inclus",
         "Création de tests 24h gratuits illimités",
         "Création d'abonnements 1, 3, 6 et 12 mois",
-        "Assistance technique par WhatsApp 24/7",
+        "Assistance technique dédiée 24/7",
       ],
     },
     {
@@ -39,7 +39,7 @@ export default function RevendeurPage() {
         "Tests 24h gratuits illimités pour vos clients",
         "Priorité CDN Anti-Freeze™ 9.9 sur tous vos flux",
         "Accès à l'ensemble du catalogue 4K UHD",
-        "Support VIP dédié 1-to-1 sur WhatsApp",
+        "Support VIP dédié 1-to-1 en continu",
       ],
     },
     {
@@ -180,7 +180,7 @@ export default function RevendeurPage() {
                       : "bg-white/10 hover:bg-white/20 text-white border border-white/15"
                   }`}
                 >
-                  <Icon icon="ph:whatsapp-logo" width={16} />
+                  <Icon icon="ph:arrow-up-right" width={16} />
                   <span>Commander le {pack.name}</span>
                 </button>
               </div>
@@ -257,19 +257,19 @@ export default function RevendeurPage() {
             </div>
             <h4 className="text-sm font-medium text-white">Support VIP Revendeur 24/7</h4>
             <p className="text-xs text-[#a0a0a0] font-light leading-relaxed">
-              Un interlocuteur technique dédié sur WhatsApp pour vous accompagner, répondre à vos questions et résoudre vos demandes.
+              Un interlocuteur technique dédié pour vous accompagner, répondre à vos questions et résoudre vos demandes.
             </p>
           </div>
         </div>
       </div>
 
-      {/* 4. Bottom WhatsApp CTA Banner */}
+      {/* 4. Bottom CTA Banner */}
       <div className="rounded-3xl bg-[#151515] border border-white/10 p-8 sm:p-12 text-center space-y-4 max-w-4xl mx-auto">
         <h3 className="text-2xl sm:text-3xl font-light text-white tracking-tight">
           Prêt à Lancer Votre Activité Revendeur ?
         </h3>
         <p className="text-xs sm:text-sm text-[#a0a0a0] max-w-lg mx-auto font-light leading-relaxed">
-          Contactez directement notre responsable revendeur sur WhatsApp pour poser vos questions, tester le panneau de démonstration ou commander votre premier pack.
+          Contactez directement notre responsable revendeur pour poser vos questions, tester le panneau de démonstration ou commander votre premier pack.
         </p>
 
         <div className="pt-3 flex justify-center">
@@ -281,11 +281,12 @@ export default function RevendeurPage() {
             rel="noopener noreferrer"
             className="px-8 py-3.5 rounded-full bg-white text-black hover:bg-[#f2f2f2] text-xs font-semibold tracking-wide transition-all shadow-xl active:scale-95 flex items-center gap-2"
           >
-            <Icon icon="ph:whatsapp-logo" width={18} />
-            <span>Contacter le Responsable Revendeur sur WhatsApp</span>
+            <Icon icon="ph:paper-plane-tilt" width={18} />
+            <span>Contacter le Responsable Revendeur</span>
           </a>
         </div>
       </div>
     </div>
   );
 }
+

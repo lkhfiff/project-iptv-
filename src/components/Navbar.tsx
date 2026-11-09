@@ -4,7 +4,8 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Icon } from "@iconify/react";
-import { SITE_CONFIG, generateWhatsAppContactUrl } from "@/data/config";
+import { SITE_CONFIG, generateDirectContactUrl } from "@/data/config";
+import { useTheme } from "@/context/ThemeContext";
 import { SearchModal } from "./SearchModal";
 import { MediaItem } from "@/data/media";
 
@@ -14,6 +15,7 @@ interface NavbarProps {
 
 export function Navbar({ onSelectMedia }: NavbarProps) {
   const pathname = usePathname();
+  const { theme, toggleTheme } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchModalOpen, setSearchModalOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -35,7 +37,7 @@ export function Navbar({ onSelectMedia }: NavbarProps) {
     }, 250);
   };
 
-  const whatsappUrl = generateWhatsAppContactUrl("Concierge Service");
+  const conciergeUrl = generateDirectContactUrl("Accès Concierge VIP");
 
   const subscriptionSublinks = [
     { label: "1 Mois • 12 €", href: "/abonnements#pricing", subtitle: "Formule Découverte" },
@@ -47,20 +49,20 @@ export function Navbar({ onSelectMedia }: NavbarProps) {
 
   return (
     <>
-      <header className="fixed top-0 inset-x-0 z-40 px-4 sm:px-8 py-4 sm:py-5 transition-all duration-300">
+      <header className="fixed top-0 inset-x-0 z-40 px-4 sm:px-8 py-3.5 sm:py-5 transition-all duration-300">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          {/* Brand Logo on Left */}
+          {/* Brand Logo on Left - NOUDINE */}
           <Link
             href="/"
             className="flex items-center gap-2 group select-none transition-opacity hover:opacity-85"
           >
-            <span className="text-lg sm:text-xl font-bold tracking-tight text-white font-sans">
-              AETHER<span className="text-[#a0a0a0] font-light">ARC</span>
+            <span className="text-xl sm:text-2xl font-light tracking-[0.25em] text-white font-sans">
+              NOUDINE
             </span>
           </Link>
 
           {/* Centered Transparent Floating Pill Navigation - EXACTLY MATCHING USER REFERENCE */}
-          <nav className="hidden md:flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#151515]/75 backdrop-blur-2xl border border-white/12 shadow-2xl">
+          <nav className="hidden md:flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#151515]/80 backdrop-blur-2xl border border-white/12 shadow-2xl">
             {/* 1. Accueil */}
             <Link
               href="/"
@@ -175,10 +177,20 @@ export function Navbar({ onSelectMedia }: NavbarProps) {
             >
               <Icon icon="ph:magnifying-glass" width={15} />
             </button>
+
+            {/* Dark Mode / Light Mode Toggle */}
+            <button
+              onClick={toggleTheme}
+              className="text-[#a0a0a0] hover:text-white p-1.5 rounded-full hover:bg-white/5 cursor-pointer transition-colors"
+              aria-label="Changer le thème sombre/clair"
+              title={theme === "dark" ? "Mode Clair" : "Mode Sombre"}
+            >
+              <Icon icon={theme === "dark" ? "ph:sun-dim" : "ph:moon"} width={15} />
+            </button>
           </nav>
 
-          {/* WhatsApp Button on Right */}
-          <div className="flex items-center gap-2.5">
+          {/* Right Area: Direct Concierge CTA */}
+          <div className="flex items-center gap-2">
             <button
               onClick={() => setSearchModalOpen(true)}
               className="md:hidden w-8 h-8 rounded-full bg-white/5 border border-white/10 text-white flex items-center justify-center"
@@ -187,14 +199,24 @@ export function Navbar({ onSelectMedia }: NavbarProps) {
               <Icon icon="ph:magnifying-glass" width={15} />
             </button>
 
+            {/* Theme Toggle (Mobile) */}
+            <button
+              onClick={toggleTheme}
+              className="md:hidden w-8 h-8 rounded-full bg-white/5 border border-white/10 text-white flex items-center justify-center"
+              aria-label="Thème"
+            >
+              <Icon icon={theme === "dark" ? "ph:sun-dim" : "ph:moon"} width={15} />
+            </button>
+
+            {/* Concierge Button (NO WHATSAPP TEXT) */}
             <a
-              href={whatsappUrl}
+              href={conciergeUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="px-4 py-2 rounded-full bg-white text-black hover:bg-[#f2f2f2] text-xs font-semibold tracking-wide transition-all shadow-md active:scale-95 flex items-center gap-1.5"
             >
-              <Icon icon="ph:whatsapp-logo" width={15} />
-              <span className="hidden sm:inline">WhatsApp</span>
+              <Icon icon="ph:paper-plane-tilt" width={14} />
+              <span className="hidden sm:inline">Conciergerie</span>
             </a>
 
             {/* Mobile Hamburger */}

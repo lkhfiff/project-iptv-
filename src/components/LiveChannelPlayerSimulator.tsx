@@ -39,7 +39,7 @@ const DEMO_CHANNELS: ChannelStream[] = [
     name: "Sky Sports Premier League UHD",
     category: "Football",
     country: "United Kingdom",
-    flag: "🇬🇧",
+    flag: "UK",
     currentShow: "Premier League: Liverpool vs Manchester City (Live 4K)",
     nextShow: "Matchday Post-Game Analysis & Highlights",
     resolution: "3840x2160p (4K UHD)",
@@ -52,7 +52,7 @@ const DEMO_CHANNELS: ChannelStream[] = [
     name: "beIN Sports MENA 1 4K",
     category: "Sports",
     country: "Arab World",
-    flag: "🇲🇦",
+    flag: "MENA",
     currentShow: "Champions League: Round of 16 Live Action",
     nextShow: "Studio Al-Masaa with International Pundits",
     resolution: "Pure 4K UHD",
@@ -65,7 +65,7 @@ const DEMO_CHANNELS: ChannelStream[] = [
     name: "Canal+ 4K UHD France",
     category: "Cinema",
     country: "France",
-    flag: "🇫🇷",
+    flag: "FR",
     currentShow: "Le Film du Soir: Blockbuster Hollywood en 4K HDR",
     nextShow: "Canal Football Club Édition Spéciale",
     resolution: "Dolby Vision HDR",
@@ -78,7 +78,7 @@ const DEMO_CHANNELS: ChannelStream[] = [
     name: "Movistar+ LaLiga 4K",
     category: "Football",
     country: "Spain",
-    flag: "🇪🇸",
+    flag: "ES",
     currentShow: "El Clásico: Real Madrid vs FC Barcelona",
     nextShow: "El Día Después Resumen y Goles",
     resolution: "4K UHD HDR",
@@ -91,7 +91,7 @@ const DEMO_CHANNELS: ChannelStream[] = [
     name: "HBO Max Live 4K US",
     category: "Originals",
     country: "United States",
-    flag: "🇺🇸",
+    flag: "US",
     currentShow: "House of the Dragon - Season 3 Premiere",
     nextShow: "The Last of Us: Behind the Scenes",
     resolution: "4K Dolby Vision",
@@ -209,7 +209,7 @@ export function LiveChannelPlayerSimulator() {
                 <WhatsAppButton
                   variant="luxury"
                   size="sm"
-                  customMessage={`Hello AETHER+! I tested your live channel simulator on "${activeChannel.name}". I would like to get my full subscription credentials.`}
+                  customMessage={`Bonjour NOUDINE ! J'ai testé votre lecteur sur la chaîne "${activeChannel.name}". Je souhaite obtenir mes identifiants complets.`}
                   label="Stream This Channel Now"
                 />
               </div>

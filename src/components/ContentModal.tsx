@@ -154,19 +154,19 @@ export function ContentModal({ item, onClose }: ContentModalProps) {
           {/* Action Row */}
           <div className="pt-4 flex flex-col sm:flex-row items-center gap-4">
             <WhatsAppButton
-              variant="luxury"
+              variant="solid"
               size="lg"
               fullWidth
-              customMessage={`Hello AETHER+! I would like to watch "${item.title}" (${item.category}). Please activate my IPTV subscription so I can stream it in 4K.`}
-              label={`Stream "${item.title}" via WhatsApp`}
+              customMessage={`Bonjour ! Je souhaite visionner "${item.title}" (${item.category}) en 4K UHD.`}
+              label={`Visionner "${item.title}"`}
             />
 
             <a
-              href="/pricing"
+              href="/abonnements"
               onClick={onClose}
-              className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/15 text-white text-sm font-semibold text-center transition-colors shrink-0"
+              className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/15 text-white text-xs font-semibold text-center transition-colors shrink-0"
             >
-              View Subscription Passes &rarr;
+              Voir les Abonnements &rarr;
             </a>
           </div>
         </div>

@@ -88,11 +88,11 @@ export function LiveSportsCard({ item, onSelect }: LiveSportsCardProps) {
         {/* Card CTA */}
         <div className="pt-2" onClick={(e) => e.stopPropagation()}>
           <WhatsAppButton
-            variant="luxury"
+            variant="solid"
             size="sm"
             fullWidth
-            customMessage={`Hello AETHER+! I want to watch the match "${item.title}" live in 4K. Please setup my IPTV subscription.`}
-            label="Watch Live on WhatsApp"
+            customMessage={`Bonjour ! Je souhaite suivre le match "${item.title}" en direct en 4K.`}
+            label="Suivre en Direct"
           />
         </div>
       </div>

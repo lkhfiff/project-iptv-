@@ -46,8 +46,8 @@ export default function SportsPage() {
           <WhatsAppButton
             variant="pill"
             size="md"
-            label="Get Sports Pass on WhatsApp"
-            customMessage="Hello! I want to subscribe to watch upcoming live sports and football derbies."
+            label="Obtenir le Pass Sports 4K"
+            customMessage="Bonjour ! Je souhaite souscrire pour suivre les matchs de football et sports en direct."
           />
         </div>
       </div>
@@ -140,8 +140,8 @@ export default function SportsPage() {
               <WhatsAppButton
                 variant="outline"
                 size="sm"
-                customMessage={`Hello! I want to watch the match "${match.homeTeam.name} vs ${match.awayTeam.name}" live in 4K on my TV.`}
-                label="Stream Match on WhatsApp"
+                customMessage={`Bonjour ! Je souhaite regarder le match "${match.homeTeam.name} vs ${match.awayTeam.name}" en direct en 4K.`}
+                label="Suivre le Match en Direct"
               />
             </div>
           </div>

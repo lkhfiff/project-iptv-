@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SiteLayout } from "@/components/SiteLayout";
+import { ThemeProvider } from "@/context/ThemeContext";
 import { SITE_CONFIG } from "@/data/config";
 
 const geistSans = Geist({
@@ -15,9 +16,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: `${SITE_CONFIG.brandName} | The Pinnacle of Cinematic IPTV Streaming`,
+  title: `${SITE_CONFIG.brandName} | Le Sommet du Streaming Cinématographique 4K`,
   description: SITE_CONFIG.brandDescription,
   keywords: [
+    "NOUDINE",
     "IPTV",
     "4K Streaming",
     "Live TV",
@@ -29,7 +31,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: SITE_CONFIG.brandName }],
   openGraph: {
-    title: `${SITE_CONFIG.brandName} - Ultra Premium IPTV`,
+    title: `${SITE_CONFIG.brandName} - Streaming Cinématographique Ultra-Premium`,
     description: SITE_CONFIG.brandDescription,
     siteName: SITE_CONFIG.brandName,
     type: "website",
@@ -43,11 +45,14 @@ export default function RootLayout({
 }) {
   return (
     <html
-      lang="en"
+      lang="fr"
       className={`${geistSans.variable} ${geistMono.variable} dark h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col bg-[#080808] text-white">
-        <SiteLayout>{children}</SiteLayout>
+      <body className="min-h-full flex flex-col bg-[#080808] text-white transition-colors duration-300 dark:bg-[#080808] dark:text-white light:bg-[#f8f8f9] light:text-[#0d0d0f]">
+        <ThemeProvider>
+          <SiteLayout>{children}</SiteLayout>
+        </ThemeProvider>
       </body>
     </html>
   );

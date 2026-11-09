@@ -164,15 +164,15 @@ export default function EssaiGratuitPage() {
           <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3 text-xs text-[#a0a0a0]">
               <span className="w-2.5 h-2.5 rounded-full bg-white animate-pulse" />
-              <span>Conciergerie WhatsApp en ligne • Réponse en &lt; 2 minutes</span>
+              <span>Conciergerie en ligne • Réponse en &lt; 2 minutes</span>
             </div>
 
             <button
               type="submit"
               className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-white text-black hover:bg-[#f2f2f2] text-xs font-semibold tracking-wide transition-all shadow-xl active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
             >
-              <Icon icon="ph:whatsapp-logo" width={18} />
-              <span>Recevoir Mon Essai Gratuit sur WhatsApp</span>
+              <Icon icon="ph:paper-plane-tilt" width={18} />
+              <span>Recevoir Mon Essai Gratuit 24H</span>
             </button>
           </div>
         </form>
@@ -194,9 +194,9 @@ export default function EssaiGratuitPage() {
             <div className="w-9 h-9 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center font-mono text-sm font-semibold text-white">
               01
             </div>
-            <h3 className="text-sm font-semibold text-white">Demande WhatsApp</h3>
+            <h3 className="text-sm font-semibold text-white">Demande en Ligne</h3>
             <p className="text-xs text-[#a0a0a0] font-light leading-relaxed">
-              Cliquez sur le bouton ci-dessus pour envoyer votre message WhatsApp pré-rempli à notre équipe VIP.
+              Cliquez sur le bouton ci-dessus pour transmettre votre demande à notre conciergerie VIP.
             </p>
           </div>
 
@@ -206,7 +206,7 @@ export default function EssaiGratuitPage() {
             </div>
             <h3 className="text-sm font-semibold text-white">Réception Immédiate</h3>
             <p className="text-xs text-[#a0a0a0] font-light leading-relaxed">
-              En moins de 3 minutes, un agent vous transmet vos codes Xtream (Serveur, Nom d'utilisateur, Mot de passe) et votre lien M3U.
+              En moins de 3 minutes, un agent vous transmet vos codes Xtream (Serveur, Nom d&apos;utilisateur, Mot de passe) et votre lien M3U.
             </p>
           </div>
 
@@ -216,7 +216,7 @@ export default function EssaiGratuitPage() {
             </div>
             <h3 className="text-sm font-semibold text-white">Visionnage 4K Illimité</h3>
             <p className="text-xs text-[#a0a0a0] font-light leading-relaxed">
-              Connectez-vous sur votre application et profitez de l'intégralité du bouquet mondial pendant 24 heures sans coupure.
+              Connectez-vous sur votre application et profitez de l&apos;intégralité du bouquet mondial pendant 24 heures sans coupure.
             </p>
           </div>
         </div>
@@ -232,7 +232,7 @@ export default function EssaiGratuitPage() {
           <div className="p-4 rounded-xl bg-[#151515] border border-white/10 space-y-1">
             <h4 className="font-semibold text-white">Le test 24H est-il vraiment 100% gratuit ?</h4>
             <p className="text-[#a0a0a0] font-light">
-              Oui, absolument. Nous ne vous demanderons jamais de carte bancaire pour le test. C'est un accès complet de démonstration sans aucun engagement.
+              Oui, absolument. Nous ne vous demanderons jamais de carte bancaire pour le test. C&apos;est un accès complet de démonstration sans aucun engagement.
             </p>
           </div>
 
@@ -246,7 +246,7 @@ export default function EssaiGratuitPage() {
           <div className="p-4 rounded-xl bg-[#151515] border border-white/10 space-y-1">
             <h4 className="font-semibold text-white">Que se passe-t-il après les 24 heures ?</h4>
             <p className="text-[#a0a0a0] font-light">
-              La ligne de test s'arrête automatiquement. Si l'expérience vous a convaincu, vous pouvez commander un abonnement de 1, 3, 6 ou 12 mois directement sur WhatsApp sans réinstaller votre application.
+              La ligne de test s&apos;arrête automatiquement. Si l&apos;expérience vous a convaincu, vous pouvez commander un abonnement de 1, 3, 6 ou 12 mois directement auprès du concierge sans réinstaller votre application.
             </p>
           </div>
         </div>
@@ -254,3 +254,4 @@ export default function EssaiGratuitPage() {
     </div>
   );
 }
+

@@ -3,6 +3,7 @@
 import React from "react";
 import { Icon } from "@iconify/react";
 import { SUBSCRIBER_REVIEWS } from "@/data/reviews";
+import { SITE_CONFIG } from "@/data/config";
 import { WhatsAppButton } from "./WhatsAppButton";
 
 export function ReviewCarousel() {
@@ -30,8 +31,8 @@ export function ReviewCarousel() {
         <WhatsAppButton
           variant="outline"
           size="sm"
-          label="Read More On WhatsApp"
-          customMessage="Hello! I would like to read feedback and test AETHER+ IPTV."
+          label="Contacter la Conciergerie"
+          customMessage={`Bonjour ! Je souhaite obtenir des informations sur les abonnements ${SITE_CONFIG.brandName}.`}
         />
       </div>
 

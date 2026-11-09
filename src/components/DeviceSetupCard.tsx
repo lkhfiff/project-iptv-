@@ -97,11 +97,11 @@ export function DeviceSetupCard({ device }: DeviceSetupCardProps) {
           )}
 
           <WhatsAppButton
-            variant="luxury"
+            variant="solid"
             size="sm"
             fullWidth
-            customMessage={`Hello AETHER+! I want to setup your IPTV service on my ${device.name}. Please guide me with playlist URL and credentials.`}
-            label={`Setup on ${device.name.split(" ")[0]} via WhatsApp`}
+            customMessage={`Bonjour ! Je souhaite configurer le service IPTV sur mon ${device.name}. Merci de me guider.`}
+            label={`Configurer sur ${device.name.split(" ")[0]}`}
           />
         </div>
       </div>

@@ -26,24 +26,24 @@ export default function DevicesPage() {
   return (
     <div className="pt-28 pb-20 space-y-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Header */}
-      <div className="text-center max-w-3xl mx-auto space-y-4">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-bold uppercase tracking-widest">
-          <Icon icon="ph:device-mobile-camera-fill" width={14} />
-          <span>Universal Hardware Compatibility</span>
+      <div className="text-center max-w-3xl mx-auto space-y-3">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/15 text-white text-xs font-mono tracking-wider">
+          <Icon icon="ph:device-mobile-camera" width={14} />
+          <span>Compatibilité Matérielle Universelle</span>
         </div>
-        <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
-          Supported Devices & Setup Guides
+        <h1 className="text-3xl sm:text-5xl font-light text-white tracking-tight">
+          Appareils &amp; Guides d&apos;Installation
         </h1>
-        <p className="text-zinc-300 text-sm sm:text-base leading-relaxed">
-          AETHER+ works natively on every major television, media streamer, tablet, and smartphone. With our 2-minute step-by-step setup guides, you will be streaming in no time.
+        <p className="text-[#a0a0a0] text-xs sm:text-sm max-w-lg mx-auto font-light leading-relaxed">
+          Notre service fonctionne nativement sur toutes les Smart TV, boîtiers de streaming, tablettes et smartphones avec une configuration en moins de 2 minutes.
         </p>
 
         <div className="pt-2 flex justify-center gap-3">
           <WhatsAppButton
-            variant="luxury"
+            variant="solid"
             size="md"
-            label="Get 1-on-1 Remote Setup Help"
-            customMessage="Hello! Can you help me setup my IPTV subscription on my device?"
+            label="Assistance Installation à Distance"
+            customMessage="Bonjour ! Pouvez-vous m'aider à configurer mon abonnement IPTV sur mon appareil ?"
           />
         </div>
       </div>

@@ -96,11 +96,11 @@ export function Hero({ onSelectMedia }: HeroProps) {
             </button>
 
             <WhatsAppButton
-              variant="pill"
+              variant="solid"
               size="lg"
               showPingDot
-              customMessage={`Hello AETHER+! I want to start streaming "${currentSlide.title}" on my TV. Please provide my instant 4K activation.`}
-              label="Subscribe on WhatsApp"
+              customMessage={`Bonjour ! Je souhaite commencer à visionner "${currentSlide.title}" en 4K sur mon téléviseur.`}
+              label="Activer Mon Accès"
             />
           </div>
         </div>

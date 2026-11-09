@@ -13,7 +13,7 @@ export default function ContactPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    let message = `Bonjour l'équipe ${SITE_CONFIG.businessName} !\n\n`;
+    let message = `Bonjour l'équipe ${SITE_CONFIG.brandName} !\n\n`;
     if (name.trim()) message += `• Nom / Prénom : ${name.trim()}\n`;
     message += `• Appareil : ${device}\n`;
     message += `• Sujet : ${inquiryType}\n`;
@@ -33,7 +33,7 @@ export default function ContactPage() {
       <div className="text-center max-w-3xl mx-auto space-y-4">
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/15 text-white text-xs font-mono tracking-wider">
           <Icon icon="ph:headset" width={14} />
-          <span>Conciergerie VIP 24/7 • WhatsApp Direct</span>
+          <span>Conciergerie VIP 24/7 • Ligne Directe</span>
         </div>
 
         <h1 className="text-3xl sm:text-5xl font-light text-white tracking-tight">
@@ -41,7 +41,7 @@ export default function ContactPage() {
         </h1>
 
         <p className="text-[#a0a0a0] text-xs sm:text-sm max-w-xl mx-auto font-light leading-relaxed">
-          Une question sur nos bouquets, une demande d&apos;essai gratuit 24h, ou besoin d&apos;assistance pour l&apos;installation de votre application ? Notre équipe vous répond immédiatement sur WhatsApp.
+          Une question sur nos bouquets, une demande d&apos;essai gratuit 24h, ou besoin d&apos;assistance pour l&apos;installation de votre application ? Notre équipe vous répond immédiatement.
         </p>
       </div>
 
@@ -54,8 +54,8 @@ export default function ContactPage() {
             <div className="space-y-3 text-xs">
               <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2">
                 <div className="flex items-center gap-2 text-white font-medium">
-                  <Icon icon="ph:whatsapp-logo" width={16} />
-                  <span>WhatsApp Concierge 24/7</span>
+                  <Icon icon="ph:paper-plane-tilt" width={16} />
+                  <span>Conciergerie en Ligne 24/7</span>
                 </div>
                 <p className="text-[#a0a0a0] font-light">
                   Activation instantanée, aide à l&apos;installation et support technique.
@@ -69,14 +69,14 @@ export default function ContactPage() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white text-black hover:bg-[#f2f2f2] text-xs font-semibold shadow-md active:scale-95"
                   >
-                    <Icon icon="ph:whatsapp-logo" width={14} />
-                    <span>Lancer le Chat WhatsApp</span>
+                    <Icon icon="ph:paper-plane-tilt" width={14} />
+                    <span>Lancer la Conversation Directe</span>
                   </a>
                 </div>
               </div>
 
               <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 space-y-1">
-                <span className="text-[#a0a0a0]/70 block text-[11px] font-mono">Numéro WhatsApp :</span>
+                <span className="text-[#a0a0a0]/70 block text-[11px] font-mono">Ligne Client :</span>
                 <span className="text-white font-mono font-semibold text-xs">
                   {SITE_CONFIG.whatsappDisplayNumber}
                 </span>
@@ -99,14 +99,14 @@ export default function ContactPage() {
           </div>
         </div>
 
-        {/* Interactive Message Composer to WhatsApp */}
+        {/* Interactive Message Composer */}
         <div className="lg:col-span-2 rounded-3xl bg-[#151515] border border-white/10 p-6 sm:p-10 space-y-6 shadow-xl">
           <div className="space-y-1 border-b border-white/10 pb-4">
             <h2 className="text-xl sm:text-2xl font-light text-white tracking-tight">
-              Formulaire de Contact WhatsApp
+              Transmettre Votre Demande
             </h2>
             <p className="text-xs text-[#a0a0a0] font-light">
-              Remplissez les détails ci-dessous. En cliquant sur le bouton, WhatsApp s&apos;ouvrira avec votre message pré-formaté.
+              Remplissez les détails ci-dessous. En cliquant sur le bouton, votre message sera transmis directement à un conseiller technique.
             </p>
           </div>
 
@@ -180,8 +180,8 @@ export default function ContactPage() {
                 type="submit"
                 className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-white text-black hover:bg-[#f2f2f2] text-xs font-semibold tracking-wide transition-all shadow-xl active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
               >
-                <Icon icon="ph:whatsapp-logo" width={18} />
-                <span>Envoyer ma Demande sur WhatsApp</span>
+                <Icon icon="ph:paper-plane-tilt" width={18} />
+                <span>Envoyer ma Demande Immédiatement</span>
               </button>
             </div>
           </form>

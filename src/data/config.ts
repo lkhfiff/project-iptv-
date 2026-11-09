@@ -4,6 +4,7 @@ export interface SiteConfig {
   brandTagline: string;
   brandDescription: string;
   businessName: string;
+  conciergeDisplayName: string;
   whatsappDisplayName: string;
   whatsappNumber: string; // e.g. "212600123456" for wa.me
   whatsappDisplayNumber: string;
@@ -19,17 +20,18 @@ export interface SiteConfig {
 }
 
 export const SITE_CONFIG: SiteConfig = {
-  brandName: "AETHER+",
-  brandShort: "AETHER+",
-  brandTagline: "The Pinnacle of Cinematic Streaming",
+  brandName: "NOUDINE",
+  brandShort: "NOUDINE",
+  brandTagline: "Le Sommet du Streaming Cinématographique",
   brandDescription:
-    "An ultra-premium streaming platform. Access over 28,000 live channels, 135,000+ on-demand 4K movies & complete series, and world sports with Anti-Freeze™ 9.9 technology.",
-  businessName: "AETHER+ Streaming",
-  whatsappDisplayName: "Chat with AETHER+ Concierge",
+    "Plateforme de divertissement ultra-premium. Accédez à plus de 28 500 chaînes directes mondiales, 135 000 films et séries en 4K UHD, retransmissions sportives et technologie Anti-Freeze™ 9.9.",
+  businessName: "NOUDINE Streaming",
+  conciergeDisplayName: "Conciergerie VIP NOUDINE",
+  whatsappDisplayName: "Conciergerie VIP NOUDINE",
   whatsappNumber: "212600123456",
   whatsappDisplayNumber: "+212 600-123456",
   whatsappFormattedPhone: "+212 600-123456",
-  supportEmail: "vip@aetherstream.tv",
+  supportEmail: "vip@noudine.tv",
   metrics: {
     channelsCount: "28,500+",
     vodCount: "135,000+",
@@ -40,9 +42,9 @@ export const SITE_CONFIG: SiteConfig = {
 };
 
 /**
- * Generates an official WhatsApp subscription order link with pre-filled details.
+ * Generates an official direct subscription order link with pre-filled details.
  */
-export function generateWhatsAppSubscriptionUrl(params: {
+export function generateSubscriptionOrderUrl(params: {
   planTitle: string;
   duration: string;
   price: string;
@@ -51,20 +53,27 @@ export function generateWhatsAppSubscriptionUrl(params: {
 }): string {
   const { planTitle, duration, price, connections = 1, additionalNotes } = params;
 
-  let message = `Hello ${SITE_CONFIG.businessName}!\n\nI would like to purchase a subscription:\n`;
-  message += `• Plan: ${planTitle}\n`;
-  message += `• Duration: ${duration}\n`;
-  message += `• Price: ${price}\n`;
-  message += `• Connections: ${connections} Device(s)\n`;
+  let message = `Bonjour l'équipe ${SITE_CONFIG.brandName} !\n\n`;
+  message += `Je souhaite activer mon abonnement :\n`;
+  message += `• Formule : ${planTitle}\n`;
+  message += `• Durée : ${duration}\n`;
+  message += `• Tarif : ${price}\n`;
+  message += `• Écrans : ${connections} Appareil(s)\n`;
   if (additionalNotes) {
-    message += `• Device/Notes: ${additionalNotes}\n`;
+    message += `• Détails / Appareil : ${additionalNotes}\n`;
   }
-  message += `\nPlease provide me with instant activation instructions. Thank you!`;
+  message += `\nMerci de me transmettre mes accès instantanés.`;
 
   return `https://wa.me/${SITE_CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`;
 }
 
-export function generateWhatsAppContactUrl(inquiry = "VIP Setup Inquiry"): string {
-  const message = `Hello ${SITE_CONFIG.whatsappDisplayName}!\n\nI would like to inquire about: ${inquiry}. Please provide more details.`;
+// Backward-compatible alias
+export const generateWhatsAppSubscriptionUrl = generateSubscriptionOrderUrl;
+
+export function generateDirectContactUrl(inquiry = "Accès VIP"): string {
+  const message = `Bonjour ${SITE_CONFIG.conciergeDisplayName} !\n\nJe souhaite obtenir des informations concernant : ${inquiry}. Merci !`;
   return `https://wa.me/${SITE_CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`;
 }
+
+// Backward-compatible alias
+export const generateWhatsAppContactUrl = generateDirectContactUrl;

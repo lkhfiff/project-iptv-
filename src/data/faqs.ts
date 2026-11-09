@@ -5,69 +5,71 @@ export interface FAQItem {
   answer: string;
 }
 
-export const FAQ_ITEMS: FAQItem[] = [
+export const FAQS_DATA: FAQItem[] = [
   {
     id: "faq-1",
     category: "Setup & Delivery",
-    question: "How fast is my subscription delivered after messaging on WhatsApp?",
+    question: "Sous quel délai mon abonnement est-il activé ?",
     answer:
-      "Subscription credentials and setup links are delivered instantly via our dedicated WhatsApp concierge team. In 99% of cases, your line is provisioned and tested within 2 to 5 minutes of your confirmation. Our team walks you through device setup step-by-step until your screen is streaming.",
+      "Vos identifiants de connexion (Xtream Codes / lien M3U) sont transmis immédiatement par notre équipe conciergerie VIP. Dans 99% des cas, votre ligne est provisionnée et testée en moins de 2 à 5 minutes.",
   },
   {
     id: "faq-2",
     category: "Ordering & Support",
-    question: "Why do you handle orders through WhatsApp instead of a standard checkout?",
+    question: "Pourquoi privilégier le service personnalisé par conciergerie ?",
     answer:
-      "We believe in human-assisted luxury service. WhatsApp enables 1-on-1 personalized setup assistance tailored to your exact TV model and country. It allows our technicians to test your connection before you start, provide instant remote configuration, and offer immediate 24/7 support whenever you need assistance or channel updates.",
+      "Nous privilégions un accompagnement sur mesure. Notre conciergerie vous guide pas à pas selon votre modèle de téléviseur ou d'application (TiviMate, Smarters Pro, IBO Player), teste votre flux avant démarrage et vous offre une assistance directe 24/7.",
   },
   {
     id: "faq-3",
     category: "Quality & Anti-Freeze",
-    question: "What is your Anti-Freeze™ 9.9 technology and how does it prevent buffering?",
+    question: "Qu'est-ce que la technologie Anti-Freeze™ 9.9 ?",
     answer:
-      "Unlike conventional IPTV providers that rely on single overwhelmed upstream servers, AETHER+ utilizes a decentralized content delivery network (CDN) spanning 18 high-capacity data centers across Europe, North America, and Asia. When high-traffic events occur (such as the Champions League Final or El Clásico), traffic is dynamically load-balanced with H.265/HEVC high-efficiency encoding, eliminating freezing and packet drop.",
+      "Contrairement aux serveurs IPTV traditionnels qui saturent lors des grands matchs, NOUDINE s'appuie sur un réseau CDN décentralisé réparti sur 18 centres de données avec répartition dynamique de charge et encodage matériel H.265/HEVC pour éliminer les micro-coupures.",
   },
   {
     id: "faq-4",
     category: "Channels & Sports",
-    question: "Which sports competitions and channels are included?",
+    question: "Quelles compétitions sportives et chaînes sont incluses ?",
     answer:
-      "Every subscription includes all major sports networks in true 4K 60FPS: Premier League, UEFA Champions League, La Liga, Serie A, Bundesliga, Ligue 1, Formula 1, MotoGP, UFC PPV Main Cards, NBA, NFL RedZone, NHL, MLB, Tennis Grand Slams, and Golf. We carry Sky Sports, TNT Sports Ultimate, beIN Sports 4K, DAZN, ESPN+, Canal+ Sport, and Movistar+ with multiple language commentary options.",
+      "Tous les bouquets majeurs sont inclus en 4K 60FPS : Ligue des Champions, Premier League, La Liga, Serie A, Ligue 1, Bundesliga, Formule 1, MotoGP, UFC PPV, NBA, tennis et plus encore. Vous retrouvez beIN Sports 4K, Canal+ 4K, Sky Sports, DAZN, TNT Sports et Eurosport avec choix des langues.",
   },
   {
     id: "faq-5",
     category: "Channels & Sports",
-    question: "How frequently are movies and series updated?",
+    question: "À quelle fréquence les films et séries sont-ils mis à jour ?",
     answer:
-      "Our VOD cinema library is updated daily. New cinema releases and streaming platform originals are added within 24 hours of release with multiple audio tracks and multi-language subtitles. Furthermore, subscribers can message our WhatsApp concierge anytime with a movie or series request, and our ingest team will add it within 24 hours.",
+      "Notre catalogue VOD est actualisé quotidiennement. Les dernières sorties cinéma et séries exclusives (Netflix, Apple TV+, Disney+, HBO Max, Prime Video) sont ajoutées sous 24h avec pistes audio multi-langues et sous-titres.",
   },
   {
     id: "faq-6",
     category: "Quality & Anti-Freeze",
-    question: "What internet speed do I need for smooth 4K streaming?",
+    question: "Quelle vitesse de connexion est recommandée pour la 4K ?",
     answer:
-      "We recommend a minimum stable speed of 15 Mbps for Full HD (1080p) streams, and 30 to 50 Mbps for pure 4K UHD 60FPS and Dolby Vision content. We always advise connecting your streaming device via Ethernet cable or 5GHz Wi-Fi for optimal stability.",
+      "Une connexion stable de 15 Mbps est suffisante pour le Full HD (1080p), et 30 à 50 Mbps pour la 4K UHD 60FPS et le Dolby Vision. Nous recommandons une connexion filaire Ethernet ou Wi-Fi 5GHz.",
   },
   {
     id: "faq-7",
     category: "Setup & Delivery",
-    question: "Can I use my subscription on multiple devices simultaneously?",
+    question: "Puis-je utiliser mon abonnement sur plusieurs écrans ?",
     answer:
-      "Yes! Our 1-Month and 3-Month plans default to 1 active device (with multi-connection add-on available), while our 6-Month and 12-Month Ultimate VIP plans include 2 to 3 multi-room simultaneous connections so your family can watch different channels on different TVs at the same time.",
+      "Oui. Les formules 6 Mois et 12 Mois VIP incluent le multi-écrans simultané pour que plusieurs membres de votre foyer puissent regarder des programmes différents en même temps sur des téléviseurs séparés.",
   },
   {
     id: "faq-8",
     category: "Ordering & Support",
-    question: "Do you offer a money-back satisfaction guarantee?",
+    question: "Proposez-vous un essai gratuit avant l'achat ?",
     answer:
-      "Yes. We stand firmly behind our streaming quality. If our servers experience unresolvable technical issues or fail to deliver on your supported device within the first 7 days, our WhatsApp concierge will refund your order in full with no questions asked.",
+      "Oui, absolument. Vous pouvez demander un essai gratuit 24h sans carte bancaire et sans engagement depuis notre page Essai Gratuit pour tester notre qualité sur votre propre téléviseur.",
   },
   {
     id: "faq-9",
     category: "Setup & Delivery",
-    question: "Do I need a VPN to use AETHER+ IPTV?",
+    question: "Ai-je besoin d'un VPN pour utiliser NOUDINE ?",
     answer:
-      "A VPN is generally NOT required because our servers use encrypted HTTPS / SSL transport streams that bypass ISP throttling. However, if your local ISP implements strict streaming blocks or you prefer complete anonymity, our service is 100% compatible with all major VPNs (NordVPN, ExpressVPN, Surfshark, etc.).",
+      "Un VPN n'est généralement pas nécessaire car nos flux utilisent des connexions chiffrées SSL/TLS qui contournent le bridage opérateur. Cependant, notre service est 100% compatible avec tous les VPN du marché si vous préférez l'utiliser.",
   },
 ];
+
+export const FAQ_ITEMS = FAQS_DATA;
 

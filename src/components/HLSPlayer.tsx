@@ -75,7 +75,7 @@ export function HLSPlayer({
               hls?.recoverMediaError();
               break;
             default:
-              setErrorMessage("Authorized broadcast stream offline. Please request line refresh on WhatsApp.");
+              setErrorMessage("Flux direct temporairement hors ligne. Veuillez contacter la conciergerie pour rafraîchir la ligne.");
               hls?.destroy();
               break;
           }
@@ -214,13 +214,13 @@ export function HLSPlayer({
             </p>
           </div>
           <a
-            href="https://wa.me/212600123456?text=Hello!%20I%20am%20testing%20the%20live%20player%20and%20would%20like%20to%20request%20authorized%20HLS%20credentials."
+            href="https://wa.me/212600123456?text=Bonjour!%20Je%20souhaite%20activer%20les%20flux%20directs%20HLS."
             target="_blank"
             rel="noopener noreferrer"
-            className="px-5 py-2.5 rounded-full bg-[#25D366] text-white text-xs font-bold hover:bg-[#20ba59] transition-all flex items-center gap-2 shadow-lg shadow-emerald-500/20"
+            className="px-5 py-2.5 rounded-full bg-white text-black text-xs font-semibold hover:bg-[#f2f2f2] transition-all flex items-center gap-2 shadow-lg"
           >
-            <Icon icon="ph:whatsapp-logo-fill" width={16} />
-            <span>Request Active Stream on WhatsApp</span>
+            <Icon icon="ph:arrow-clockwise" width={16} />
+            <span>Actualiser le Flux Direct</span>
           </a>
         </div>
       )}

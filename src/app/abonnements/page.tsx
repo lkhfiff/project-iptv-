@@ -98,8 +98,8 @@ export default function AbonnementsPage() {
               </tr>
               <tr>
                 <td className="py-3.5 pr-4 text-white font-normal">Assistance Conciergerie VIP</td>
-                <td className="py-3.5 px-3 text-center text-[#f2f2f2]">WhatsApp 24/7</td>
-                <td className="py-3.5 px-3 text-center text-[#f2f2f2]">WhatsApp 24/7</td>
+                <td className="py-3.5 px-3 text-center text-[#f2f2f2]">Ligne Dédiée 24/7</td>
+                <td className="py-3.5 px-3 text-center text-[#f2f2f2]">Ligne Dédiée 24/7</td>
                 <td className="py-3.5 px-3 text-center text-[#f2f2f2]">Ligne Prioritaire</td>
                 <td className="py-3.5 px-3 text-center text-white font-medium">Configuration à Distance VIP</td>
               </tr>
@@ -126,3 +126,4 @@ export default function AbonnementsPage() {
     </div>
   );
 }
+

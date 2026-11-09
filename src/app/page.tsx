@@ -110,7 +110,10 @@ export default function HomePage() {
                 <span>•</span>
                 <span>4K UHD • Dolby Atmos</span>
                 <span>•</span>
-                <span>★ {CURATED_TMDB_MOVIES[0].vote_average}</span>
+                <span className="flex items-center gap-1 text-white">
+                  <Icon icon="ph:star-fill" width={11} />
+                  <span>{CURATED_TMDB_MOVIES[0].vote_average}</span>
+                </span>
               </div>
               <h3 className="text-2xl sm:text-3xl font-light text-white tracking-tight">
                 {CURATED_TMDB_MOVIES[0].title}
@@ -199,8 +202,9 @@ export default function HomePage() {
                 <h4 className="text-xs font-medium text-white truncate group-hover:text-white">
                   {movie.title}
                 </h4>
-                <p className="text-[11px] font-mono text-[#a0a0a0]">
-                  ★ {movie.vote_average.toFixed(1)}
+                <p className="text-[11px] font-mono text-[#a0a0a0] flex items-center gap-1">
+                  <Icon icon="ph:star-fill" width={10} className="text-white" />
+                  <span>{movie.vote_average.toFixed(1)}</span>
                 </p>
               </div>
             </div>
@@ -253,7 +257,10 @@ export default function HomePage() {
 
               <div className="flex items-center justify-between text-xs text-[#a0a0a0] px-1 font-mono">
                 <span>{show.number_of_seasons} Seasons</span>
-                <span>★ {show.vote_average.toFixed(1)}</span>
+                <span className="flex items-center gap-1 text-white">
+                  <Icon icon="ph:star-fill" width={10} />
+                  <span>{show.vote_average.toFixed(1)}</span>
+                </span>
               </div>
             </div>
           ))}
@@ -370,13 +377,13 @@ export default function HomePage() {
       <section id="pricing" className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 space-y-10">
         <div className="text-center max-w-2xl mx-auto space-y-3">
           <span className="text-xs uppercase font-mono tracking-widest text-[#a0a0a0]">
-            06 / Membership
+            06 / Formules
           </span>
           <h2 className="text-2xl sm:text-4xl font-light text-white tracking-tight">
-            Subscription Passes
+            Nos Abonnements
           </h2>
           <p className="text-xs sm:text-sm text-[#a0a0a0] font-light leading-relaxed">
-            Concise, transparent passes with no contracts. Instant WhatsApp line provisioning within 3 minutes of contact.
+            Formules compactes, claires et sans engagement. Provisionnement et activation de votre flux en moins de 3 minutes.
           </p>
         </div>
 
@@ -391,10 +398,10 @@ export default function HomePage() {
       <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 space-y-6">
         <div className="text-center space-y-2">
           <span className="text-xs uppercase font-mono tracking-widest text-[#a0a0a0]">
-            07 / Compatibility
+            07 / Compatibilité
           </span>
           <h3 className="text-xl sm:text-2xl font-light text-white">
-            Universal Hardware Ecosystem
+            Écosystème Matériel Universel
           </h3>
         </div>
 
@@ -420,37 +427,36 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 08. Contact — Minimal WhatsApp CTA */}
+      {/* 08. Contact — Direct Concierge CTA */}
       <section className="max-w-5xl mx-auto px-6 sm:px-10">
         <div className="p-8 sm:p-14 rounded-3xl bg-[#151515] border border-white/15 text-center space-y-6">
           <span className="text-xs uppercase font-mono tracking-widest text-[#a0a0a0]">
-            08 / Direct Assistance
+            08 / Accès &amp; Assistance
           </span>
           <h2 className="text-2xl sm:text-4xl font-light tracking-tight text-white max-w-xl mx-auto">
-            Experience Bespoke 4K Streaming.
+            Découvrez le Streaming Cinématographique NOUDINE.
           </h2>
           <p className="text-xs sm:text-sm text-[#a0a0a0] max-w-md mx-auto font-light leading-relaxed">
-            Connect with our senior engineering team on WhatsApp for instant playlist delivery or a free 24-hour test line.
+            Contactez notre conciergerie pour recevoir vos identifiants ou demander votre accès de démonstration gratuit 24h.
           </p>
 
           <div className="pt-2 flex flex-wrap justify-center gap-3">
             <a
-              href={generateWhatsAppContactUrl("Instant Activation")}
+              href={generateWhatsAppContactUrl("Activation Immédiate")}
               target="_blank"
               rel="noopener noreferrer"
               className="px-7 py-3 rounded-full bg-white text-black hover:bg-[#f2f2f2] text-xs font-semibold tracking-wide transition-all shadow-lg active:scale-95 inline-flex items-center gap-2"
             >
-              <Icon icon="ph:whatsapp-logo" width={16} />
-              <span>{SITE_CONFIG.whatsappDisplayName}</span>
+              <Icon icon="ph:paper-plane-tilt" width={16} />
+              <span>Contacter la Conciergerie VIP</span>
             </a>
-            <a
-              href={generateWhatsAppContactUrl("24h Free VIP Test")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-6 py-3 rounded-full bg-white/10 hover:bg-white/15 text-white text-xs font-medium border border-white/15 transition-all"
+            <Link
+              href="/essai-gratuit"
+              className="px-6 py-3 rounded-full bg-white/10 hover:bg-white/15 text-white text-xs font-medium border border-white/15 transition-all inline-flex items-center gap-2"
             >
-              Request 24h Free Test Line
-            </a>
+              <Icon icon="ph:timer" width={14} />
+              <span>Demander un Essai Gratuit 24H</span>
+            </Link>
           </div>
         </div>
       </section>

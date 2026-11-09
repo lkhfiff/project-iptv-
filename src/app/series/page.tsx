@@ -4,6 +4,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import { Icon } from "@iconify/react";
 import { CURATED_TMDB_SERIES, TMDBMovie, getTMDBImageUrl } from "@/services/tmdb";
+import { SITE_CONFIG } from "@/data/config";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { useMediaModal } from "@/components/SiteLayout";
 import { MediaItem } from "@/data/media";
@@ -136,21 +137,21 @@ export default function SeriesPage() {
       </div>
 
       {/* VOD Request Banner */}
-      <div className="rounded-3xl bg-zinc-950/90 border border-orange-500/30 p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div className="rounded-3xl bg-[#151515] border border-white/10 p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
         <div className="space-y-1 text-center sm:text-left">
-          <h3 className="text-xl sm:text-2xl font-black text-white">
-            Missing a specific series or season?
+          <h3 className="text-xl sm:text-2xl font-light text-white">
+            Une série ou saison introuvable ?
           </h3>
-          <p className="text-zinc-400 text-xs sm:text-sm max-w-xl">
-            Message our WhatsApp concierge with the show title. Our automated library system ingests requests within 24 hours.
+          <p className="text-[#a0a0a0] text-xs sm:text-sm max-w-xl font-light">
+            Transmettez le titre de la série à notre conciergerie VIP. Notre système d&apos;ingestion l&apos;ajoute au catalogue en moins de 24h.
           </p>
         </div>
 
         <WhatsAppButton
-          variant="pill"
+          variant="solid"
           size="lg"
-          label="Request Series on WhatsApp"
-          customMessage="Hello! I would like to request a TV series to be added to the AETHER+ library."
+          label="Demander une Série"
+          customMessage={`Bonjour ! Je souhaite demander l'ajout d'une série au catalogue ${SITE_CONFIG.brandName}.`}
         />
       </div>
     </div>

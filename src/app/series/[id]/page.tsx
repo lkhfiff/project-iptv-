@@ -79,15 +79,15 @@ export default function SeriesDetailsPage({ params }: SeriesDetailsPageProps) {
                 variant="pill"
                 size="lg"
                 showPingDot
-                customMessage={`Hello AETHER+! I want to stream all seasons of "${title}" in 4K. Please activate my subscription.`}
-                label={`Stream "${title}" via WhatsApp`}
+                customMessage={`Bonjour ! Je souhaite visionner la série "${title}" en 4K.`}
+                label={`Visionner "${title}" en 4K`}
               />
 
               <Link
-                href="/pricing"
-                className="px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold text-xs border border-white/15 backdrop-blur-md transition-all active:scale-95"
+                href="/abonnements"
+                className="px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white font-semibold text-xs border border-white/15 backdrop-blur-md transition-all active:scale-95"
               >
-                View Subscription Passes
+                Voir les Formules
               </Link>
             </div>
           </div>

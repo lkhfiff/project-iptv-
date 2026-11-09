@@ -85,7 +85,7 @@ export function PricingCard({ plan }: PricingCardProps) {
         </div>
       </div>
 
-      {/* Compact Minimalist WhatsApp CTA Button */}
+      {/* Compact Minimalist Direct Order CTA Button */}
       <div className="pt-5 border-t border-white/5 mt-4">
         <a
           href={whatsappUrl}
@@ -97,8 +97,8 @@ export function PricingCard({ plan }: PricingCardProps) {
               : "bg-white/10 hover:bg-white/20 text-white border border-white/15"
           }`}
         >
-          <Icon icon="ph:whatsapp-logo" width={15} />
-          <span>Subscribe via WhatsApp</span>
+          <Icon icon="ph:arrow-up-right" width={14} />
+          <span>Activer Mon Accès</span>
         </a>
       </div>
     </div>

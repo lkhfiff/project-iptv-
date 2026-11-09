@@ -86,15 +86,15 @@ export default function MovieDetailsPage({ params }: MovieDetailsPageProps) {
                 variant="pill"
                 size="lg"
                 showPingDot
-                customMessage={`Hello AETHER+! I want to stream "${title}" (${year}) in 4K UHD. Please provide my instant subscription setup.`}
-                label={`Stream "${title}" on WhatsApp`}
+                customMessage={`Bonjour ! Je souhaite visionner le film "${title}" (${year}) en 4K UHD.`}
+                label={`Visionner "${title}" en 4K`}
               />
 
               <Link
-                href="/pricing"
-                className="px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold text-xs border border-white/15 backdrop-blur-md transition-all active:scale-95"
+                href="/abonnements"
+                className="px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white font-semibold text-xs border border-white/15 backdrop-blur-md transition-all active:scale-95"
               >
-                View Subscription Passes
+                Voir les Formules
               </Link>
             </div>
           </div>

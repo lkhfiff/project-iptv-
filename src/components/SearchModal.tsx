@@ -126,7 +126,7 @@ export function SearchModal({ isOpen, onClose, onSelectMedia }: SearchModalProps
               </div>
               <p className="text-zinc-400 font-medium">No direct match found for &ldquo;{query}&rdquo;</p>
               <p className="text-xs text-zinc-500 max-w-sm mx-auto">
-                Request any stream directly via our WhatsApp concierge!
+                Demandez n&apos;importe quel contenu directement à notre conciergerie VIP !
               </p>
             </div>
           ) : (
@@ -165,7 +165,10 @@ export function SearchModal({ isOpen, onClose, onSelectMedia }: SearchModalProps
                               </span>
                               <span>{item.year}</span>
                               <span>•</span>
-                              <span className="text-amber-400">★ {item.rating}</span>
+                              <span className="text-white flex items-center gap-1 font-mono">
+                                <Icon icon="ph:star-fill" width={10} />
+                                {item.rating}
+                              </span>
                             </div>
                             <h5 className="text-sm font-semibold text-white truncate group-hover:text-orange-400 transition-colors">
                               {item.title}
