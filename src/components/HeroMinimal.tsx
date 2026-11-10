@@ -114,7 +114,7 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
       backdrop: "/brands/card-appletv.png",
       poster: "/brands/card-appletv.png",
       fallback: "/brands/card-appletv.png",
-      bgClass: "bg-[#242426]",
+      bgClass: "bg-[#1d1d1f]",
       movie: CURATED_TMDB_SERIES[0],
     },
     {
