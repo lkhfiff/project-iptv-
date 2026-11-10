@@ -190,21 +190,6 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
 
   return (
     <div className="hero-cinema relative w-full min-h-screen flex flex-col justify-between overflow-hidden bg-[#080808] pt-28 pb-12">
-      {/* 1. Full-screen Cinematic Atmosphere Background */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?q=80&w=2560&auto=format&fit=crop"
-          alt="Atmosphère Cinématographique NOUDINE"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-center filter brightness-[0.60] contrast-[1.10]"
-        />
-        {/* Subtle dark vignette overlay for readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-black/60 to-black/40" />
-        <div className="absolute inset-0 bg-radial-gradient from-transparent via-black/45 to-[#080808]/95" />
-      </div>
-
       {/* 2. Hero Headline & Subtitle matching Flowblox reference structure */}
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-4 pt-10 sm:pt-14">
         <motion.h1

@@ -19,12 +19,22 @@ export function Navbar({ onSelectMedia }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchModalOpen, setSearchModalOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     setMobileMenuOpen(false);
     setDropdownOpen(false);
   }, [pathname]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleMouseEnter = () => {
     if (dropdownTimeoutRef.current) clearTimeout(dropdownTimeoutRef.current);
@@ -49,7 +59,13 @@ export function Navbar({ onSelectMedia }: NavbarProps) {
 
   return (
     <>
-      <header className="fixed top-0 inset-x-0 z-50 px-6 sm:px-10 lg:px-14 py-4 transition-all duration-300 bg-black/60 backdrop-blur-2xl border-b border-white/5">
+      <header
+        className={`fixed top-0 inset-x-0 z-50 px-6 sm:px-10 lg:px-14 py-4 sm:py-5 transition-all duration-300 ${
+          scrolled || mobileMenuOpen
+            ? "bg-[#080808]/90 backdrop-blur-xl border-b border-white/5 shadow-lg shadow-black/40"
+            : "bg-transparent border-b border-transparent"
+        }`}
+      >
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           {/* 1. Left Menu Links */}
           <nav className="hidden lg:flex items-center gap-7 flex-1 justify-start">
