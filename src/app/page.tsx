@@ -71,17 +71,17 @@ export default function HomePage() {
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/10 pb-6">
           <div className="space-y-1">
             <span className="text-xs uppercase font-mono tracking-widest text-[#a0a0a0]">
-              01 / Editorial Spotlight
+              01 / Sélection Éditoriale
             </span>
             <h2 className="text-2xl sm:text-4xl font-light tracking-tight text-white">
-              Featured Entertainment
+              Cinéma &amp; Exclusivités
             </h2>
           </div>
           <Link
             href="/movies"
             className="text-xs font-medium text-[#a0a0a0] hover:text-white transition-colors flex items-center gap-1.5"
           >
-            <span>Explore Complete Archive</span>
+            <span>Explorer le Catalogue Complet</span>
             <Icon icon="ph:arrow-right" width={13} />
           </Link>
         </div>
@@ -163,17 +163,17 @@ export default function HomePage() {
         <div className="flex items-end justify-between border-b border-white/10 pb-6">
           <div className="space-y-1">
             <span className="text-xs uppercase font-mono tracking-widest text-[#a0a0a0]">
-              02 / Cinema Gallery
+              02 / Galerie Cinématographique
             </span>
             <h2 className="text-2xl sm:text-3xl font-light text-white tracking-tight">
-              Trending Blockbusters
+              Films &amp; Box-Office
             </h2>
           </div>
           <Link
             href="/movies"
             className="text-xs font-medium text-[#a0a0a0] hover:text-white transition-colors flex items-center gap-1"
           >
-            <span>View All</span>
+            <span>Tout Afficher</span>
             <Icon icon="ph:arrow-right" width={13} />
           </Link>
         </div>
@@ -217,17 +217,17 @@ export default function HomePage() {
         <div className="flex items-end justify-between border-b border-white/10 pb-6">
           <div className="space-y-1">
             <span className="text-xs uppercase font-mono tracking-widest text-[#a0a0a0]">
-              03 / Television
+              03 / Séries Phares
             </span>
             <h2 className="text-2xl sm:text-3xl font-light text-white tracking-tight">
-              Acclaimed Television Series
+              Séries &amp; Productions Originales
             </h2>
           </div>
           <Link
             href="/series"
             className="text-xs font-medium text-[#a0a0a0] hover:text-white transition-colors flex items-center gap-1"
           >
-            <span>View All</span>
+            <span>Tout Afficher</span>
             <Icon icon="ph:arrow-right" width={13} />
           </Link>
         </div>
@@ -256,7 +256,7 @@ export default function HomePage() {
               </div>
 
               <div className="flex items-center justify-between text-xs text-[#a0a0a0] px-1 font-mono">
-                <span>{show.number_of_seasons} Seasons</span>
+                <span>{show.number_of_seasons} Saisons</span>
                 <span className="flex items-center gap-1 text-white">
                   <Icon icon="ph:star-fill" width={10} />
                   <span>{show.vote_average.toFixed(1)}</span>
@@ -272,17 +272,17 @@ export default function HomePage() {
         <div className="flex items-end justify-between border-b border-white/10 pb-6">
           <div className="space-y-1">
             <span className="text-xs uppercase font-mono tracking-widest text-[#a0a0a0]">
-              04 / Broadcast Feeds
+              04 / Flux Télévisés
             </span>
             <h2 className="text-2xl sm:text-3xl font-light text-white tracking-tight">
-              Authorized Live Channels
+              Chaînes en Direct &amp; Satellites
             </h2>
           </div>
           <Link
             href="/live-tv"
             className="text-xs font-medium text-[#a0a0a0] hover:text-white transition-colors flex items-center gap-1"
           >
-            <span>Launch Live TV Player</span>
+            <span>Ouvrir le Lecteur Live TV</span>
             <Icon icon="ph:arrow-right" width={13} />
           </Link>
         </div>
@@ -307,7 +307,7 @@ export default function HomePage() {
                   {ch.name}
                 </h4>
                 <p className="text-xs text-[#a0a0a0] truncate mt-0.5 font-light">
-                  Now: {ch.currentProgram}
+                  En cours: {ch.currentProgram}
                 </p>
               </div>
             </Link>
@@ -320,17 +320,17 @@ export default function HomePage() {
         <div className="flex items-end justify-between border-b border-white/10 pb-6">
           <div className="space-y-1">
             <span className="text-xs uppercase font-mono tracking-widest text-[#a0a0a0]">
-              05 / Matchday Hub
+              05 / Calendrier Sportif
             </span>
             <h2 className="text-2xl sm:text-4xl font-light text-white tracking-tight">
-              Championship Sports
+              Compétitions &amp; Grands Matchs
             </h2>
           </div>
           <Link
             href="/sports"
             className="text-xs font-medium text-[#a0a0a0] hover:text-white transition-colors flex items-center gap-1"
           >
-            <span>Full Matchday Schedule</span>
+            <span>Programme Sportif Intégral</span>
             <Icon icon="ph:arrow-right" width={13} />
           </Link>
         </div>
