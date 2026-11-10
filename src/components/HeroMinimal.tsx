@@ -20,7 +20,6 @@ interface GalleryCardItem {
   backdrop: string;
   poster: string;
   fallback: string;
-  heightClass: string;
   bgClass: string;
   movie: TMDBMovie;
 }
@@ -55,7 +54,7 @@ function GalleryCard({
         zIndex,
       }}
       onClick={onClick}
-      className={`group relative shrink-0 cursor-pointer select-none rounded-2xl md:rounded-3xl overflow-hidden border border-white/20 hover:border-white/60 transition-all duration-500 hover:!scale-105 hover:!translate-y-[-14px] hover:!rotate-0 hover:z-50 shadow-2xl shadow-black/80 w-36 sm:w-48 md:w-56 ${item.bgClass} flex items-center justify-center ${item.heightClass}`}
+      className={`group relative shrink-0 cursor-pointer select-none rounded-2xl md:rounded-3xl overflow-hidden border border-white/20 hover:border-white/60 transition-all duration-500 hover:!scale-105 hover:!translate-y-[-14px] hover:!rotate-0 hover:z-50 shadow-2xl shadow-black/80 w-36 h-[216px] sm:w-44 sm:h-[264px] md:w-52 md:h-[312px] lg:w-56 lg:h-[336px] ${item.bgClass} flex items-center justify-center`}
     >
       {/* Pure Brand Image (600x900 portrait card artwork with the exact matching brand background color) */}
       <div className="relative w-full h-full flex items-center justify-center">
@@ -65,7 +64,7 @@ function GalleryCard({
           fill
           unoptimized
           priority
-          sizes="(max-width: 640px) 150px, (max-width: 1024px) 200px, 240px"
+          sizes="(max-width: 640px) 150px, (max-width: 1024px) 210px, 240px"
           className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
         />
       </div>
@@ -74,7 +73,7 @@ function GalleryCard({
 }
 
 export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
-  // 7 pure cinematic brand cards with backgrounds matching the exact color of each brand image
+  // 7 pure cinematic brand cards with uniform 2:3 aspect ratio matching the brand artwork
   const galleryItems: GalleryCardItem[] = [
     {
       id: "gal-1",
@@ -84,7 +83,6 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
       backdrop: "/brands/card-netflix.png",
       poster: "/brands/card-netflix.png",
       fallback: "/brands/card-netflix.png",
-      heightClass: "h-64 sm:h-72 md:h-80",
       bgClass: "bg-black",
       movie: CURATED_TMDB_MOVIES[0],
     },
@@ -96,7 +94,6 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
       backdrop: "/brands/card-beinsports.png",
       poster: "/brands/card-beinsports.png",
       fallback: "/brands/card-beinsports.png",
-      heightClass: "h-72 sm:h-80 md:h-88",
       bgClass: "bg-[#5c2c90]",
       movie: CURATED_TMDB_MOVIES[1],
     },
@@ -108,7 +105,6 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
       backdrop: "/brands/card-appletv.png",
       poster: "/brands/card-appletv.png",
       fallback: "/brands/card-appletv.png",
-      heightClass: "h-60 sm:h-68 md:h-76",
       bgClass: "bg-[#242426]",
       movie: CURATED_TMDB_SERIES[0],
     },
@@ -120,7 +116,6 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
       backdrop: "/brands/card-canalplus.png",
       poster: "/brands/card-canalplus.png",
       fallback: "/brands/card-canalplus.png",
-      heightClass: "h-68 sm:h-76 md:h-84",
       bgClass: "bg-[#050505]",
       movie: CURATED_TMDB_MOVIES[2],
     },
@@ -132,7 +127,6 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
       backdrop: "/brands/card-disneyplus.png",
       poster: "/brands/card-disneyplus.png",
       fallback: "/brands/card-disneyplus.png",
-      heightClass: "h-72 sm:h-80 md:h-88",
       bgClass: "bg-[#021424]",
       movie: CURATED_TMDB_SERIES[1],
     },
@@ -144,7 +138,6 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
       backdrop: "/brands/card-primevideo.png",
       poster: "/brands/card-primevideo.png",
       fallback: "/brands/card-primevideo.png",
-      heightClass: "h-64 sm:h-72 md:h-80",
       bgClass: "bg-[#0a141e]",
       movie: CURATED_TMDB_MOVIES[3],
     },
@@ -156,7 +149,6 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
       backdrop: "/brands/card-hbomax.png",
       poster: "/brands/card-hbomax.png",
       fallback: "/brands/card-hbomax.png",
-      heightClass: "h-60 sm:h-68 md:h-76",
       bgClass: "bg-[#1c0330]",
       movie: CURATED_TMDB_SERIES[2],
     },
@@ -250,7 +242,7 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
 
       {/* 3. Floating Overlapping Image Gallery (Curved 3D Arc matching reference) */}
       <div className="relative z-10 w-full pt-8 sm:pt-12 pb-4 perspective-container overflow-hidden">
-        <div className="w-full flex items-end justify-center gap-2.5 sm:gap-4 md:gap-5 px-4 sm:px-8 overflow-x-auto no-scrollbar scroll-smooth py-6 [transform-style:preserve-3d]">
+        <div className="w-full flex items-center justify-center gap-2.5 sm:gap-4 md:gap-5 px-4 sm:px-8 overflow-x-auto no-scrollbar scroll-smooth py-6 [transform-style:preserve-3d]">
           {galleryItems.map((item, idx) => (
             <GalleryCard
               key={item.id}
