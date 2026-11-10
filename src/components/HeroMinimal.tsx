@@ -205,18 +205,7 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
       </div>
 
       {/* 2. Centered Typography (Matching Atelier Arc composition with NOUDINE brand) */}
-      <div className="relative z-10 max-w-3xl mx-auto px-6 text-center space-y-4 pt-10 sm:pt-14">
-        {/* Top Tag */}
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-white text-[11px] font-mono tracking-wider"
-        >
-          <Icon icon="ph:television" width={13} />
-          <span>Plateforme Cinématographique • 4K UHD &amp; Dolby Atmos</span>
-        </motion.div>
-
+      <div className="relative z-10 max-w-3xl mx-auto px-6 text-center space-y-4 pt-12 sm:pt-16">
         <motion.h1
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
