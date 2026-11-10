@@ -34,27 +34,36 @@ function GalleryCard({
   onClick: () => void;
 }) {
   const offset = idx - 3;
-  const rotateY = offset * -4.5;
-  const translateY = Math.abs(offset) * 8 - (offset === 0 ? 8 : 0);
-  const scale = offset === 0 ? 1.03 : 1 - Math.abs(offset) * 0.03;
-  const zIndex = 40 - Math.abs(offset) * 5;
+  const distance = Math.abs(offset);
+  const rotateY = offset * -7.5;
+  const zIndex = 25 + distance * 5;
+
+  // Concave panoramic arc heights: outer cards are progressively taller, center card is compact
+  const heightClass =
+    distance === 0
+      ? "h-[250px] sm:h-[280px] md:h-[300px]"
+      : distance === 1
+      ? "h-[290px] sm:h-[325px] md:h-[350px]"
+      : distance === 2
+      ? "h-[340px] sm:h-[385px] md:h-[415px]"
+      : "h-[400px] sm:h-[455px] md:h-[490px]";
 
   return (
     <motion.div
       key={item.id}
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
         duration: 0.9,
-        delay: 0.15 + idx * 0.07,
+        delay: 0.15 + idx * 0.06,
         ease: [0.16, 1, 0.3, 1],
       }}
       style={{
-        transform: `perspective(1200px) rotateY(${rotateY}deg) translateY(${translateY}px) scale(${scale})`,
+        transform: `perspective(1200px) rotateY(${rotateY}deg)`,
         zIndex,
       }}
       onClick={onClick}
-      className={`group relative shrink-0 cursor-pointer select-none rounded-2xl md:rounded-3xl overflow-hidden border border-white/20 hover:border-white/60 transition-all duration-500 hover:!scale-105 hover:!translate-y-[-14px] hover:!rotate-0 hover:z-50 shadow-2xl shadow-black/80 w-36 h-[216px] sm:w-44 sm:h-[264px] md:w-52 md:h-[312px] lg:w-56 lg:h-[336px] ${item.bgClass} flex items-center justify-center`}
+      className={`group relative shrink-0 cursor-pointer select-none rounded-2xl md:rounded-3xl overflow-hidden border border-white/20 hover:border-white/60 transition-all duration-500 hover:!scale-105 hover:!rotate-0 hover:!z-50 shadow-2xl shadow-black/90 w-32 sm:w-40 md:w-48 lg:w-52 ${heightClass} ${item.bgClass} flex items-center justify-center`}
     >
       {/* Pure Brand Image (600x900 portrait card artwork with the exact matching brand background color) */}
       <div className="relative w-full h-full flex items-center justify-center">
@@ -64,7 +73,7 @@ function GalleryCard({
           fill
           unoptimized
           priority
-          sizes="(max-width: 640px) 150px, (max-width: 1024px) 210px, 240px"
+          sizes="(max-width: 640px) 140px, (max-width: 1024px) 190px, 220px"
           className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
         />
       </div>
@@ -73,7 +82,7 @@ function GalleryCard({
 }
 
 export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
-  // 7 pure cinematic brand cards with uniform 2:3 aspect ratio matching the brand artwork
+  // 7 pure cinematic brand cards with concave panoramic amphitheater curve
   const galleryItems: GalleryCardItem[] = [
     {
       id: "gal-1",
@@ -180,8 +189,8 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
   };
 
   return (
-    <div className="hero-cinema relative w-full min-h-screen flex flex-col justify-between overflow-hidden bg-[#080808] pt-28 pb-8">
-      {/* 1. Full-screen Cinematic Photographic Background (Matching Atelier Arc architectural & natural landscape reference) */}
+    <div className="hero-cinema relative w-full min-h-screen flex flex-col justify-between overflow-hidden bg-[#080808] pt-28 pb-12">
+      {/* 1. Full-screen Cinematic Atmosphere Background */}
       <div className="absolute inset-0 z-0">
         <Image
           src="https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?q=80&w=2560&auto=format&fit=crop"
@@ -189,60 +198,56 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center filter brightness-[0.70] contrast-[1.10]"
+          className="object-cover object-center filter brightness-[0.60] contrast-[1.10]"
         />
-        {/* Subtle dark vignette overlay for typography readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-black/55 to-black/35 dark:from-[#080808]" />
-        <div className="absolute inset-0 bg-radial-gradient from-transparent via-black/40 to-[#080808]/95" />
+        {/* Subtle dark vignette overlay for readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-black/60 to-black/40" />
+        <div className="absolute inset-0 bg-radial-gradient from-transparent via-black/45 to-[#080808]/95" />
       </div>
 
-      {/* 2. Centered Typography (Matching Atelier Arc composition with NOUDINE brand) */}
-      <div className="relative z-10 max-w-3xl mx-auto px-6 text-center space-y-4 pt-12 sm:pt-16">
+      {/* 2. Hero Headline & Subtitle matching Flowblox reference structure */}
+      <div className="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-4 pt-10 sm:pt-14">
         <motion.h1
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="text-4xl sm:text-6xl md:text-7xl font-light tracking-tight text-white font-sans"
+          className="text-3xl sm:text-5xl md:text-6xl font-light tracking-tight text-white leading-[1.15]"
         >
-          NOUDINE
+          <span className="font-serif italic font-normal block sm:inline">L&apos;Excellence Cinématographique, </span>
+          <span className="font-sans font-bold block sm:inline">Sublimée en 4K Ultra HD</span>
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="text-xs sm:text-sm text-[#f2f2f2]/90 max-w-lg mx-auto font-light leading-relaxed tracking-wide"
+          className="text-xs sm:text-sm md:text-base text-[#a0a0a0] max-w-xl mx-auto font-light leading-relaxed"
         >
-          Cinéma ultra-haute définition, retransmissions sportives en direct et bouquets mondiaux pour téléviseurs d&apos;exception.
+          Plus de 28 500 chaînes directes mondiales, 135 000 films et séries en 4K HDR avec la technologie Anti-Freeze™ 9.9 — activés en 3 minutes.
         </motion.p>
 
-        {/* Minimal Pill Buttons (Matching "Portfolio" / "Approach" in reference) */}
+        {/* Single Center Pill CTA Button with arrow matching reference */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="pt-2 flex items-center justify-center gap-3"
+          className="pt-2 flex justify-center"
         >
-          <a
-            href="#featured"
-            className="px-6 py-2.5 rounded-full bg-white text-black hover:bg-[#f2f2f2] text-xs font-semibold shadow-xl transition-all active:scale-95 flex items-center gap-1.5"
-          >
-            <span>Explorer le Cinéma</span>
-            <Icon icon="ph:arrow-down" width={12} />
-          </a>
           <Link
-            href="/abonnements"
-            className="px-6 py-2.5 rounded-full bg-white/20 hover:bg-white/30 text-white backdrop-blur-md text-xs font-medium border border-white/15 transition-all active:scale-95 flex items-center gap-1.5"
+            href="/essai-gratuit"
+            className="inline-flex items-center gap-3 pl-6 pr-2 py-2 rounded-full bg-white text-black font-semibold text-xs sm:text-sm hover:bg-[#f2f2f2] shadow-2xl transition-all active:scale-95 group"
           >
-            <span>Nos Abonnements</span>
-            <Icon icon="ph:arrow-up-right" width={12} />
+            <span>Demander un Essai Gratuit 24H</span>
+            <span className="w-7 h-7 rounded-full bg-black text-white flex items-center justify-center group-hover:translate-x-0.5 transition-transform">
+              <Icon icon="ph:arrow-right" width={13} />
+            </span>
           </Link>
         </motion.div>
       </div>
 
-      {/* 3. Floating Overlapping Image Gallery (Curved 3D Arc matching reference) */}
-      <div className="relative z-10 w-full pt-8 sm:pt-12 pb-4 perspective-container overflow-hidden">
-        <div className="w-full flex items-center justify-center gap-2.5 sm:gap-4 md:gap-5 px-4 sm:px-8 overflow-x-auto no-scrollbar scroll-smooth py-6 [transform-style:preserve-3d]">
+      {/* 3. Concave Panoramic 3D Cards Arc (Exact geometry matching Flowblox reference) */}
+      <div className="relative z-10 w-full pt-10 sm:pt-14 pb-6 overflow-hidden perspective-container">
+        <div className="w-full flex items-center justify-center gap-3 sm:gap-4 md:gap-5 px-4 sm:px-8 overflow-x-auto no-scrollbar scroll-smooth py-8 [transform-style:preserve-3d]">
           {galleryItems.map((item, idx) => (
             <GalleryCard
               key={item.id}
@@ -252,38 +257,33 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
             />
           ))}
         </div>
+      </div>
 
-        {/* Bottom Utility Bar (Exact match with reference "Visiter le site" & bottom icon) */}
-        <div className="max-w-7xl mx-auto px-6 sm:px-10 pt-2 flex items-center justify-between">
-          <a
-            href="#featured"
-            className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-[#151515]/75 hover:bg-[#202020]/95 backdrop-blur-xl border border-white/15 text-white text-xs font-medium transition-all shadow-xl active:scale-95 group"
-          >
-            <Icon
-              icon="ph:arrow-up-right"
-              width={14}
-              className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
-            />
-            <span>Visiter le catalogue</span>
-          </a>
-
-          <div className="flex items-center gap-3">
-            <span className="hidden sm:inline-block font-mono text-[11px] text-[#a0a0a0] px-3 py-1 rounded-full bg-white/5 border border-white/10">
-              Anti-Freeze™ 9.9 CDN Cluster
-            </span>
-            <Link
-              href="/essai-gratuit"
-              className="w-10 h-10 rounded-2xl bg-[#151515]/75 hover:bg-[#202020]/95 backdrop-blur-xl border border-white/15 flex items-center justify-center text-white transition-all shadow-xl active:scale-95 group"
-              aria-label="Essai Gratuit 24h"
-              title="Demander un Essai Gratuit 24h"
-            >
-              <Icon
-                icon="ph:sparkle"
-                width={17}
-                className="group-hover:rotate-12 transition-transform"
-              />
-            </Link>
-          </div>
+      {/* 4. Three Feature Columns directly below the cards (Matching reference layout) */}
+      <div className="relative z-10 max-w-6xl mx-auto px-6 sm:px-10 pt-4 pb-2 grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 text-center border-t border-white/5">
+        <div className="space-y-1.5">
+          <h3 className="text-sm sm:text-base font-semibold text-white tracking-tight">
+            Diffusion 4K &amp; Dolby Atmos
+          </h3>
+          <p className="text-xs text-[#a0a0a0] font-light leading-relaxed">
+            Flux non compressés en 60 FPS avec son spatial immersif sur l&apos;ensemble de vos téléviseurs et boîtiers.
+          </p>
+        </div>
+        <div className="space-y-1.5">
+          <h3 className="text-sm sm:text-base font-semibold text-white tracking-tight">
+            Technologie Anti-Freeze™ 9.9
+          </h3>
+          <p className="text-xs text-[#a0a0a0] font-light leading-relaxed">
+            Cluster CDN privé ultra-rapide garantissant 99.9% de disponibilité sans coupure pendant les grands événements sportifs.
+          </p>
+        </div>
+        <div className="space-y-1.5">
+          <h3 className="text-sm sm:text-base font-semibold text-white tracking-tight">
+            Activation VIP en 3 Minutes
+          </h3>
+          <p className="text-xs text-[#a0a0a0] font-light leading-relaxed">
+            Vos identifiants Xtream Codes et liens M3U générés immédiatement par notre conciergerie active 24/7.
+          </p>
         </div>
       </div>
     </div>
