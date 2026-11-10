@@ -33,37 +33,23 @@ function GalleryCard({
   idx: number;
   onClick: () => void;
 }) {
-  const offset = idx - 3;
-  const distance = Math.abs(offset);
-  const rotateY = offset * -7.5;
-  const zIndex = 25 + distance * 5;
-
-  // Concave panoramic arc heights: outer cards are progressively taller, center card is compact
-  const heightClass =
-    distance === 0
-      ? "h-[250px] sm:h-[280px] md:h-[300px]"
-      : distance === 1
-      ? "h-[290px] sm:h-[325px] md:h-[350px]"
-      : distance === 2
-      ? "h-[340px] sm:h-[385px] md:h-[415px]"
-      : "h-[400px] sm:h-[455px] md:h-[490px]";
+  const i = idx - 3;
+  const iAbs = Math.abs(i);
+  const zIndex = 25 + iAbs * 5;
 
   return (
-    <motion.div
+    <div
       key={item.id}
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{
-        duration: 0.9,
-        delay: 0.15 + idx * 0.06,
-        ease: [0.16, 1, 0.3, 1],
-      }}
+      data-i={i}
+      data-index={idx}
       style={{
-        transform: `perspective(1200px) rotateY(${rotateY}deg)`,
+        "--i": i,
+        "--i-abs": iAbs,
+        "--stagger": idx,
         zIndex,
-      }}
+      } as React.CSSProperties}
       onClick={onClick}
-      className={`group relative shrink-0 cursor-pointer select-none rounded-2xl md:rounded-3xl overflow-hidden border border-black/10 hover:border-black/30 dark:border-white/20 dark:hover:border-white/60 transition-all duration-500 hover:!scale-105 hover:!rotate-0 hover:!z-50 shadow-2xl shadow-black/10 dark:shadow-black/90 w-32 sm:w-40 md:w-48 lg:w-52 ${heightClass} ${item.bgClass} flex items-center justify-center`}
+      className={`group relative shrink-0 cursor-pointer select-none rounded-[20px] overflow-hidden border border-black/10 hover:border-black/30 dark:border-white/20 dark:hover:border-white/60 shadow-xl shadow-black/15 dark:shadow-black/80 w-32 sm:w-40 md:w-48 lg:w-52 ${item.bgClass} flex items-center justify-center`}
     >
       {/* Pure Brand Image (600x900 portrait card artwork with the exact matching brand background color) */}
       <div className="relative w-full h-full flex items-center justify-center">
@@ -77,7 +63,7 @@ function GalleryCard({
           className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
         />
       </div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -92,7 +78,7 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
       backdrop: "/brands/card-netflix.png",
       poster: "/brands/card-netflix.png",
       fallback: "/brands/card-netflix.png",
-      bgClass: "bg-black",
+      bgClass: "bg-[#1f272e]",
       movie: CURATED_TMDB_MOVIES[0],
     },
     {
@@ -103,7 +89,7 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
       backdrop: "/brands/card-beinsports.png",
       poster: "/brands/card-beinsports.png",
       fallback: "/brands/card-beinsports.png",
-      bgClass: "bg-[#5c2c90]",
+      bgClass: "bg-[#3d2b35]",
       movie: CURATED_TMDB_MOVIES[1],
     },
     {
@@ -114,7 +100,7 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
       backdrop: "/brands/card-appletv.png",
       poster: "/brands/card-appletv.png",
       fallback: "/brands/card-appletv.png",
-      bgClass: "bg-[#1d1d1f]",
+      bgClass: "bg-[#26342d]",
       movie: CURATED_TMDB_SERIES[0],
     },
     {
@@ -125,7 +111,7 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
       backdrop: "/brands/card-canalplus.png",
       poster: "/brands/card-canalplus.png",
       fallback: "/brands/card-canalplus.png",
-      bgClass: "bg-[#050505]",
+      bgClass: "bg-[#383127]",
       movie: CURATED_TMDB_MOVIES[2],
     },
     {
@@ -136,7 +122,7 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
       backdrop: "/brands/card-disneyplus.png",
       poster: "/brands/card-disneyplus.png",
       fallback: "/brands/card-disneyplus.png",
-      bgClass: "bg-[#021424]",
+      bgClass: "bg-[#34243b]",
       movie: CURATED_TMDB_SERIES[1],
     },
     {
@@ -147,7 +133,7 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
       backdrop: "/brands/card-primevideo.png",
       poster: "/brands/card-primevideo.png",
       fallback: "/brands/card-primevideo.png",
-      bgClass: "bg-[#0a141e]",
+      bgClass: "bg-[#26342d]",
       movie: CURATED_TMDB_MOVIES[3],
     },
     {
@@ -158,7 +144,7 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
       backdrop: "/brands/card-hbomax.png",
       poster: "/brands/card-hbomax.png",
       fallback: "/brands/card-hbomax.png",
-      bgClass: "bg-[#1c0330]",
+      bgClass: "bg-[#3d2b35]",
       movie: CURATED_TMDB_SERIES[2],
     },
   ];

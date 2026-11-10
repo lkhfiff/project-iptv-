@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
 import { HeroMinimal } from "@/components/HeroMinimal";
+import { BentoFeatures } from "@/components/BentoFeatures";
 import { PricingCard } from "@/components/PricingCard";
 import { FAQAccordion } from "@/components/FAQAccordion";
 import { useMediaModal } from "@/components/SiteLayout";
@@ -66,97 +67,8 @@ export default function HomePage() {
       {/* 1. Full-Screen Hero & Floating Image Gallery (Matching the reference screenshot) */}
       <HeroMinimal onSelectMedia={openModal} />
 
-      {/* 01. Featured Entertainment — Editorial Style */}
-      <section id="featured" className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 space-y-12">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-black/10 dark:border-white/10 pb-6">
-          <div className="space-y-1">
-            <span className="text-xs uppercase font-mono tracking-widest text-zinc-500 dark:text-[#a0a0a0]">
-              01 / Sélection Éditoriale
-            </span>
-            <h2 className="text-2xl sm:text-4xl font-light tracking-tight text-zinc-950 dark:text-white">
-              Cinéma &amp; Exclusivités
-            </h2>
-          </div>
-          <Link
-            href="/movies"
-            className="text-xs font-medium text-zinc-600 dark:text-[#a0a0a0] hover:text-black dark:hover:text-white transition-colors flex items-center gap-1.5"
-          >
-            <span>Explorer le Catalogue Complet</span>
-            <Icon icon="ph:arrow-right" width={13} />
-          </Link>
-        </div>
-
-        {/* Large Editorial Diptych */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
-          {/* Main Large Feature */}
-          <div
-            onClick={() => handleOpenMovie(CURATED_TMDB_MOVIES[0])}
-            className="group relative rounded-3xl overflow-hidden bg-white dark:bg-[#151515] border border-black/10 dark:border-white/10 hover:border-black/25 dark:hover:border-white/30 transition-all duration-500 cursor-pointer flex flex-col justify-between min-h-[440px] shadow-xl shadow-black/5 dark:shadow-none"
-          >
-            <div className="relative w-full h-80 overflow-hidden bg-black">
-              <Image
-                src={getTMDBImageUrl(CURATED_TMDB_MOVIES[0].backdrop_path, "w1280")}
-                alt={CURATED_TMDB_MOVIES[0].title}
-                fill
-                sizes="(max-width: 1024px) 100vw, 700px"
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105 filter brightness-[0.88]"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent dark:from-[#151515] dark:via-transparent dark:to-transparent" />
-            </div>
-
-            <div className="p-8 space-y-3 relative z-10">
-              <div className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-wider text-zinc-500 dark:text-[#a0a0a0]">
-                <span>Science Fiction</span>
-                <span>•</span>
-                <span>4K UHD • Dolby Atmos</span>
-                <span>•</span>
-                <span className="flex items-center gap-1 text-zinc-950 dark:text-white font-medium">
-                  <Icon icon="ph:star-fill" width={11} />
-                  <span>{CURATED_TMDB_MOVIES[0].vote_average}</span>
-                </span>
-              </div>
-              <h3 className="text-2xl sm:text-3xl font-light text-zinc-950 dark:text-white tracking-tight">
-                {CURATED_TMDB_MOVIES[0].title}
-              </h3>
-              <p className="text-xs text-zinc-600 dark:text-[#a0a0a0] line-clamp-2 leading-relaxed font-light">
-                {CURATED_TMDB_MOVIES[0].overview}
-              </p>
-            </div>
-          </div>
-
-          {/* Secondary Editorial Column */}
-          <div className="flex flex-col gap-6 justify-between">
-            {CURATED_TMDB_MOVIES.slice(1, 3).map((item) => (
-              <div
-                key={item.id}
-                onClick={() => handleOpenMovie(item)}
-                className="group relative rounded-3xl overflow-hidden bg-white dark:bg-[#151515] border border-black/10 dark:border-white/10 hover:border-black/25 dark:hover:border-white/30 transition-all duration-300 p-6 flex flex-col sm:flex-row gap-6 cursor-pointer flex-1 items-center shadow-lg shadow-black/5 dark:shadow-none"
-              >
-                <div className="relative w-full sm:w-48 h-40 rounded-2xl overflow-hidden shrink-0 bg-black">
-                  <Image
-                    src={getTMDBImageUrl(item.backdrop_path, "w500")}
-                    alt={item.title}
-                    fill
-                    sizes="200px"
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <div className="space-y-2 flex-1">
-                  <div className="text-[10px] uppercase font-mono tracking-wider text-zinc-500 dark:text-[#a0a0a0]">
-                    Release {new Date(item.release_date || "").getFullYear()} • 4K HDR
-                  </div>
-                  <h4 className="text-lg font-medium text-zinc-950 dark:text-white tracking-tight">
-                    {item.title}
-                  </h4>
-                  <p className="text-xs text-zinc-600 dark:text-[#a0a0a0] line-clamp-2 leading-relaxed font-light">
-                    {item.overview}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* 2. Asymmetric Bento Features Grid (Matching Flowblox Reference Structure) */}
+      <BentoFeatures />
 
       {/* 02. Trending Movies — Horizontal Poster Gallery */}
       <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 space-y-8">

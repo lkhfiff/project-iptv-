@@ -113,25 +113,98 @@ html.light .glass-card-hover:hover {
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
 }
 
-/* Curved Gallery Perspective */
+/* =========================================================
+   CONCAVE CURVED CARDS ROW (Exact Flowblox Reference Arc)
+   ========================================================= */
 .perspective-container {
-  perspective: 1400px;
+  perspective: 1200px !important;
+  transform-style: preserve-3d;
+  overflow: hidden;
+  width: 100%;
 }
 
-/* Smooth Image Revealer */
-@keyframes fadeInScale {
+.perspective-container > div {
+  transform-style: preserve-3d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+@keyframes cardEntrance {
   0% {
     opacity: 0;
-    transform: translateY(20px) scale(0.96);
+    transform: translateY(24px) rotateY(calc(var(--i) * -12deg)) translateZ(calc(var(--i-abs) * 20px));
   }
   100% {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0) rotateY(calc(var(--i) * -12deg)) translateZ(calc(var(--i-abs) * 20px));
   }
 }
 
-.animate-fade-scale {
-  animation: fadeInScale 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.perspective-container .group {
+  --i: 0;
+  --i-abs: 0;
+  --card-base: 220px;
+  --card-step: 40px;
+
+  height: calc(var(--card-base) + var(--i-abs) * var(--card-step)) !important;
+  transform: rotateY(calc(var(--i) * -12deg)) translateZ(calc(var(--i-abs) * 20px));
+  transform-style: preserve-3d;
+  border-radius: 20px !important;
+  overflow: hidden !important;
+  box-shadow: 0 16px 36px -6px rgba(0, 0, 0, 0.35);
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 300ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+  animation: cardEntrance 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--stagger, 0) * 80ms);
+  will-change: transform;
+}
+
+.perspective-container .group:hover {
+  transform: translateY(-8px) scale(1.03) rotateY(calc(var(--i) * -12deg)) translateZ(calc(var(--i-abs) * 20px)) !important;
+  box-shadow: 0 24px 48px -4px rgba(0, 0, 0, 0.5);
+  z-index: 50 !important;
+}
+
+.perspective-container .group img {
+  object-fit: cover !important;
+}
+
+/* Responsive: 5 cards on mobile, 3 cards on small mobile */
+@media (max-width: 768px) {
+  .perspective-container .group {
+    --card-base: 190px;
+    --card-step: 28px;
+  }
+}
+
+@media (max-width: 640px) {
+  .perspective-container > div {
+    gap: 12px;
+  }
+  .perspective-container .group {
+    --card-base: 170px;
+    --card-step: 20px;
+  }
+  .perspective-container .group[data-i="-3"],
+  .perspective-container .group[data-i="3"] {
+    display: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .perspective-container > div {
+    gap: 10px;
+  }
+  .perspective-container .group {
+    --card-base: 150px;
+    --card-step: 15px;
+    border-radius: 16px !important;
+  }
+  .perspective-container .group[data-i="-2"],
+  .perspective-container .group[data-i="2"] {
+    display: none !important;
+  }
 }
 
 /* =========================================================
