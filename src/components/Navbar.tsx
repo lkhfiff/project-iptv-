@@ -1,253 +1,292 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Icon } from "@iconify/react";
-import { SITE_CONFIG } from "@/data/config";
-import { useLanguage, Language } from "@/context/LanguageContext";
+import { SITE_CONFIG, generateDirectContactUrl } from "@/data/config";
+import { useTheme } from "@/context/ThemeContext";
+import { MediaItem } from "@/data/media";
 
-export interface NavbarProps {
-  onSelectMedia?: (item?: any) => void;
+interface NavbarProps {
+  onSelectMedia?: (item: MediaItem) => void;
 }
 
-export function Navbar({ onSelectMedia }: NavbarProps = {}) {
+export function Navbar({ onSelectMedia }: NavbarProps) {
   const pathname = usePathname();
-  const { language, setLanguage, t, isRTL } = useLanguage();
+  const { theme, toggleTheme } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [visible, setVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-  const [langDropdownOpen, setLangDropdownOpen] = useState(false);
+  const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     setMobileMenuOpen(false);
-    setLangDropdownOpen(false);
+    setDropdownOpen(false);
   }, [pathname]);
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      setScrolled(currentScrollY > 20);
-
-      // Hide navbar when scrolling down, show when scrolling up
-      if (currentScrollY > 150) {
-        if (currentScrollY > lastScrollY && !mobileMenuOpen) {
-          setVisible(false);
-        } else {
-          setVisible(true);
-        }
-      } else {
-        setVisible(true);
-      }
-      setLastScrollY(currentScrollY);
+      setScrolled(window.scrollY > 20);
     };
-
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY, mobileMenuOpen]);
+  }, []);
 
-  const navLinks = [
-    { label: t.nav.home, href: "/" },
-    { label: t.nav.channels, href: "/chaines" },
-    { label: t.nav.pricing, href: "/tarifs" },
-    { label: t.nav.devices, href: "/appareils" },
-    { label: t.nav.freeTrial, href: "/essai-gratuit" },
-    { label: t.nav.faq, href: "/faq" },
-    { label: t.nav.contact, href: "/contact" },
-  ];
+  const handleMouseEnter = () => {
+    if (dropdownTimeoutRef.current) clearTimeout(dropdownTimeoutRef.current);
+    setDropdownOpen(true);
+  };
 
-  const languages: { code: Language; label: string; flag: string }[] = [
-    { code: "fr", label: "Français", flag: "🇫🇷" },
-    { code: "en", label: "English", flag: "🇬🇧" },
-    { code: "ar", label: "العربية", flag: "🇲🇦" },
+  const handleMouseLeave = () => {
+    dropdownTimeoutRef.current = setTimeout(() => {
+      setDropdownOpen(false);
+    }, 250);
+  };
+
+  const conciergeUrl = generateDirectContactUrl("Accès Concierge VIP");
+
+  const subscriptionSublinks = [
+    { label: "1 Mois • 12 €", href: "/abonnements#pricing", subtitle: "Formule Découverte" },
+    { label: "3 Mois • 25 €", href: "/abonnements#pricing", subtitle: "Trimestriel Essentiel" },
+    { label: "6 Mois • 39 €", href: "/abonnements#pricing", subtitle: "Semestriel Populaire" },
+    { label: "12 Mois • 59 €", href: "/abonnements#pricing", subtitle: "Recommandé • VIP Pass", isRecommended: true },
+    { label: "Voir tous les abonnements", href: "/abonnements", subtitle: "Tableau comparatif complet" },
   ];
 
   return (
     <>
       <header
-        className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 transform ${
-          visible ? "translate-y-0" : "-translate-y-full"
-        } ${
+        className={`fixed top-0 inset-x-0 z-50 px-6 sm:px-10 lg:px-14 py-4 sm:py-5 transition-all duration-300 ${
           scrolled || mobileMenuOpen
-            ? "bg-[#07070a]/90 backdrop-blur-xl border-b border-white/[0.06] shadow-2xl shadow-black/60 py-3.5"
-            : "bg-transparent border-b border-transparent py-5"
+            ? "bg-white/90 dark:bg-[#080808]/90 backdrop-blur-xl border-b border-black/5 dark:border-white/5 shadow-lg shadow-black/5 dark:shadow-black/40"
+            : "bg-transparent border-b border-transparent"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 sm:px-10 flex items-center justify-between">
-          {/* Brand Logo */}
-          <Link
-            href="/"
-            className="flex items-center gap-2 group tracking-tight"
-          >
-            <span className="text-xl sm:text-2xl font-black tracking-widest text-white group-hover:text-sky-400 transition-colors uppercase">
-              {SITE_CONFIG.brandName}
-            </span>
-            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-400 border border-sky-500/30">
-              IPTV
-            </span>
-          </Link>
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          {/* 1. Left Menu Links */}
+          <nav className="hidden lg:flex items-center gap-7 flex-1 justify-start">
+            <Link
+              href="/"
+              className={`text-xs tracking-wider transition-colors ${
+                pathname === "/"
+                  ? "text-zinc-950 dark:text-white font-semibold"
+                  : "text-zinc-600 dark:text-[#a0a0a0] hover:text-black dark:hover:text-white"
+              }`}
+            >
+              Accueil
+            </Link>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
-            {navLinks.map((link) => {
-              const isActive =
-                link.href === "/"
-                  ? pathname === "/"
-                  : pathname.startsWith(link.href);
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`text-xs xl:text-sm font-medium transition-all duration-200 relative ${
-                    isActive
-                      ? "text-sky-400 font-semibold"
-                      : "text-zinc-400 hover:text-white"
-                  }`}
-                >
-                  {link.label}
-                  {isActive && (
-                    <span className="absolute -bottom-1.5 left-0 right-0 h-0.5 bg-sky-400 rounded-full" />
-                  )}
-                </Link>
-              );
-            })}
-          </nav>
-
-          {/* Right Actions: Language Switcher + CTA */}
-          <div className="hidden md:flex items-center gap-4">
-            {/* Language Switcher */}
-            <div className="relative">
-              <button
-                onClick={() => setLangDropdownOpen(!langDropdownOpen)}
-                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.06] text-xs font-medium text-zinc-300 hover:text-white transition-colors"
-                aria-label="Changer de langue"
+            {/* abonnements ⌵ with Dropdown */}
+            <div
+              className="relative"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              <Link
+                href="/abonnements"
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+                className={`text-xs tracking-wider transition-colors flex items-center gap-1 ${
+                  pathname.startsWith("/abonnements") || pathname.startsWith("/pricing")
+                    ? "text-zinc-950 dark:text-white font-semibold"
+                    : "text-zinc-600 dark:text-[#a0a0a0] hover:text-black dark:hover:text-white"
+                }`}
               >
-                <Icon icon="ph:globe" width={15} className="text-sky-400" />
-                <span className="uppercase">{language}</span>
-                <Icon icon="ph:caret-down" width={12} />
-              </button>
+                <span>Abonnements</span>
+                <Icon
+                  icon="ph:caret-down"
+                  width={11}
+                  className={`transition-transform duration-200 ${dropdownOpen ? "rotate-180" : ""}`}
+                />
+              </Link>
 
-              {langDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-36 py-1.5 rounded-xl bg-[#0f0f14] border border-white/10 shadow-2xl z-50 animate-in fade-in zoom-in-95 duration-150">
-                  {languages.map((lang) => (
-                    <button
-                      key={lang.code}
-                      onClick={() => {
-                        setLanguage(lang.code);
-                        setLangDropdownOpen(false);
-                      }}
-                      className={`w-full flex items-center justify-between px-3.5 py-2 text-xs transition-colors ${
-                        language === lang.code
-                          ? "text-sky-400 bg-sky-500/10 font-semibold"
-                          : "text-zinc-300 hover:bg-white/[0.05] hover:text-white"
+              {/* Sub-menu Dropdown */}
+              {dropdownOpen && (
+                <div className="absolute top-full left-0 mt-3 w-64 rounded-2xl bg-white/95 dark:bg-[#151515]/95 backdrop-blur-2xl border border-black/10 dark:border-white/12 p-2 shadow-2xl space-y-1 animate-in fade-in zoom-in-95 duration-150 z-50">
+                  <div className="px-3 py-1.5 text-[10px] uppercase font-mono tracking-wider text-zinc-500 dark:text-[#a0a0a0]/60 border-b border-black/5 dark:border-white/5">
+                    Formules Disponibles
+                  </div>
+                  {subscriptionSublinks.map((sub) => (
+                    <Link
+                      key={sub.label}
+                      href={sub.href}
+                      onClick={() => setDropdownOpen(false)}
+                      className={`block px-3 py-2 rounded-xl text-xs transition-colors ${
+                        sub.isRecommended
+                          ? "bg-black/5 dark:bg-white/10 text-zinc-950 dark:text-white font-semibold"
+                          : "text-zinc-700 dark:text-[#f2f2f2] hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white"
                       }`}
                     >
-                      <span className="flex items-center gap-2">
-                        <span>{lang.flag}</span>
-                        <span>{lang.label}</span>
+                      <div className="flex items-center justify-between">
+                        <span>{sub.label}</span>
+                        {sub.isRecommended && (
+                          <span className="text-[9px] px-1.5 py-0.5 rounded bg-black text-white dark:bg-white dark:text-black font-bold">
+                            TOP
+                          </span>
+                        )}
+                      </div>
+                      <span className="text-[10px] text-zinc-500 dark:text-[#a0a0a0] block font-light">
+                        {sub.subtitle}
                       </span>
-                      {language === lang.code && (
-                        <Icon icon="ph:check-bold" width={12} />
-                      )}
-                    </button>
+                    </Link>
                   ))}
                 </div>
               )}
             </div>
 
-            {/* Trial CTA button */}
             <Link
               href="/essai-gratuit"
-              className="px-4 py-2 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 text-xs font-semibold text-white transition-all duration-200"
+              className={`text-xs tracking-wider transition-colors ${
+                pathname === "/essai-gratuit"
+                  ? "text-zinc-950 dark:text-white font-semibold"
+                  : "text-zinc-600 dark:text-[#a0a0a0] hover:text-black dark:hover:text-white"
+              }`}
             >
-              {t.nav.freeTrial}
+              <span>Essai Gratuit</span>
+            </Link>
+          </nav>
+
+          {/* 2. Brand Logo Dead Center - NOUDINE */}
+          <Link
+            href="/"
+            className="flex items-center justify-center shrink-0 group select-none transition-opacity hover:opacity-85 px-4"
+          >
+            <span className="text-xl sm:text-2xl font-light tracking-[0.25em] text-zinc-950 dark:text-white font-sans">
+              NOUDINE
+            </span>
+          </Link>
+
+          {/* 3. Right Menu Links & Pill CTA */}
+          <div className="hidden lg:flex items-center gap-6 xl:gap-7 flex-1 justify-end">
+            <Link
+              href="/revendeur"
+              className={`text-xs tracking-wider transition-colors ${
+                pathname === "/revendeur"
+                  ? "text-zinc-950 dark:text-white font-semibold"
+                  : "text-zinc-600 dark:text-[#a0a0a0] hover:text-black dark:hover:text-white"
+              }`}
+            >
+              Revendeur IPTV
             </Link>
 
-            {/* Primary Order CTA */}
             <Link
-              href="/tarifs"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-black font-bold text-xs shadow-lg shadow-sky-500/25 transition-all duration-200 active:scale-95 group"
+              href="/contact"
+              className={`text-xs tracking-wider transition-colors ${
+                pathname === "/contact"
+                  ? "text-zinc-950 dark:text-white font-semibold"
+                  : "text-zinc-600 dark:text-[#a0a0a0] hover:text-black dark:hover:text-white"
+              }`}
             >
-              <span>{t.nav.orderNow}</span>
-              <Icon
-                icon="ph:arrow-right-bold"
-                width={12}
-                className="group-hover:translate-x-0.5 transition-transform"
-              />
+              Contact
+            </Link>
+
+            <button
+              onClick={toggleTheme}
+              className="text-zinc-600 dark:text-[#a0a0a0] hover:text-black dark:hover:text-white p-1 rounded-full hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer transition-colors"
+              aria-label="Thème"
+              title={theme === "dark" ? "Mode Clair" : "Mode Sombre"}
+            >
+              <Icon icon={theme === "dark" ? "ph:sun-dim" : "ph:moon"} width={16} />
+            </button>
+
+            {/* Pill CTA button with arrow inside circle */}
+            <Link
+              href="/abonnements"
+              className="pl-4 pr-1.5 py-1.5 rounded-full bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-[#f2f2f2] text-xs font-semibold tracking-wide transition-all shadow-lg active:scale-95 flex items-center gap-2.5 group/btn"
+            >
+              <span>Activer Mon Accès</span>
+              <span className="w-6 h-6 rounded-full bg-white text-black dark:bg-black dark:text-white flex items-center justify-center group-hover/btn:translate-x-0.5 transition-transform">
+                <Icon icon="ph:arrow-right" width={11} />
+              </span>
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="flex items-center gap-2.5 lg:hidden">
-            {/* Quick Lang Switch */}
+          {/* Mobile Right Controls */}
+          <div className="flex lg:hidden items-center gap-2">
             <button
-              onClick={() => {
-                const nextLang: Language =
-                  language === "fr" ? "en" : language === "en" ? "ar" : "fr";
-                setLanguage(nextLang);
-              }}
-              className="px-2 py-1 rounded bg-white/[0.05] border border-white/[0.08] text-[11px] font-semibold text-sky-400 uppercase"
+              onClick={toggleTheme}
+              className="w-8 h-8 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-zinc-900 dark:text-white flex items-center justify-center"
+              aria-label="Thème"
             >
-              {language}
+              <Icon icon={theme === "dark" ? "ph:sun-dim" : "ph:moon"} width={15} />
             </button>
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg bg-white/[0.05] border border-white/[0.08] text-zinc-300 hover:text-white"
-              aria-label="Toggle menu"
+              className="w-8 h-8 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-zinc-900 dark:text-white flex items-center justify-center cursor-pointer"
+              aria-label="Menu"
             >
-              <Icon
-                icon={mobileMenuOpen ? "ph:x-bold" : "ph:list-bold"}
-                width={20}
-              />
+              <Icon icon={mobileMenuOpen ? "ph:x" : "ph:list"} width={16} />
             </button>
           </div>
         </div>
-      </header>
 
-      {/* Mobile Drawer */}
-      {mobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-[#07070a]/95 backdrop-blur-2xl lg:hidden pt-24 px-6 pb-10 flex flex-col justify-between animate-in fade-in duration-200">
-          <nav className="space-y-4">
-            {navLinks.map((link) => {
-              const isActive =
-                link.href === "/"
-                  ? pathname === "/"
-                  : pathname.startsWith(link.href);
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`block py-2.5 text-base font-semibold transition-colors ${
-                    isActive ? "text-sky-400" : "text-zinc-300 hover:text-white"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              );
-            })}
-          </nav>
-
-          <div className="space-y-3 pt-6 border-t border-white/[0.08]">
+        {/* Mobile Navigation Drawer */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden mt-3 max-w-7xl mx-auto bg-white/95 dark:bg-[#151515]/95 backdrop-blur-2xl border border-black/10 dark:border-white/10 rounded-2xl p-4 space-y-2 animate-in fade-in duration-200">
+            <Link
+              href="/"
+              className={`block px-4 py-2.5 rounded-xl text-xs font-medium transition-colors ${
+                pathname === "/"
+                  ? "bg-black text-white dark:bg-white dark:text-black font-semibold"
+                  : "text-zinc-600 dark:text-[#a0a0a0]"
+              }`}
+            >
+              Accueil
+            </Link>
+            <Link
+              href="/abonnements"
+              className={`block px-4 py-2.5 rounded-xl text-xs font-medium transition-colors ${
+                pathname.startsWith("/abonnements")
+                  ? "bg-black text-white dark:bg-white dark:text-black font-semibold"
+                  : "text-zinc-600 dark:text-[#a0a0a0]"
+              }`}
+            >
+              Nos Abonnements
+            </Link>
             <Link
               href="/essai-gratuit"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block w-full py-3 text-center rounded-xl bg-white/[0.08] text-white font-semibold text-sm border border-white/10"
+              className={`block px-4 py-2.5 rounded-xl text-xs font-medium transition-colors ${
+                pathname === "/essai-gratuit"
+                  ? "bg-black text-white dark:bg-white dark:text-black font-semibold"
+                  : "text-zinc-600 dark:text-[#a0a0a0]"
+              }`}
             >
-              {t.nav.freeTrial}
+              Essai Gratuit 24H
             </Link>
             <Link
-              href="/tarifs"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block w-full py-3 text-center rounded-xl bg-sky-500 text-black font-bold text-sm shadow-lg shadow-sky-500/25"
+              href="/revendeur"
+              className={`block px-4 py-2.5 rounded-xl text-xs font-medium transition-colors ${
+                pathname === "/revendeur"
+                  ? "bg-black text-white dark:bg-white dark:text-black font-semibold"
+                  : "text-zinc-600 dark:text-[#a0a0a0]"
+              }`}
             >
-              {t.nav.orderNow}
+              Revendeur IPTV
             </Link>
+            <Link
+              href="/contact"
+              className={`block px-4 py-2.5 rounded-xl text-xs font-medium transition-colors ${
+                pathname === "/contact"
+                  ? "bg-black text-white dark:bg-white dark:text-black font-semibold"
+                  : "text-zinc-600 dark:text-[#a0a0a0]"
+              }`}
+            >
+              Contact &amp; Conciergerie
+            </Link>
+            <div className="pt-2">
+              <Link
+                href="/abonnements"
+                className="w-full py-2.5 rounded-xl bg-black text-white dark:bg-white dark:text-black font-semibold text-xs flex items-center justify-center gap-2"
+              >
+                <span>Activer Mon Accès</span>
+                <Icon icon="ph:arrow-right" width={13} />
+              </Link>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </header>
     </>
   );
 }

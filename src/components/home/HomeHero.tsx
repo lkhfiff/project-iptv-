@@ -1,221 +1,305 @@
 "use client";
 
-import React from "react";
+import React, { useState, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { Icon } from "@iconify/react";
-import { SITE_CONFIG } from "@/data/config";
 import { useLanguage } from "@/context/LanguageContext";
 
 export function HomeHero() {
-  const { t, isRTL } = useLanguage();
+  const { t } = useLanguage();
+  const [imageError, setImageError] = useState(false);
+  const heroRef = useRef<HTMLElement>(null);
+  const shouldReduceMotion = useReducedMotion();
+
+  // Scroll parallax for side words
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+
+  const leftWordX = useTransform(
+    scrollYProgress,
+    [0, 1],
+    shouldReduceMotion ? [0, 0] : [0, -120]
+  );
+  const rightWordX = useTransform(
+    scrollYProgress,
+    [0, 1],
+    shouldReduceMotion ? [0, 0] : [0, 120]
+  );
 
   return (
-    <section className="relative min-h-[92vh] flex flex-col justify-center items-center overflow-hidden pt-12 pb-20">
-      {/* Background radial glow */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-sky-500/15 rounded-full blur-[140px] pointer-events-none -z-10" />
-      <div className="absolute top-1/3 left-1/4 w-[400px] h-[300px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none -z-10" />
-
-      {/* Grid Pattern overlay */}
+    <section
+      ref={heroRef}
+      className="relative min-h-screen w-full flex flex-col justify-between overflow-hidden pt-24 sm:pt-28 pb-10 select-none"
+      style={{
+        backgroundColor: "var(--hero-bg, #050507)",
+        color: "var(--hero-text, #ffffff)",
+      }}
+    >
+      {/* Subtle radial glow behind center subject */}
       <div
-        className="absolute inset-0 opacity-[0.03] pointer-events-none -z-10"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] sm:w-[900px] h-[500px] sm:h-[650px] rounded-full pointer-events-none -z-0"
         style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
-          backgroundSize: "32px 32px",
+          background:
+            "radial-gradient(circle at center, rgba(14, 165, 233, 0.18) 0%, rgba(14, 165, 233, 0.04) 50%, transparent 75%)",
+          filter: "blur(40px)",
         }}
       />
 
-      <div className="max-w-6xl mx-auto px-6 text-center space-y-8 z-10">
-        {/* Top Trust Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-500/10 border border-sky-500/25 text-sky-400 text-xs font-semibold tracking-wider uppercase"
-        >
-          <Icon icon="ph:broadcast-fill" width={14} className="text-sky-400" />
-          <span>{t.hero.badge}</span>
-        </motion.div>
+      {/* Grid texture overlay */}
+      <div
+        className="absolute inset-0 opacity-[0.025] pointer-events-none -z-0"
+        style={{
+          backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
+          backgroundSize: "36px 36px",
+        }}
+      />
 
-        {/* Main Headline */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.1 }}
-          className="space-y-2"
-        >
-          <h1 className="headline-fluid font-black text-white tracking-tight">
-            <span>{t.hero.headline} </span>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-cyan-300 to-blue-500">
-              {t.hero.headlineHighlight}
-            </span>
-          </h1>
-        </motion.div>
+      {/* TOP / CENTER: 3 Giant Words & Overlapping Cutout Subject */}
+      <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-auto flex flex-col items-center justify-center">
+        {/* DESKTOP & TABLET: Horizontal Staggered Spread */}
+        <div className="relative w-full min-h-[480px] sm:min-h-[580px] lg:min-h-[640px] flex items-center justify-center">
+          {/* 3 GIANT WORDS (LAYER: z-10 BEHIND SUBJECT) */}
+          <div className="absolute inset-0 z-10 flex flex-col justify-between pointer-events-none">
+            {/* Word 1: Left */}
+            <motion.div
+              initial={{ opacity: 0, x: -80 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              style={{ x: leftWordX }}
+              className="text-left"
+            >
+              <h1 className="hero-giant-word text-white font-bold">
+                Toutes vos chaînes.
+              </h1>
+              <p className="hidden lg:block text-xs uppercase tracking-[0.25em] text-zinc-500 font-semibold mt-1">
+                Sport 4K • Cinéma Récent • VOD Illimitée
+              </p>
+            </motion.div>
 
-        {/* Short Subtitle */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="subheadline-fluid text-zinc-300 max-w-2xl mx-auto font-normal leading-relaxed"
-        >
-          {t.hero.subtitle}
-        </motion.p>
+            {/* Word 2: Center with Accent Cyan-Blue Gradient */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 30 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+              className="text-center my-auto"
+            >
+              <span className="hero-giant-word font-bold text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-cyan-300 to-blue-500 drop-shadow-[0_0_35px_rgba(14,165,233,0.35)]">
+                Zéro coupure.
+              </span>
+            </motion.div>
 
-        {/* Two CTAs */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4"
-        >
-          {/* Primary CTA */}
-          <Link
-            href="/essai-gratuit"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-sky-500 hover:bg-sky-400 text-black font-extrabold text-sm sm:text-base shadow-xl shadow-sky-500/25 hover:shadow-sky-500/40 transition-all duration-300 active:scale-95 group"
+            {/* Word 3: Right */}
+            <motion.div
+              initial={{ opacity: 0, x: 80 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              style={{ x: rightWordX }}
+              className="text-right"
+            >
+              <h1 className="hero-giant-word text-white font-bold">
+                Une seule app.
+              </h1>
+              <p className="hidden lg:block text-xs uppercase tracking-[0.25em] text-zinc-500 font-semibold mt-1">
+                Smart TV • Android • iOS • Firestick • PC
+              </p>
+            </motion.div>
+          </div>
+
+          {/* CENTER CUTOUT SUBJECT (LAYER: z-20 IN FRONT OF TEXT) */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.92 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.85, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className="relative z-20 w-full max-w-[500px] sm:max-w-[680px] lg:max-w-[820px] aspect-[16/9] flex items-center justify-center pointer-events-auto"
           >
-            <Icon icon="ph:play-circle-bold" width={20} />
-            <span>{t.hero.ctaTrial}</span>
-            <Icon
-              icon="ph:arrow-right-bold"
-              width={16}
-              className="group-hover:translate-x-1 transition-transform"
-            />
-          </Link>
-
-          {/* Secondary CTA */}
-          <Link
-            href="/tarifs"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-2xl bg-[#0f0f14] hover:bg-[#15151c] text-white font-bold text-sm sm:text-base border border-white/10 hover:border-sky-500/30 transition-all duration-300 active:scale-95"
-          >
-            <span>{t.hero.ctaPricing}</span>
-            <Icon icon="ph:arrow-down-right-bold" width={16} className="text-zinc-400" />
-          </Link>
-        </motion.div>
-
-        {/* Trust Row */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="pt-6 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-xs font-medium text-zinc-400 border-t border-white/[0.06] max-w-3xl mx-auto"
-        >
-          <div className="flex items-center gap-2">
-            <Icon icon="ph:check-circle-fill" width={16} className="text-sky-400" />
-            <span>{t.hero.trust4k}</span>
-          </div>
-          <span className="text-zinc-700 hidden sm:inline">•</span>
-          <div className="flex items-center gap-2">
-            <Icon icon="ph:shield-check-fill" width={16} className="text-sky-400" />
-            <span>{t.hero.trustNoFreeze}</span>
-          </div>
-          <span className="text-zinc-700 hidden sm:inline">•</span>
-          <div className="flex items-center gap-2">
-            <Icon icon="ph:headset-fill" width={16} className="text-sky-400" />
-            <span>{t.hero.trustSupport}</span>
-          </div>
-          <span className="text-zinc-700 hidden sm:inline">•</span>
-          <div className="flex items-center gap-2">
-            <Icon icon="ph:television-simple-fill" width={16} className="text-sky-400" />
-            <span>{t.hero.trustChannels}</span>
-          </div>
-        </motion.div>
-
-        {/* Visual Device Showcase Collage */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 30 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.45 }}
-          className="relative pt-10 max-w-5xl mx-auto"
-        >
-          {/* Main Smart TV Center Frame */}
-          <div className="relative rounded-2xl md:rounded-3xl p-2 sm:p-3 bg-gradient-to-b from-white/10 to-white/0 border border-white/10 shadow-2xl shadow-sky-950/40">
-            <div className="relative aspect-[16/9] w-full rounded-xl sm:rounded-2xl overflow-hidden bg-[#0c0c12]">
-              <Image
-                src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=1200&auto=format&fit=crop"
-                alt="Retransmission Sportive 4K UEFA Champions League"
-                fill
-                priority
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 1100px"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#07070a] via-transparent to-transparent opacity-80" />
-
-              {/* TV Interface Overlay */}
-              <div className="absolute top-4 left-4 sm:top-6 sm:left-6 flex items-center gap-3">
-                <span className="px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-[11px] font-bold text-white flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-                  DIRECT • 4K UHD 60FPS
-                </span>
-                <span className="hidden sm:inline-block px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-[11px] font-medium text-sky-400">
-                  Canal+ Sport 4K / beIN Sports 1
-                </span>
+            {!imageError ? (
+              <div className="relative w-full h-full drop-shadow-[0_20px_50px_rgba(0,0,0,0.85)]">
+                <Image
+                  src="/hero-devices-mockup.png"
+                  alt="NOUDINE IPTV Multi-Device 4K Streaming Setup"
+                  fill
+                  priority
+                  className="object-contain"
+                  sizes="(max-width: 768px) 100vw, 820px"
+                  onError={() => setImageError(true)}
+                />
               </div>
+            ) : (
+              /* Fallback gradient placeholder if image is unavailable: never a broken icon */
+              <div className="w-full h-full rounded-3xl bg-gradient-to-tr from-[#0a0a12] via-[#0f172a] to-[#07070a] border border-white/[0.08] flex flex-col items-center justify-center p-8 text-center shadow-2xl">
+                <div className="w-16 h-16 rounded-2xl bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-400 mb-4">
+                  <Icon icon="ph:television-bold" width={32} />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-2">
+                  Multi-Écrans 4K Ultra HD
+                </h3>
+                <p className="text-xs text-zinc-400 max-w-sm">
+                  Flux ultra haute fidélité sans latence sur Smart TV, smartphones, tablettes et PC.
+                </p>
+              </div>
+            )}
+          </motion.div>
 
-              {/* TV Program Bar at Bottom */}
-              <div className="absolute bottom-4 inset-x-4 sm:bottom-6 sm:inset-x-6 p-4 rounded-xl bg-black/70 backdrop-blur-md border border-white/10 flex items-center justify-between text-left">
-                <div className="space-y-0.5">
-                  <div className="text-xs sm:text-sm font-bold text-white flex items-center gap-2">
-                    <span>UEFA Champions League — Phase Finale</span>
-                    <span className="px-1.5 py-0.5 rounded bg-sky-500 text-[9px] font-extrabold text-black">
-                      4K HDR
-                    </span>
-                  </div>
-                  <p className="text-[11px] text-zinc-300">
-                    Serveur CDN Paris #04 • Bitrate : 24.2 Mbps • Latence : 0.8s
-                  </p>
-                </div>
-                <div className="hidden sm:flex items-center gap-2">
-                  <span className="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-md border border-emerald-500/20">
-                    100% STABLE
-                  </span>
-                </div>
+          {/* FLOATING GLASS CARD LEFT (LAYER: z-30) */}
+          <motion.div
+            initial={{ opacity: 0, y: 35 }}
+            animate={
+              shouldReduceMotion
+                ? { opacity: 1, y: 0 }
+                : { opacity: 1, y: [-8, 8, -8] }
+            }
+            transition={{
+              duration: 6,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 0.4,
+            }}
+            className="hidden md:flex absolute -bottom-6 left-2 lg:left-6 z-30 flex-col gap-2 p-4 sm:p-5 rounded-2xl bg-[#0f0f14]/80 backdrop-blur-xl border border-white/[0.08] shadow-2xl shadow-black/80 max-w-[270px]"
+          >
+            <div className="flex items-center justify-between">
+              <span className="flex items-center gap-1.5 text-[11px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                DIRECT 4K
+              </span>
+              <div className="flex items-center gap-1 text-amber-400 text-xs font-bold">
+                <Icon icon="ph:star-fill" width={13} />
+                <span>4.8</span>
               </div>
             </div>
-          </div>
 
-          {/* Floating Phone Mockup Left */}
-          <motion.div
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -bottom-6 -left-4 sm:-left-8 w-32 sm:w-48 aspect-[9/16] rounded-2xl p-1.5 bg-[#0f0f14] border border-white/15 shadow-2xl overflow-hidden hidden sm:block"
-          >
-            <div className="relative w-full h-full rounded-xl overflow-hidden bg-black">
-              <Image
-                src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=600&auto=format&fit=crop"
-                alt="Mobile IPTV Streaming"
-                fill
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
-              <div className="absolute bottom-2 inset-x-2 text-[10px] text-white font-semibold leading-tight">
-                TiviMate / iOS
+            <div>
+              <div className="text-xs sm:text-sm font-bold text-white">
+                Qualité du flux 4K • 60 FPS
               </div>
+              <p className="text-[11px] text-zinc-400 mt-0.5">
+                Latence &lt; 0.8s • 3.8k avis clients
+              </p>
             </div>
           </motion.div>
 
-          {/* Floating Tablet Mockup Right */}
+          {/* FLOATING INFO CARD RIGHT (LAYER: z-30) */}
           <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-            className="absolute -bottom-6 -right-4 sm:-right-8 w-40 sm:w-56 aspect-[4/3] rounded-2xl p-2 bg-[#0f0f14] border border-white/15 shadow-2xl overflow-hidden hidden sm:block"
+            initial={{ opacity: 0, y: 35 }}
+            animate={
+              shouldReduceMotion
+                ? { opacity: 1, y: 0 }
+                : { opacity: 1, y: [8, -8, 8] }
+            }
+            transition={{
+              duration: 6,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 0.8,
+            }}
+            className="hidden md:flex absolute -bottom-6 right-2 lg:right-6 z-30 flex-col gap-2 p-4 sm:p-5 rounded-2xl bg-[#0f0f14]/80 backdrop-blur-xl border border-white/[0.08] shadow-2xl shadow-black/80 max-w-[270px] text-right"
           >
-            <div className="relative w-full h-full rounded-xl overflow-hidden bg-black">
-              <Image
-                src="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?q=80&w=600&auto=format&fit=crop"
-                alt="Tablet Multi-Screen"
-                fill
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
-              <div className="absolute bottom-2 inset-x-2 text-[10px] text-white font-semibold leading-tight">
-                Multi-Écran 4K
+            <div className="flex items-center justify-end gap-1.5">
+              <span className="text-[11px] font-mono font-semibold text-sky-400 bg-sky-500/10 px-2.5 py-0.5 rounded-full border border-sky-500/20">
+                SERVEURS 10 GBPS
+              </span>
+            </div>
+
+            <div>
+              <div className="text-xs sm:text-sm font-bold text-white">
+                28 500 chaînes • 135 000 VOD
               </div>
+              <p className="text-[11px] text-zinc-400 mt-0.5">
+                Technologie Anti-Freeze™ 9.9
+              </p>
             </div>
           </motion.div>
+        </div>
+
+        {/* MOBILE (≤ 768px): Centered Cards Grid */}
+        <div className="grid grid-cols-2 gap-3 w-full mt-6 md:hidden z-30">
+          <div className="p-3.5 rounded-2xl bg-[#0f0f14]/90 border border-white/[0.08] backdrop-blur-md">
+            <div className="flex items-center gap-1 text-amber-400 text-xs font-bold mb-1">
+              <Icon icon="ph:star-fill" width={12} />
+              <span>4.8 ★</span>
+            </div>
+            <div className="text-xs font-bold text-white">Qualité 4K 60FPS</div>
+            <p className="text-[10px] text-zinc-400">Zéro coupure garantie</p>
+          </div>
+
+          <div className="p-3.5 rounded-2xl bg-[#0f0f14]/90 border border-white/[0.08] backdrop-blur-md">
+            <div className="text-[10px] font-mono text-sky-400 font-bold mb-1">
+              10 GBPS SERVEURS
+            </div>
+            <div className="text-xs font-bold text-white">+28 500 Chaînes</div>
+            <p className="text-[10px] text-zinc-400">135k Films & Séries</p>
+          </div>
+        </div>
+
+        {/* BOTTOM ACTIONS: CTAs Positioned at Bottom Right / Full width on mobile */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.55 }}
+          className="w-full flex flex-col sm:flex-row items-center justify-between gap-4 mt-8 pt-4 border-t border-white/[0.06] z-30"
+        >
+          {/* Left mini status note */}
+          <div className="flex items-center gap-2 text-xs text-zinc-400 font-medium">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span>Serveurs opérationnels à 99.9% • Activation immédiate</span>
+          </div>
+
+          {/* Right CTA Buttons */}
+          <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
+            {/* Secondary Ghost Button */}
+            <Link
+              href="/tarifs"
+              className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-full border border-white/[0.1] hover:border-sky-500/40 text-white hover:text-sky-300 font-semibold text-xs tracking-wide uppercase transition-all duration-300 active:scale-95"
+            >
+              <span>{t.hero.ctaPricing || "Voir les tarifs"}</span>
+            </Link>
+
+            {/* Primary Pill Button in Accent Blue */}
+            <Link
+              href="/essai-gratuit"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full bg-sky-500 hover:bg-sky-400 text-black font-extrabold text-xs sm:text-sm tracking-wider uppercase shadow-xl shadow-sky-500/25 hover:shadow-sky-500/40 transition-all duration-300 active:scale-95 group"
+            >
+              <span>{t.hero.ctaTrial || "ESSAI GRATUIT 24H"}</span>
+              <Icon
+                icon="ph:arrow-up-right-bold"
+                width={15}
+                className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+              />
+            </Link>
+          </div>
         </motion.div>
       </div>
+
+      {/* BOTTOM ROW: Thin Trust Line */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, delay: 0.7 }}
+        className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 border-t border-white/[0.04] flex flex-wrap items-center justify-center gap-3 sm:gap-8 text-[11px] sm:text-xs text-zinc-400 font-medium z-20"
+      >
+        <span className="flex items-center gap-1.5">
+          <Icon icon="ph:check-circle-fill" width={14} className="text-sky-400" />
+          4K Ultra HD & 60 FPS
+        </span>
+        <span className="text-zinc-700 hidden sm:inline">•</span>
+        <span className="flex items-center gap-1.5">
+          <Icon icon="ph:shield-check-fill" width={14} className="text-sky-400" />
+          Technologie Anti-Freeze™ 9.9
+        </span>
+        <span className="text-zinc-700 hidden sm:inline">•</span>
+        <span className="flex items-center gap-1.5">
+          <Icon icon="ph:whatsapp-logo-fill" width={14} className="text-emerald-400" />
+          Support VIP 24/7 WhatsApp
+        </span>
+        <span className="text-zinc-700 hidden sm:inline">•</span>
+        <span className="flex items-center gap-1.5">
+          <Icon icon="ph:broadcast-bold" width={14} className="text-sky-400" />
+          +28 500 Chaînes Mondiales
+        </span>
+      </motion.div>
     </section>
   );
 }
