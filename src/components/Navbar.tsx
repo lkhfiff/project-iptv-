@@ -26,8 +26,26 @@ export function Navbar({ onSelectMedia }: NavbarProps = {}) {
   }, [pathname]);
 
   useEffect(() => {
-    // Keep navbar fixed and stable without hiding on scroll
-  }, []);
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      setScrolled(currentScrollY > 20);
+
+      // Hide navbar when scrolling down, show when scrolling up
+      if (currentScrollY > 150) {
+        if (currentScrollY > lastScrollY && !mobileMenuOpen) {
+          setVisible(false);
+        } else {
+          setVisible(true);
+        }
+      } else {
+        setVisible(true);
+      }
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY, mobileMenuOpen]);
 
   const navLinks = [
     { label: t.nav.home, href: "/" },
@@ -48,7 +66,13 @@ export function Navbar({ onSelectMedia }: NavbarProps = {}) {
   return (
     <>
       <header
-        className="fixed top-0 inset-x-0 z-50 bg-[#07070a]/90 backdrop-blur-xl border-b border-white/[0.06] shadow-2xl shadow-black/60 py-4"
+        className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 transform ${
+          visible ? "translate-y-0" : "-translate-y-full"
+        } ${
+          scrolled || mobileMenuOpen
+            ? "bg-[#07070a]/90 backdrop-blur-xl border-b border-white/[0.06] shadow-2xl shadow-black/60 py-3.5"
+            : "bg-transparent border-b border-transparent py-5"
+        }`}
       >
         <div className="max-w-7xl mx-auto px-6 sm:px-10 flex items-center justify-between">
           {/* Brand Logo */}

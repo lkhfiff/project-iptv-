@@ -3,29 +3,33 @@
 import React from "react";
 import { Icon } from "@iconify/react";
 
-interface CategoryMarqueeItem {
+interface MarqueeItem {
   name: string;
   category: string;
   quality: string;
   icon: string;
 }
 
-const CATEGORIES_ROW1: CategoryMarqueeItem[] = [
-  { name: "Sport & Matchs en Direct", category: "Football, F1, UFC, Tennis, NBA", quality: "4K UHD 60FPS", icon: "ph:soccer-ball-bold" },
-  { name: "Cinéma & Nouveautés", category: "Box-Office Récent & Classiques", quality: "Dolby Vision", icon: "ph:film-slate-bold" },
-  { name: "Séries & Saisons VOD", category: "Intégrales & Épisodes Hebdo", quality: "4K HDR", icon: "ph:television-simple-bold" },
-  { name: "Jeunesse & Enfants", category: "Dessins Animés & Éducatif Sans Pub", quality: "FHD 1080p", icon: "ph:baby-bold" },
-  { name: "Actualités Mondiales 24/7", category: "Info en Direct France & International", quality: "Full HD", icon: "ph:newspaper-bold" },
-  { name: "Documentaires & Découverte", category: "Nature, Sciences, Histoire & Cosmos", quality: "4K HDR", icon: "ph:planet-bold" },
+const MARQUEE_ITEMS_ROW1: MarqueeItem[] = [
+  { name: "beIN SPORTS 4K", category: "Ligue des Champions", quality: "4K UHD 60FPS", icon: "ph:soccer-ball-bold" },
+  { name: "CANAL+ 4K", category: "Cinéma & Premier League", quality: "Dolby Vision", icon: "ph:film-slate-bold" },
+  { name: "SKY SPORTS F1", category: "Formule 1 & Moto GP", quality: "Pure 4K 60FPS", icon: "ph:steering-wheel-bold" },
+  { name: "RMC SPORT", category: "UFC PPV & Boxe", quality: "FHD 1080p", icon: "ph:boxing-glove-bold" },
+  { name: "DAZN 1", category: "Ligue 1 & Serie A", quality: "4K UHD", icon: "ph:trophy-bold" },
+  { name: "TNT SPORTS 1", category: "Premier League Live", quality: "4K Ultimate", icon: "ph:broadcast-bold" },
+  { name: "EUROSPORT 1 & 2", category: "Tennis & Cyclisme", quality: "60 FPS", icon: "ph:bicycle-bold" },
+  { name: "MOVISTAR+ LALIGA", category: "El Clásico & Liga", quality: "4K HDR", icon: "ph:football-bold" },
 ];
 
-const CATEGORIES_ROW2: CategoryMarqueeItem[] = [
-  { name: "Événements PPV & Soirées Live", category: "Grands Combats & Soirées Exclusives", quality: "4K 60FPS", icon: "ph:broadcast-bold" },
-  { name: "Divertissement & Talk-Shows", category: "Émissions Populaires & Replay", quality: "Full HD", icon: "ph:sparkle-bold" },
-  { name: "Chaînes Internationales", category: "France, UK, USA, Monde Arabe, Europe", quality: "4K / FHD", icon: "ph:globe-hemisphere-west-bold" },
-  { name: "Musique & Concerts Live", category: "Variété, Électro, Festivals", quality: "Dolby 5.1", icon: "ph:music-notes-bold" },
-  { name: "Sports Mécaniques & Vitesse", category: "Formule 1, MotoGP, Rallye WRC", quality: "60 FPS", icon: "ph:steering-wheel-bold" },
-  { name: "Bouquets Régionaux & Locaux", category: "Chaînes Généralistes & Thématiques", quality: "1080p", icon: "ph:television-bold" },
+const MARQUEE_ITEMS_ROW2: MarqueeItem[] = [
+  { name: "TF1 4K & M6 HDR", category: "Généraliste France", quality: "4K UHD", icon: "ph:television-bold" },
+  { name: "HBO MAX LIVE", category: "Séries & Blockbusters", quality: "Dolby Atmos", icon: "ph:popcorn-bold" },
+  { name: "BBC ONE & ITV", category: "Royaume-Uni", quality: "Full HD", icon: "ph:flag-bold" },
+  { name: "OSN & ROTANA", category: "Moyen-Orient & Maghreb", quality: "FHD 1080p", icon: "ph:star-four-bold" },
+  { name: "DISNEY JUNIOR", category: "Jeunesse & Enfants", quality: "FHD Sans Pub", icon: "ph:baby-bold" },
+  { name: "NATIONAL GEOGRAPHIC", category: "Documentaires", quality: "4K HDR", icon: "ph:planet-bold" },
+  { name: "NETFLIX VOD 4K", category: "Films & Séries 2025", quality: "Ultra HD", icon: "ph:video-camera-bold" },
+  { name: "DISNEY+ VOD", category: "Marvel & Star Wars", quality: "4K Atmos", icon: "ph:sparkle-bold" },
 ];
 
 export function LogosMarquee() {
@@ -39,7 +43,7 @@ export function LogosMarquee() {
         {/* Row 1: Leftward */}
         <div className="flex overflow-hidden">
           <div className="animate-marquee-left flex items-center gap-4">
-            {[...CATEGORIES_ROW1, ...CATEGORIES_ROW1].map((item, idx) => (
+            {[...MARQUEE_ITEMS_ROW1, ...MARQUEE_ITEMS_ROW1].map((item, idx) => (
               <div
                 key={`row1-${idx}`}
                 className="flex items-center gap-3 px-5 py-3 rounded-2xl bg-[#0f0f14] border border-white/[0.06] hover:border-sky-500/30 transition-all select-none group shrink-0"
@@ -63,7 +67,7 @@ export function LogosMarquee() {
         {/* Row 2: Rightward */}
         <div className="flex overflow-hidden">
           <div className="animate-marquee-right flex items-center gap-4">
-            {[...CATEGORIES_ROW2, ...CATEGORIES_ROW2].map((item, idx) => (
+            {[...MARQUEE_ITEMS_ROW2, ...MARQUEE_ITEMS_ROW2].map((item, idx) => (
               <div
                 key={`row2-${idx}`}
                 className="flex items-center gap-3 px-5 py-3 rounded-2xl bg-[#0f0f14] border border-white/[0.06] hover:border-sky-500/30 transition-all select-none group shrink-0"
