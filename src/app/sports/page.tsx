@@ -31,10 +31,6 @@ export default function SportsPage() {
     <div className="pt-28 pb-20 space-y-12 max-w-7xl mx-auto px-6 sm:px-10 text-white">
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto space-y-3">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/15 text-white text-xs font-mono tracking-wider">
-          <Icon icon="ph:trophy" width={14} />
-          <span>Real-Time Sports Center</span>
-        </div>
         <h1 className="text-3xl sm:text-5xl font-light text-white tracking-tight">
           Live Scores &amp; Match Schedules
         </h1>

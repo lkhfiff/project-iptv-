@@ -139,14 +139,13 @@ export function Navbar({ onSelectMedia }: NavbarProps) {
 
             <Link
               href="/essai-gratuit"
-              className={`text-xs tracking-wider transition-colors flex items-center gap-1.5 ${
+              className={`text-xs tracking-wider transition-colors ${
                 pathname === "/essai-gratuit"
                   ? "text-zinc-950 dark:text-white font-semibold"
                   : "text-zinc-600 dark:text-[#a0a0a0] hover:text-black dark:hover:text-white"
               }`}
             >
               <span>Essai Gratuit</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-zinc-900 dark:bg-white animate-pulse" />
             </Link>
           </nav>
 

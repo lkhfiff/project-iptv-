@@ -46,10 +46,6 @@ export default function MoviesPage() {
     <div className="pt-28 pb-20 space-y-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto space-y-4">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-bold uppercase tracking-widest">
-          <Icon icon="ph:film-strip-fill" width={14} />
-          <span>Real Cinema Artwork & Metadata</span>
-        </div>
         <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
           Ultra-High-Definition Movies
         </h1>

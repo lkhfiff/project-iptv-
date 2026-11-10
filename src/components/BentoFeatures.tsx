@@ -38,11 +38,7 @@ export function BentoFeatures() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
 
             {/* Content Overlaid at Bottom-Left */}
-            <div className="relative z-10 space-y-2.5 max-w-xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-[11px] font-mono tracking-wider text-white uppercase">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                <span>4K UHD • Dolby Atmos • 60 FPS</span>
-              </div>
+            <div className="relative z-10 space-y-2 max-w-xl">
               <h3 className="text-2xl sm:text-3xl font-semibold text-white tracking-tight">
                 Cinéma &amp; Séries en 4K Ultra HD
               </h3>
@@ -91,12 +87,8 @@ export function BentoFeatures() {
           {/* Card 4: Wide Sage Forest Green Card with Portrait */}
           <div className="lg:col-span-8 relative rounded-[28px] bg-[#4e5d4a] dark:bg-[#1a231a] overflow-hidden min-h-[320px] sm:min-h-[360px] md:min-h-[390px] flex items-stretch border border-black/5 dark:border-white/10 shadow-xl shadow-black/5 dark:shadow-none text-white">
             {/* Left Content */}
-            <div className="relative z-10 p-8 sm:p-10 flex flex-col justify-between max-w-sm sm:max-w-md h-full">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-[11px] font-mono tracking-wider text-white uppercase w-fit">
-                <span>Conciergerie Active 24/7</span>
-              </div>
-
-              <div className="space-y-4 pt-12 sm:pt-16">
+            <div className="relative z-10 p-8 sm:p-10 flex flex-col justify-end max-w-sm sm:max-w-md h-full">
+              <div className="space-y-4">
                 <div className="space-y-2">
                   <h3 className="text-2xl sm:text-3xl font-semibold text-white tracking-tight">
                     Activation VIP en 3 Minutes
@@ -139,3 +131,4 @@ export function BentoFeatures() {
     </section>
   );
 }
+

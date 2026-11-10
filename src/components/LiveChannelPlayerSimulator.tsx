@@ -1,23 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
-import {
-  Play,
-  Volume2,
-  VolumeX,
-  Maximize2,
-  Tv,
-  Radio,
-  Sparkles,
-  Zap,
-  ShieldCheck,
-  CheckCircle2,
-  Flame,
-  ArrowRight,
-} from "lucide-react";
+import { Icon } from "@iconify/react";
 import { WhatsAppButton } from "./WhatsAppButton";
-import { generateWhatsAppContactUrl } from "@/data/config";
 
 interface ChannelStream {
   id: string;
@@ -181,7 +167,11 @@ export function LiveChannelPlayerSimulator() {
                   className="w-8 h-8 rounded-full bg-black/70 hover:bg-black/90 backdrop-blur-md border border-white/15 flex items-center justify-center text-white transition-all active:scale-95"
                   aria-label="Toggle sound"
                 >
-                  {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4 text-emerald-400" />}
+                  {isMuted ? (
+                    <Icon icon="ph:speaker-x-bold" width={16} />
+                  ) : (
+                    <Icon icon="ph:speaker-high-bold" width={16} className="text-emerald-400" />
+                  )}
                 </button>
               </div>
             </div>
@@ -256,4 +246,3 @@ export function LiveChannelPlayerSimulator() {
     </div>
   );
 }
-

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Gauge, CheckCircle2, RefreshCw, Zap, Server, ShieldCheck, Sparkles } from "lucide-react";
+import { Icon } from "@iconify/react";
 import { WhatsAppButton } from "./WhatsAppButton";
 
 export function NetworkSpeedTester() {
@@ -39,11 +39,11 @@ export function NetworkSpeedTester() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/5 pb-4">
         <div className="space-y-1">
           <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-orange-400">
-            <Gauge className="w-4 h-4" />
+            <Icon icon="ph:gauge-bold" width={16} />
             <span>Diagnostic Tool</span>
           </div>
           <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight">
-            NOUDINE 4K Stream Readiness & Latency Checker
+            NOUDINE 4K Stream Readiness &amp; Latency Checker
           </h3>
         </div>
 
@@ -82,7 +82,7 @@ export function NetworkSpeedTester() {
             disabled={isTesting}
             className="px-6 py-2.5 rounded-full bg-orange-500 hover:bg-orange-400 disabled:opacity-50 text-black text-xs font-bold flex items-center gap-2 transition-all cursor-pointer active:scale-95"
           >
-            <RefreshCw className={`w-3.5 h-3.5 ${isTesting ? "animate-spin" : ""}`} />
+            <Icon icon="ph:arrows-clockwise-bold" width={14} className={isTesting ? "animate-spin" : ""} />
             <span>{isTesting ? "Measuring Line..." : tested ? "Test Again" : "Run 4K Stream Test"}</span>
           </button>
         </div>
@@ -110,7 +110,7 @@ export function NetworkSpeedTester() {
 
             <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/5">
               <span className="text-[10px] uppercase text-zinc-500 font-bold block">
-                Jitter & Packet Drop
+                Jitter &amp; Packet Drop
               </span>
               <span className="text-xs font-bold text-emerald-400">
                 {tested ? "0.0% (Pristine)" : "--"}
@@ -123,21 +123,21 @@ export function NetworkSpeedTester() {
             <div className="flex items-center justify-between text-xs">
               <span className="text-zinc-300 font-medium">Full HD 1080p (60 FPS):</span>
               <span className="text-emerald-400 font-bold flex items-center gap-1">
-                <CheckCircle2 className="w-3.5 h-3.5" /> 100% Ready (Requires 15 Mbps)
+                <Icon icon="ph:check-circle-fill" width={14} /> 100% Ready (Requires 15 Mbps)
               </span>
             </div>
 
             <div className="flex items-center justify-between text-xs">
-              <span className="text-zinc-300 font-medium">Pure 4K UHD & HDR10+:</span>
+              <span className="text-zinc-300 font-medium">Pure 4K UHD &amp; HDR10+:</span>
               <span className="text-emerald-400 font-bold flex items-center gap-1">
-                <CheckCircle2 className="w-3.5 h-3.5" /> 100% Ready (Requires 30 Mbps)
+                <Icon icon="ph:check-circle-fill" width={14} /> 100% Ready (Requires 30 Mbps)
               </span>
             </div>
 
             <div className="flex items-center justify-between text-xs">
-              <span className="text-zinc-300 font-medium">Dolby Vision & Dolby Atmos 7.1:</span>
+              <span className="text-zinc-300 font-medium">Dolby Vision &amp; Dolby Atmos 7.1:</span>
               <span className="text-emerald-400 font-bold flex items-center gap-1">
-                <CheckCircle2 className="w-3.5 h-3.5" /> Bit-Perfect Verified
+                <Icon icon="ph:check-circle-fill" width={14} /> Bit-Perfect Verified
               </span>
             </div>
           </div>
@@ -160,4 +160,3 @@ export function NetworkSpeedTester() {
     </div>
   );
 }
-

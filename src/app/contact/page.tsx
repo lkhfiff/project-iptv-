@@ -31,11 +31,6 @@ export default function ContactPage() {
     <div className="pt-28 pb-20 space-y-16 max-w-7xl mx-auto px-6 sm:px-10 text-zinc-900 dark:text-white transition-colors">
       {/* 1. Header */}
       <div className="text-center max-w-3xl mx-auto space-y-4">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/5 dark:bg-white/10 border border-black/10 dark:border-white/15 text-zinc-900 dark:text-white text-xs font-mono tracking-wider">
-          <Icon icon="ph:headset" width={14} />
-          <span>Conciergerie VIP 24/7 • Ligne Directe</span>
-        </div>
-
         <h1 className="text-3xl sm:text-5xl font-light text-zinc-950 dark:text-white tracking-tight">
           Contactez Notre Conciergerie
         </h1>
