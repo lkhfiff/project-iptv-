@@ -25,26 +25,49 @@ interface GalleryCardItem {
   movie: TMDBMovie;
 }
 
-interface IPTVBrandMarqueeItem {
+interface RealBrandIcon {
   name: string;
   logo?: string;
   icon?: string;
-  quality: string;
+  width?: number;
+  height?: number;
 }
 
-const IPTV_MARQUEE_BRANDS: IPTVBrandMarqueeItem[] = [
-  { name: "Netflix", logo: "/brands/netflix-transparent.png", quality: "4K HDR" },
-  { name: "Canal+", logo: "/brands/canalplus.png", quality: "Dolby Vision" },
-  { name: "beIN SPORTS", logo: "/brands/beinsports-transparent.png", quality: "4K 60FPS" },
-  { name: "Disney+", logo: "/brands/disneyplus-transparent.png", quality: "IMAX 4K" },
-  { name: "Apple TV+", logo: "/brands/appletv-transparent.png", quality: "Dolby Atmos" },
-  { name: "Prime Video", logo: "/brands/primevideo.png", quality: "Ultra HD" },
-  { name: "HBO Max", logo: "/brands/hbomax.png", quality: "4K HDR" },
-  { name: "RMC Sport", icon: "ph:boxing-glove-bold", quality: "Live PPV" },
-  { name: "DAZN", icon: "ph:trophy-bold", quality: "1080p 60FPS" },
-  { name: "Eurosport 1 & 2", icon: "ph:bicycle-bold", quality: "Direct 4K" },
-  { name: "Sky Sports F1", icon: "ph:steering-wheel-bold", quality: "Ultra HD" },
-  { name: "TF1 & M6 HDR", icon: "ph:television-bold", quality: "FHD Direct" },
+const ROW_1_ICONS: RealBrandIcon[] = [
+  { name: "Netflix", logo: "/brands/netflix-transparent.png", width: 85, height: 28 },
+  { name: "Canal+", logo: "/brands/canalplus.png", width: 95, height: 28 },
+  { name: "Disney+", logo: "/brands/disneyplus-transparent.png", width: 75, height: 32 },
+  { name: "Apple TV+", logo: "/brands/appletv-transparent.png", width: 55, height: 32 },
+  { name: "Prime Video", logo: "/brands/primevideo.png", width: 85, height: 26 },
+  { name: "HBO Max", logo: "/brands/hbomax.png", width: 85, height: 24 },
+  { name: "Paramount+", icon: "simple-icons:paramountplus", width: 32, height: 32 },
+  { name: "Peacock", icon: "simple-icons:peacock", width: 32, height: 32 },
+  { name: "Hulu", icon: "simple-icons:hulu", width: 44, height: 22 },
+];
+
+const ROW_2_ICONS: RealBrandIcon[] = [
+  { name: "beIN SPORTS", logo: "/brands/beinsports-transparent.png", width: 75, height: 32 },
+  { name: "DAZN", icon: "simple-icons:dazn", width: 34, height: 34 },
+  { name: "Formula 1", icon: "simple-icons:f1", width: 48, height: 26 },
+  { name: "UFC", icon: "simple-icons:ufc", width: 50, height: 24 },
+  { name: "ESPN", icon: "simple-icons:espn", width: 52, height: 24 },
+  { name: "NBA", icon: "simple-icons:nba", width: 34, height: 34 },
+  { name: "Canal+", logo: "/brands/canalplus.png", width: 95, height: 28 },
+  { name: "WWE", icon: "simple-icons:wwe", width: 36, height: 36 },
+  { name: "Eurosport", icon: "ph:trophy-bold", width: 30, height: 30 },
+];
+
+const ROW_3_ICONS: RealBrandIcon[] = [
+  { name: "YouTube", icon: "simple-icons:youtube", width: 38, height: 38 },
+  { name: "Twitch", icon: "simple-icons:twitch", width: 30, height: 30 },
+  { name: "Spotify", icon: "simple-icons:spotify", width: 30, height: 30 },
+  { name: "Crunchyroll", icon: "simple-icons:crunchyroll", width: 32, height: 32 },
+  { name: "Warner Bros", icon: "simple-icons:warnerbros", width: 34, height: 34 },
+  { name: "PlayStation", icon: "simple-icons:playstation", width: 34, height: 34 },
+  { name: "Netflix", logo: "/brands/netflix-transparent.png", width: 85, height: 28 },
+  { name: "Apple TV+", logo: "/brands/appletv-transparent.png", width: 55, height: 32 },
+  { name: "Prime Video", logo: "/brands/primevideo.png", width: 85, height: 26 },
+  { name: "Disney+", logo: "/brands/disneyplus-transparent.png", width: 75, height: 32 },
 ];
 
 function GalleryCard({
@@ -262,44 +285,90 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
         </div>
       </div>
 
-      {/* 4. IPTV Brands Infinite Scrolling Strip (Scrolling to the right) */}
-      <div className="relative z-10 w-full pt-6 pb-2 overflow-hidden border-t border-black/5 dark:border-white/5">
+      {/* 4. IPTV Brands 3-Line Infinite Scrolling (Without BG, Without P, Pure Real Icons) */}
+      <div className="relative z-10 w-full pt-8 pb-4 overflow-hidden border-t border-black/5 dark:border-white/5 space-y-4 sm:space-y-5">
         <div className="relative w-full overflow-hidden">
           {/* Edge fade gradients */}
-          <div className="absolute inset-y-0 left-0 w-16 sm:w-28 bg-gradient-to-r from-[#faf9f6] dark:from-[#080808] to-transparent z-10 pointer-events-none" />
-          <div className="absolute inset-y-0 right-0 w-16 sm:w-28 bg-gradient-to-l from-[#faf9f6] dark:from-[#080808] to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 left-0 w-16 sm:w-32 bg-gradient-to-r from-[#faf9f6] dark:from-[#080808] to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-16 sm:w-32 bg-gradient-to-l from-[#faf9f6] dark:from-[#080808] to-transparent z-10 pointer-events-none" />
 
-          {/* Marquee moving to the right */}
-          <div className="animate-marquee-right flex items-center gap-3.5 sm:gap-5 py-2 select-none">
-            {[...IPTV_MARQUEE_BRANDS, ...IPTV_MARQUEE_BRANDS, ...IPTV_MARQUEE_BRANDS].map((brand, idx) => (
+          {/* LINE 1: Normal Speed */}
+          <div className="animate-marquee-right-normal flex items-center gap-10 sm:gap-14 md:gap-16 py-1 select-none">
+            {[...ROW_1_ICONS, ...ROW_1_ICONS, ...ROW_1_ICONS, ...ROW_1_ICONS].map((brand, idx) => (
               <div
-                key={`${brand.name}-${idx}`}
-                className="flex items-center gap-3 px-4 py-2 rounded-2xl bg-white/80 dark:bg-[#151515]/90 border border-black/8 dark:border-white/10 hover:border-black/25 dark:hover:border-white/25 shadow-sm transition-all duration-300 group shrink-0"
+                key={`row1-${brand.name}-${idx}`}
+                className="flex items-center justify-center shrink-0 opacity-75 hover:opacity-100 transition-all duration-300 hover:scale-110"
               >
                 {brand.logo ? (
-                  <div className="relative h-5 sm:h-6 w-14 sm:w-16 flex items-center justify-center">
+                  <div className="relative h-6 sm:h-7 w-auto flex items-center justify-center">
                     <Image
                       src={brand.logo}
                       alt={brand.name}
-                      fill
+                      width={brand.width || 80}
+                      height={brand.height || 28}
                       unoptimized
-                      className="object-contain filter dark:brightness-100 group-hover:scale-105 transition-transform"
-                      sizes="64px"
+                      className="object-contain filter dark:brightness-100 max-h-7 sm:max-h-8 w-auto"
                     />
                   </div>
                 ) : (
-                  <div className="flex items-center justify-center w-6 h-6 rounded-lg bg-black/5 dark:bg-white/10 text-zinc-800 dark:text-zinc-200">
-                    <Icon icon={brand.icon || "ph:television-bold"} width={15} />
+                  <div className="flex items-center justify-center text-zinc-700 dark:text-zinc-300 hover:text-black dark:hover:text-white">
+                    <Icon icon={brand.icon || "ph:television-bold"} width={brand.width || 32} height={brand.height || 32} />
                   </div>
                 )}
-                <div className="text-left">
-                  <div className="text-xs font-semibold text-zinc-900 dark:text-white leading-tight">
-                    {brand.name}
+              </div>
+            ))}
+          </div>
+
+          {/* LINE 2: Slightly Slower Speed */}
+          <div className="animate-marquee-right-slow flex items-center gap-10 sm:gap-14 md:gap-16 py-1 select-none">
+            {[...ROW_2_ICONS, ...ROW_2_ICONS, ...ROW_2_ICONS, ...ROW_2_ICONS].map((brand, idx) => (
+              <div
+                key={`row2-${brand.name}-${idx}`}
+                className="flex items-center justify-center shrink-0 opacity-75 hover:opacity-100 transition-all duration-300 hover:scale-110"
+              >
+                {brand.logo ? (
+                  <div className="relative h-6 sm:h-7 w-auto flex items-center justify-center">
+                    <Image
+                      src={brand.logo}
+                      alt={brand.name}
+                      width={brand.width || 80}
+                      height={brand.height || 28}
+                      unoptimized
+                      className="object-contain filter dark:brightness-100 max-h-7 sm:max-h-8 w-auto"
+                    />
                   </div>
-                  <div className="text-[10px] text-zinc-500 dark:text-[#a0a0a0] font-mono">
-                    {brand.quality}
+                ) : (
+                  <div className="flex items-center justify-center text-zinc-700 dark:text-zinc-300 hover:text-black dark:hover:text-white">
+                    <Icon icon={brand.icon || "ph:television-bold"} width={brand.width || 32} height={brand.height || 32} />
                   </div>
-                </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* LINE 3: Slightly Faster Speed */}
+          <div className="animate-marquee-right-fast flex items-center gap-10 sm:gap-14 md:gap-16 py-1 select-none">
+            {[...ROW_3_ICONS, ...ROW_3_ICONS, ...ROW_3_ICONS, ...ROW_3_ICONS].map((brand, idx) => (
+              <div
+                key={`row3-${brand.name}-${idx}`}
+                className="flex items-center justify-center shrink-0 opacity-75 hover:opacity-100 transition-all duration-300 hover:scale-110"
+              >
+                {brand.logo ? (
+                  <div className="relative h-6 sm:h-7 w-auto flex items-center justify-center">
+                    <Image
+                      src={brand.logo}
+                      alt={brand.name}
+                      width={brand.width || 80}
+                      height={brand.height || 28}
+                      unoptimized
+                      className="object-contain filter dark:brightness-100 max-h-7 sm:max-h-8 w-auto"
+                    />
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-center text-zinc-700 dark:text-zinc-300 hover:text-black dark:hover:text-white">
+                    <Icon icon={brand.icon || "ph:television-bold"} width={brand.width || 32} height={brand.height || 32} />
+                  </div>
+                )}
               </div>
             ))}
           </div>

@@ -141,7 +141,31 @@ html.light .glass-card-hover:hover {
   will-change: transform;
 }
 
-.animate-marquee-right:hover {
+.animate-marquee-right-fast {
+  display: flex;
+  width: max-content;
+  animation: marqueeRight 26s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-right-normal {
+  display: flex;
+  width: max-content;
+  animation: marqueeRight 34s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-right-slow {
+  display: flex;
+  width: max-content;
+  animation: marqueeRight 42s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-right:hover,
+.animate-marquee-right-fast:hover,
+.animate-marquee-right-normal:hover,
+.animate-marquee-right-slow:hover {
   animation-play-state: paused;
 }
 
