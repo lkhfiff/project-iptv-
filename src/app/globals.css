@@ -114,6 +114,49 @@ html.light .glass-card-hover:hover {
 }
 
 /* =========================================================
+   INFINITE MARQUEE ANIMATIONS (SCROLL RIGHT / LEFT)
+   ========================================================= */
+@keyframes marqueeRight {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes marqueeLeft {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee-right {
+  display: flex;
+  width: max-content;
+  animation: marqueeRight 35s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-right:hover {
+  animation-play-state: paused;
+}
+
+.animate-marquee-left {
+  display: flex;
+  width: max-content;
+  animation: marqueeLeft 35s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-left:hover {
+  animation-play-state: paused;
+}
+
+/* =========================================================
    CONCAVE CARDS: SEAMLESS LOGOS & ZERO-BORDER SYSTEM
    ========================================================= */
 .perspective-container {

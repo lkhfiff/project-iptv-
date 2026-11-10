@@ -25,6 +25,28 @@ interface GalleryCardItem {
   movie: TMDBMovie;
 }
 
+interface IPTVBrandMarqueeItem {
+  name: string;
+  logo?: string;
+  icon?: string;
+  quality: string;
+}
+
+const IPTV_MARQUEE_BRANDS: IPTVBrandMarqueeItem[] = [
+  { name: "Netflix", logo: "/brands/netflix-transparent.png", quality: "4K HDR" },
+  { name: "Canal+", logo: "/brands/canalplus.png", quality: "Dolby Vision" },
+  { name: "beIN SPORTS", logo: "/brands/beinsports-transparent.png", quality: "4K 60FPS" },
+  { name: "Disney+", logo: "/brands/disneyplus-transparent.png", quality: "IMAX 4K" },
+  { name: "Apple TV+", logo: "/brands/appletv-transparent.png", quality: "Dolby Atmos" },
+  { name: "Prime Video", logo: "/brands/primevideo.png", quality: "Ultra HD" },
+  { name: "HBO Max", logo: "/brands/hbomax.png", quality: "4K HDR" },
+  { name: "RMC Sport", icon: "ph:boxing-glove-bold", quality: "Live PPV" },
+  { name: "DAZN", icon: "ph:trophy-bold", quality: "1080p 60FPS" },
+  { name: "Eurosport 1 & 2", icon: "ph:bicycle-bold", quality: "Direct 4K" },
+  { name: "Sky Sports F1", icon: "ph:steering-wheel-bold", quality: "Ultra HD" },
+  { name: "TF1 & M6 HDR", icon: "ph:television-bold", quality: "FHD Direct" },
+];
+
 function GalleryCard({
   item,
   idx,
@@ -240,31 +262,47 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
         </div>
       </div>
 
-      {/* 4. Three Feature Columns directly below the cards (Matching reference layout) */}
-      <div className="relative z-10 max-w-6xl mx-auto px-6 sm:px-10 pt-4 pb-2 grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 text-center border-t border-black/5 dark:border-white/5">
-        <div className="space-y-1.5">
-          <h3 className="text-sm sm:text-base font-semibold text-zinc-950 dark:text-white tracking-tight">
-            Diffusion 4K &amp; Dolby Atmos
-          </h3>
-          <p className="text-xs text-zinc-600 dark:text-[#a0a0a0] font-light leading-relaxed">
-            Flux non compressés en 60 FPS avec son spatial immersif sur l&apos;ensemble de vos téléviseurs et boîtiers.
-          </p>
-        </div>
-        <div className="space-y-1.5">
-          <h3 className="text-sm sm:text-base font-semibold text-zinc-950 dark:text-white tracking-tight">
-            Technologie Anti-Freeze™ 9.9
-          </h3>
-          <p className="text-xs text-zinc-600 dark:text-[#a0a0a0] font-light leading-relaxed">
-            Cluster CDN privé ultra-rapide garantissant 99.9% de disponibilité sans coupure pendant les grands événements sportifs.
-          </p>
-        </div>
-        <div className="space-y-1.5">
-          <h3 className="text-sm sm:text-base font-semibold text-zinc-950 dark:text-white tracking-tight">
-            Activation VIP en 3 Minutes
-          </h3>
-          <p className="text-xs text-zinc-600 dark:text-[#a0a0a0] font-light leading-relaxed">
-            Vos identifiants Xtream Codes et liens M3U générés immédiatement par notre conciergerie active 24/7.
-          </p>
+      {/* 4. IPTV Brands Infinite Scrolling Strip (Scrolling to the right) */}
+      <div className="relative z-10 w-full pt-6 pb-2 overflow-hidden border-t border-black/5 dark:border-white/5">
+        <div className="relative w-full overflow-hidden">
+          {/* Edge fade gradients */}
+          <div className="absolute inset-y-0 left-0 w-16 sm:w-28 bg-gradient-to-r from-[#faf9f6] dark:from-[#080808] to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-16 sm:w-28 bg-gradient-to-l from-[#faf9f6] dark:from-[#080808] to-transparent z-10 pointer-events-none" />
+
+          {/* Marquee moving to the right */}
+          <div className="animate-marquee-right flex items-center gap-3.5 sm:gap-5 py-2 select-none">
+            {[...IPTV_MARQUEE_BRANDS, ...IPTV_MARQUEE_BRANDS, ...IPTV_MARQUEE_BRANDS].map((brand, idx) => (
+              <div
+                key={`${brand.name}-${idx}`}
+                className="flex items-center gap-3 px-4 py-2 rounded-2xl bg-white/80 dark:bg-[#151515]/90 border border-black/8 dark:border-white/10 hover:border-black/25 dark:hover:border-white/25 shadow-sm transition-all duration-300 group shrink-0"
+              >
+                {brand.logo ? (
+                  <div className="relative h-5 sm:h-6 w-14 sm:w-16 flex items-center justify-center">
+                    <Image
+                      src={brand.logo}
+                      alt={brand.name}
+                      fill
+                      unoptimized
+                      className="object-contain filter dark:brightness-100 group-hover:scale-105 transition-transform"
+                      sizes="64px"
+                    />
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-center w-6 h-6 rounded-lg bg-black/5 dark:bg-white/10 text-zinc-800 dark:text-zinc-200">
+                    <Icon icon={brand.icon || "ph:television-bold"} width={15} />
+                  </div>
+                )}
+                <div className="text-left">
+                  <div className="text-xs font-semibold text-zinc-900 dark:text-white leading-tight">
+                    {brand.name}
+                  </div>
+                  <div className="text-[10px] text-zinc-500 dark:text-[#a0a0a0] font-mono">
+                    {brand.quality}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
