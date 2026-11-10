@@ -20,7 +20,8 @@ interface GalleryCardItem {
   backdrop: string;
   poster: string;
   fallback: string;
-  bgClass: string;
+  cardBg: string;
+  brandKey: string;
   movie: TMDBMovie;
 }
 
@@ -42,17 +43,19 @@ function GalleryCard({
       key={item.id}
       data-i={i}
       data-index={idx}
+      data-brand={item.brandKey}
       style={{
         "--i": i,
         "--i-abs": iAbs,
         "--stagger": idx,
+        "--card-bg": item.cardBg,
         zIndex,
       } as React.CSSProperties}
       onClick={onClick}
-      className={`group relative shrink-0 cursor-pointer select-none rounded-[20px] overflow-hidden border border-black/10 hover:border-black/30 dark:border-white/20 dark:hover:border-white/60 shadow-xl shadow-black/15 dark:shadow-black/80 w-32 sm:w-40 md:w-48 lg:w-52 ${item.bgClass} flex items-center justify-center`}
+      className="card group relative shrink-0 cursor-pointer select-none rounded-[20px] overflow-hidden w-32 sm:w-40 md:w-48 lg:w-52 flex items-center justify-center"
     >
-      {/* Pure Brand Image (600x900 portrait card artwork with the exact matching brand background color) */}
-      <div className="relative w-full h-full flex items-center justify-center">
+      {/* Pure Transparent Logo sitting directly on the card's background */}
+      <div className="relative w-full h-full flex items-center justify-center p-3">
         <Image
           src={item.poster}
           alt={item.title}
@@ -60,7 +63,7 @@ function GalleryCard({
           unoptimized
           priority
           sizes="(max-width: 640px) 140px, (max-width: 1024px) 190px, 220px"
-          className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+          className="object-contain transition-transform duration-300 ease-out group-hover:scale-105"
         />
       </div>
     </div>
@@ -75,10 +78,11 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
       title: "Netflix",
       category: "Streaming 4K",
       network: "NETFLIX",
-      backdrop: "/brands/card-netflix.png",
-      poster: "/brands/card-netflix.png",
-      fallback: "/brands/card-netflix.png",
-      bgClass: "bg-[#1f272e]",
+      backdrop: "/brands/netflix.png",
+      poster: "/brands/netflix.png",
+      fallback: "/brands/netflix.png",
+      cardBg: "#000000",
+      brandKey: "netflix",
       movie: CURATED_TMDB_MOVIES[0],
     },
     {
@@ -86,10 +90,11 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
       title: "beIN SPORTS",
       category: "Live Sports",
       network: "beIN SPORTS",
-      backdrop: "/brands/card-beinsports.png",
-      poster: "/brands/card-beinsports.png",
-      fallback: "/brands/card-beinsports.png",
-      bgClass: "bg-[#3d2b35]",
+      backdrop: "/brands/beinsports.png",
+      poster: "/brands/beinsports.png",
+      fallback: "/brands/beinsports.png",
+      cardBg: "#5c2c90",
+      brandKey: "beinsports",
       movie: CURATED_TMDB_MOVIES[1],
     },
     {
@@ -97,10 +102,11 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
       title: "Apple TV+",
       category: "Apple Originals",
       network: "APPLE TV+",
-      backdrop: "/brands/card-appletv.png",
-      poster: "/brands/card-appletv.png",
-      fallback: "/brands/card-appletv.png",
-      bgClass: "bg-[#26342d]",
+      backdrop: "/brands/appletv.png",
+      poster: "/brands/appletv.png",
+      fallback: "/brands/appletv.png",
+      cardBg: "#1a1a1a",
+      brandKey: "appletv",
       movie: CURATED_TMDB_SERIES[0],
     },
     {
@@ -108,10 +114,11 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
       title: "CANAL+",
       category: "Cinéma & Séries",
       network: "CANAL+",
-      backdrop: "/brands/card-canalplus.png",
-      poster: "/brands/card-canalplus.png",
-      fallback: "/brands/card-canalplus.png",
-      bgClass: "bg-[#383127]",
+      backdrop: "/brands/canalplus.png",
+      poster: "/brands/canalplus.png",
+      fallback: "/brands/canalplus.png",
+      cardBg: "#000000",
+      brandKey: "canalplus",
       movie: CURATED_TMDB_MOVIES[2],
     },
     {
@@ -119,10 +126,11 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
       title: "Disney+",
       category: "Univers Disney",
       network: "DISNEY+",
-      backdrop: "/brands/card-disneyplus.png",
-      poster: "/brands/card-disneyplus.png",
-      fallback: "/brands/card-disneyplus.png",
-      bgClass: "bg-[#34243b]",
+      backdrop: "/brands/disneyplus.png",
+      poster: "/brands/disneyplus.png",
+      fallback: "/brands/disneyplus.png",
+      cardBg: "#04202e",
+      brandKey: "disneyplus",
       movie: CURATED_TMDB_SERIES[1],
     },
     {
@@ -130,10 +138,11 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
       title: "Prime Video",
       category: "Amazon Blockbusters",
       network: "PRIME VIDEO",
-      backdrop: "/brands/card-primevideo.png",
-      poster: "/brands/card-primevideo.png",
-      fallback: "/brands/card-primevideo.png",
-      bgClass: "bg-[#26342d]",
+      backdrop: "/brands/primevideo.png",
+      poster: "/brands/primevideo.png",
+      fallback: "/brands/primevideo.png",
+      cardBg: "#0b1520",
+      brandKey: "primevideo",
       movie: CURATED_TMDB_MOVIES[3],
     },
     {
@@ -141,10 +150,11 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
       title: "HBO Max",
       category: "Max Originals",
       network: "HBO MAX",
-      backdrop: "/brands/card-hbomax.png",
-      poster: "/brands/card-hbomax.png",
-      fallback: "/brands/card-hbomax.png",
-      bgClass: "bg-[#3d2b35]",
+      backdrop: "/brands/hbomax.png",
+      poster: "/brands/hbomax.png",
+      fallback: "/brands/hbomax.png",
+      cardBg: "#3b0a8c",
+      brandKey: "hbomax",
       movie: CURATED_TMDB_SERIES[2],
     },
   ];

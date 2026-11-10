@@ -114,13 +114,28 @@ html.light .glass-card-hover:hover {
 }
 
 /* =========================================================
-   CONCAVE CURVED CARDS ROW (Exact Flowblox Reference Arc)
+   CONCAVE CARDS: SEAMLESS LOGOS & ZERO-BORDER SYSTEM
    ========================================================= */
 .perspective-container {
   perspective: 1200px !important;
   transform-style: preserve-3d;
   overflow: hidden;
   width: 100%;
+}
+
+/* Page background behind cards in dark mode prevents any white/light gap */
+.dark .hero-cinema,
+html.dark .hero-cinema,
+.dark .perspective-container,
+html.dark .perspective-container {
+  background-color: #080808;
+}
+
+@media (prefers-color-scheme: dark) {
+  .hero-cinema,
+  .perspective-container {
+    background-color: #080808;
+  }
 }
 
 .perspective-container > div {
@@ -142,36 +157,108 @@ html.light .glass-card-hover:hover {
   }
 }
 
+/* Card base with invisible matched border and anti-aliasing edge fix */
+.card,
+.perspective-container .card,
 .perspective-container .group {
   --i: 0;
   --i-abs: 0;
   --card-base: 220px;
   --card-step: 40px;
+  --card-bg: #000;
+
+  background: var(--card-bg) !important;
+  border: 1px solid var(--card-bg) !important;
+  outline: none !important;
+  border-radius: 20px !important;
+  overflow: hidden !important;
+  backface-visibility: hidden !important;
+  -webkit-backface-visibility: hidden !important;
 
   height: calc(var(--card-base) + var(--i-abs) * var(--card-step)) !important;
   transform: rotateY(calc(var(--i) * -12deg)) translateZ(calc(var(--i-abs) * 20px));
   transform-style: preserve-3d;
-  border-radius: 20px !important;
-  overflow: hidden !important;
-  box-shadow: 0 16px 36px -6px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 16px 36px -6px rgba(0, 0, 0, 0.4);
   transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 300ms cubic-bezier(0.16, 1, 0.3, 1) !important;
   animation: cardEntrance 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: calc(var(--stagger, 0) * 80ms);
   will-change: transform;
 }
 
+.card:hover,
+.perspective-container .card:hover,
 .perspective-container .group:hover {
   transform: translateY(-8px) scale(1.03) rotateY(calc(var(--i) * -12deg)) translateZ(calc(var(--i-abs) * 20px)) !important;
-  box-shadow: 0 24px 48px -4px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 24px 48px -4px rgba(0, 0, 0, 0.55);
+  border-color: var(--card-bg) !important;
   z-index: 50 !important;
 }
 
-.perspective-container .group img {
-  object-fit: cover !important;
+/* Dark mode: border color strictly matches card background (no white edge/halo/ring) */
+.dark .card,
+html.dark .card,
+.dark .perspective-container .group,
+html.dark .perspective-container .group {
+  border-color: var(--card-bg) !important;
+  box-shadow: 0 16px 40px -6px rgba(0, 0, 0, 0.85);
 }
 
-/* Responsive: 5 cards on mobile, 3 cards on small mobile */
+@media (prefers-color-scheme: dark) {
+  .card,
+  .perspective-container .group {
+    border-color: var(--card-bg) !important;
+  }
+}
+
+/* Per-card individual background colors */
+.card[data-brand="appletv"],
+.perspective-container [data-brand="appletv"] {
+  --card-bg: #1a1a1a;
+}
+.card[data-brand="canalplus"],
+.perspective-container [data-brand="canalplus"] {
+  --card-bg: #000000;
+}
+.card[data-brand="disneyplus"],
+.perspective-container [data-brand="disneyplus"] {
+  --card-bg: #04202e;
+}
+.card[data-brand="primevideo"],
+.perspective-container [data-brand="primevideo"] {
+  --card-bg: #0b1520;
+}
+.card[data-brand="hbomax"],
+.perspective-container [data-brand="hbomax"] {
+  --card-bg: #3b0a8c;
+}
+.card[data-brand="netflix"],
+.perspective-container [data-brand="netflix"] {
+  --card-bg: #000000;
+}
+.card[data-brand="beinsports"],
+.perspective-container [data-brand="beinsports"] {
+  --card-bg: #5c2c90;
+}
+
+/* Center each logo in the card with transparent background and max-width ~65% */
+.card img,
+.perspective-container .card img,
+.perspective-container .group img {
+  background: transparent !important;
+  object-fit: contain !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  mix-blend-mode: normal !important;
+  max-width: 65% !important;
+  max-height: 55% !important;
+  margin: auto !important;
+  pointer-events: none;
+}
+
+/* Responsive: 5 cards on tablet/mobile, 3 cards on small mobile */
 @media (max-width: 768px) {
+  .card,
   .perspective-container .group {
     --card-base: 190px;
     --card-step: 28px;
@@ -182,10 +269,13 @@ html.light .glass-card-hover:hover {
   .perspective-container > div {
     gap: 12px;
   }
+  .card,
   .perspective-container .group {
     --card-base: 170px;
     --card-step: 20px;
   }
+  .card[data-i="-3"],
+  .card[data-i="3"],
   .perspective-container .group[data-i="-3"],
   .perspective-container .group[data-i="3"] {
     display: none !important;
@@ -196,11 +286,14 @@ html.light .glass-card-hover:hover {
   .perspective-container > div {
     gap: 10px;
   }
+  .card,
   .perspective-container .group {
     --card-base: 150px;
     --card-step: 15px;
     border-radius: 16px !important;
   }
+  .card[data-i="-2"],
+  .card[data-i="2"],
   .perspective-container .group[data-i="-2"],
   .perspective-container .group[data-i="2"] {
     display: none !important;
