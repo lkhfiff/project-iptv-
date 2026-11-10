@@ -62,24 +62,24 @@ export default function HomePage() {
   };
 
   return (
-    <div className="space-y-24 sm:space-y-32 pb-24 overflow-hidden bg-[#080808] text-white">
+    <div className="space-y-24 sm:space-y-32 pb-24 overflow-hidden bg-[#faf9f6] text-zinc-900 dark:bg-[#080808] dark:text-white transition-colors duration-300">
       {/* 1. Full-Screen Hero & Floating Image Gallery (Matching the reference screenshot) */}
       <HeroMinimal onSelectMedia={openModal} />
 
       {/* 01. Featured Entertainment — Editorial Style */}
       <section id="featured" className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 space-y-12">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/10 pb-6">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-black/10 dark:border-white/10 pb-6">
           <div className="space-y-1">
-            <span className="text-xs uppercase font-mono tracking-widest text-[#a0a0a0]">
+            <span className="text-xs uppercase font-mono tracking-widest text-zinc-500 dark:text-[#a0a0a0]">
               01 / Sélection Éditoriale
             </span>
-            <h2 className="text-2xl sm:text-4xl font-light tracking-tight text-white">
+            <h2 className="text-2xl sm:text-4xl font-light tracking-tight text-zinc-950 dark:text-white">
               Cinéma &amp; Exclusivités
             </h2>
           </div>
           <Link
             href="/movies"
-            className="text-xs font-medium text-[#a0a0a0] hover:text-white transition-colors flex items-center gap-1.5"
+            className="text-xs font-medium text-zinc-600 dark:text-[#a0a0a0] hover:text-black dark:hover:text-white transition-colors flex items-center gap-1.5"
           >
             <span>Explorer le Catalogue Complet</span>
             <Icon icon="ph:arrow-right" width={13} />
@@ -91,9 +91,9 @@ export default function HomePage() {
           {/* Main Large Feature */}
           <div
             onClick={() => handleOpenMovie(CURATED_TMDB_MOVIES[0])}
-            className="group relative rounded-3xl overflow-hidden bg-[#151515] border border-white/10 hover:border-white/30 transition-all duration-500 cursor-pointer flex flex-col justify-between min-h-[440px]"
+            className="group relative rounded-3xl overflow-hidden bg-white dark:bg-[#151515] border border-black/10 dark:border-white/10 hover:border-black/25 dark:hover:border-white/30 transition-all duration-500 cursor-pointer flex flex-col justify-between min-h-[440px] shadow-xl shadow-black/5 dark:shadow-none"
           >
-            <div className="relative w-full h-80 overflow-hidden">
+            <div className="relative w-full h-80 overflow-hidden bg-black">
               <Image
                 src={getTMDBImageUrl(CURATED_TMDB_MOVIES[0].backdrop_path, "w1280")}
                 alt={CURATED_TMDB_MOVIES[0].title}
@@ -101,24 +101,24 @@ export default function HomePage() {
                 sizes="(max-width: 1024px) 100vw, 700px"
                 className="object-cover transition-transform duration-700 ease-out group-hover:scale-105 filter brightness-[0.88]"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#151515] via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent dark:from-[#151515] dark:via-transparent dark:to-transparent" />
             </div>
 
             <div className="p-8 space-y-3 relative z-10">
-              <div className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-wider text-[#a0a0a0]">
+              <div className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-wider text-zinc-500 dark:text-[#a0a0a0]">
                 <span>Science Fiction</span>
                 <span>•</span>
                 <span>4K UHD • Dolby Atmos</span>
                 <span>•</span>
-                <span className="flex items-center gap-1 text-white">
+                <span className="flex items-center gap-1 text-zinc-950 dark:text-white font-medium">
                   <Icon icon="ph:star-fill" width={11} />
                   <span>{CURATED_TMDB_MOVIES[0].vote_average}</span>
                 </span>
               </div>
-              <h3 className="text-2xl sm:text-3xl font-light text-white tracking-tight">
+              <h3 className="text-2xl sm:text-3xl font-light text-zinc-950 dark:text-white tracking-tight">
                 {CURATED_TMDB_MOVIES[0].title}
               </h3>
-              <p className="text-xs text-[#a0a0a0] line-clamp-2 leading-relaxed font-light">
+              <p className="text-xs text-zinc-600 dark:text-[#a0a0a0] line-clamp-2 leading-relaxed font-light">
                 {CURATED_TMDB_MOVIES[0].overview}
               </p>
             </div>
@@ -130,7 +130,7 @@ export default function HomePage() {
               <div
                 key={item.id}
                 onClick={() => handleOpenMovie(item)}
-                className="group relative rounded-3xl overflow-hidden bg-[#151515] border border-white/10 hover:border-white/30 transition-all duration-300 p-6 flex flex-col sm:flex-row gap-6 cursor-pointer flex-1 items-center"
+                className="group relative rounded-3xl overflow-hidden bg-white dark:bg-[#151515] border border-black/10 dark:border-white/10 hover:border-black/25 dark:hover:border-white/30 transition-all duration-300 p-6 flex flex-col sm:flex-row gap-6 cursor-pointer flex-1 items-center shadow-lg shadow-black/5 dark:shadow-none"
               >
                 <div className="relative w-full sm:w-48 h-40 rounded-2xl overflow-hidden shrink-0 bg-black">
                   <Image
@@ -142,13 +142,13 @@ export default function HomePage() {
                   />
                 </div>
                 <div className="space-y-2 flex-1">
-                  <div className="text-[10px] uppercase font-mono tracking-wider text-[#a0a0a0]">
+                  <div className="text-[10px] uppercase font-mono tracking-wider text-zinc-500 dark:text-[#a0a0a0]">
                     Release {new Date(item.release_date || "").getFullYear()} • 4K HDR
                   </div>
-                  <h4 className="text-lg font-medium text-white tracking-tight group-hover:text-white">
+                  <h4 className="text-lg font-medium text-zinc-950 dark:text-white tracking-tight">
                     {item.title}
                   </h4>
-                  <p className="text-xs text-[#a0a0a0] line-clamp-2 leading-relaxed font-light">
+                  <p className="text-xs text-zinc-600 dark:text-[#a0a0a0] line-clamp-2 leading-relaxed font-light">
                     {item.overview}
                   </p>
                 </div>
@@ -160,18 +160,18 @@ export default function HomePage() {
 
       {/* 02. Trending Movies — Horizontal Poster Gallery */}
       <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 space-y-8">
-        <div className="flex items-end justify-between border-b border-white/10 pb-6">
+        <div className="flex items-end justify-between border-b border-black/10 dark:border-white/10 pb-6">
           <div className="space-y-1">
-            <span className="text-xs uppercase font-mono tracking-widest text-[#a0a0a0]">
+            <span className="text-xs uppercase font-mono tracking-widest text-zinc-500 dark:text-[#a0a0a0]">
               02 / Galerie Cinématographique
             </span>
-            <h2 className="text-2xl sm:text-3xl font-light text-white tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-light text-zinc-950 dark:text-white tracking-tight">
               Films &amp; Box-Office
             </h2>
           </div>
           <Link
             href="/movies"
-            className="text-xs font-medium text-[#a0a0a0] hover:text-white transition-colors flex items-center gap-1"
+            className="text-xs font-medium text-zinc-600 dark:text-[#a0a0a0] hover:text-black dark:hover:text-white transition-colors flex items-center gap-1"
           >
             <span>Tout Afficher</span>
             <Icon icon="ph:arrow-right" width={13} />
@@ -185,7 +185,7 @@ export default function HomePage() {
               onClick={() => handleOpenMovie(movie)}
               className="group cursor-pointer select-none space-y-2.5"
             >
-              <div className="relative aspect-[2/3] w-full rounded-2xl overflow-hidden bg-[#151515] border border-white/10 group-hover:border-white/40 transition-all duration-400 group-hover:-translate-y-1 group-hover:shadow-xl">
+              <div className="relative aspect-[2/3] w-full rounded-2xl overflow-hidden bg-black border border-black/10 dark:border-white/10 group-hover:border-black/30 dark:group-hover:border-white/40 transition-all duration-400 group-hover:-translate-y-1 group-hover:shadow-xl shadow-md">
                 <Image
                   src={getTMDBImageUrl(movie.poster_path, "w500")}
                   alt={movie.title}
@@ -193,17 +193,17 @@ export default function HomePage() {
                   sizes="(max-width: 640px) 160px, 240px"
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-106 filter brightness-95"
                 />
-                <div className="absolute top-2 right-2 px-1.5 py-0.5 rounded bg-black/60 text-[10px] font-mono text-white border border-white/10">
+                <div className="absolute top-2 right-2 px-1.5 py-0.5 rounded bg-black/70 text-[10px] font-mono text-white border border-white/10">
                   4K
                 </div>
               </div>
 
               <div className="space-y-0.5 px-0.5">
-                <h4 className="text-xs font-medium text-white truncate group-hover:text-white">
+                <h4 className="text-xs font-medium text-zinc-900 dark:text-white truncate">
                   {movie.title}
                 </h4>
-                <p className="text-[11px] font-mono text-[#a0a0a0] flex items-center gap-1">
-                  <Icon icon="ph:star-fill" width={10} className="text-white" />
+                <p className="text-[11px] font-mono text-zinc-500 dark:text-[#a0a0a0] flex items-center gap-1">
+                  <Icon icon="ph:star-fill" width={10} className="text-amber-500" />
                   <span>{movie.vote_average.toFixed(1)}</span>
                 </p>
               </div>
@@ -214,18 +214,18 @@ export default function HomePage() {
 
       {/* 03. Popular Series — Elegant Cards */}
       <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 space-y-8">
-        <div className="flex items-end justify-between border-b border-white/10 pb-6">
+        <div className="flex items-end justify-between border-b border-black/10 dark:border-white/10 pb-6">
           <div className="space-y-1">
-            <span className="text-xs uppercase font-mono tracking-widest text-[#a0a0a0]">
+            <span className="text-xs uppercase font-mono tracking-widest text-zinc-500 dark:text-[#a0a0a0]">
               03 / Séries Phares
             </span>
-            <h2 className="text-2xl sm:text-3xl font-light text-white tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-light text-zinc-950 dark:text-white tracking-tight">
               Séries &amp; Productions Originales
             </h2>
           </div>
           <Link
             href="/series"
-            className="text-xs font-medium text-[#a0a0a0] hover:text-white transition-colors flex items-center gap-1"
+            className="text-xs font-medium text-zinc-600 dark:text-[#a0a0a0] hover:text-black dark:hover:text-white transition-colors flex items-center gap-1"
           >
             <span>Tout Afficher</span>
             <Icon icon="ph:arrow-right" width={13} />
@@ -239,7 +239,7 @@ export default function HomePage() {
               onClick={() => handleOpenSeries(show)}
               className="group cursor-pointer select-none space-y-3"
             >
-              <div className="relative aspect-video w-full rounded-2xl overflow-hidden bg-[#151515] border border-white/10 group-hover:border-white/40 transition-all duration-400 group-hover:-translate-y-1 group-hover:shadow-xl">
+              <div className="relative aspect-video w-full rounded-2xl overflow-hidden bg-black border border-black/10 dark:border-white/10 group-hover:border-black/30 dark:group-hover:border-white/40 transition-all duration-400 group-hover:-translate-y-1 group-hover:shadow-xl shadow-md">
                 <Image
                   src={getTMDBImageUrl(show.backdrop_path, "w780")}
                   alt={show.name || show.title}
@@ -255,10 +255,10 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <div className="flex items-center justify-between text-xs text-[#a0a0a0] px-1 font-mono">
+              <div className="flex items-center justify-between text-xs text-zinc-500 dark:text-[#a0a0a0] px-1 font-mono">
                 <span>{show.number_of_seasons} Saisons</span>
-                <span className="flex items-center gap-1 text-white">
-                  <Icon icon="ph:star-fill" width={10} />
+                <span className="flex items-center gap-1 text-zinc-900 dark:text-white">
+                  <Icon icon="ph:star-fill" width={10} className="text-amber-500" />
                   <span>{show.vote_average.toFixed(1)}</span>
                 </span>
               </div>
@@ -269,18 +269,18 @@ export default function HomePage() {
 
       {/* 04. Live TV — Minimal Channel Directory Preview */}
       <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 space-y-8">
-        <div className="flex items-end justify-between border-b border-white/10 pb-6">
+        <div className="flex items-end justify-between border-b border-black/10 dark:border-white/10 pb-6">
           <div className="space-y-1">
-            <span className="text-xs uppercase font-mono tracking-widest text-[#a0a0a0]">
+            <span className="text-xs uppercase font-mono tracking-widest text-zinc-500 dark:text-[#a0a0a0]">
               04 / Flux Télévisés
             </span>
-            <h2 className="text-2xl sm:text-3xl font-light text-white tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-light text-zinc-950 dark:text-white tracking-tight">
               Chaînes en Direct &amp; Satellites
             </h2>
           </div>
           <Link
             href="/live-tv"
-            className="text-xs font-medium text-[#a0a0a0] hover:text-white transition-colors flex items-center gap-1"
+            className="text-xs font-medium text-zinc-600 dark:text-[#a0a0a0] hover:text-black dark:hover:text-white transition-colors flex items-center gap-1"
           >
             <span>Ouvrir le Lecteur Live TV</span>
             <Icon icon="ph:arrow-right" width={13} />
@@ -292,21 +292,21 @@ export default function HomePage() {
             <Link
               key={ch.id}
               href="/live-tv"
-              className="p-5 rounded-2xl bg-[#151515] border border-white/10 hover:border-white/30 transition-all space-y-3 block group"
+              className="p-5 rounded-2xl bg-white dark:bg-[#151515] border border-black/10 dark:border-white/10 hover:border-black/25 dark:hover:border-white/30 shadow-md shadow-black/5 dark:shadow-none transition-all space-y-3 block group"
             >
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono uppercase text-[#a0a0a0]">
+                <span className="text-[10px] font-mono uppercase text-zinc-500 dark:text-[#a0a0a0]">
                   {ch.countryCode} • {ch.category}
                 </span>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/5 text-white">
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-black/5 dark:bg-white/5 text-zinc-900 dark:text-white">
                   {ch.resolution.split(" ")[0]}
                 </span>
               </div>
               <div>
-                <h4 className="text-sm font-semibold text-white truncate group-hover:text-white">
+                <h4 className="text-sm font-semibold text-zinc-950 dark:text-white truncate">
                   {ch.name}
                 </h4>
-                <p className="text-xs text-[#a0a0a0] truncate mt-0.5 font-light">
+                <p className="text-xs text-zinc-600 dark:text-[#a0a0a0] truncate mt-0.5 font-light">
                   En cours: {ch.currentProgram}
                 </p>
               </div>
@@ -317,18 +317,18 @@ export default function HomePage() {
 
       {/* 05. Sports — Live Fixtures & Categories */}
       <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 space-y-8">
-        <div className="flex items-end justify-between border-b border-white/10 pb-6">
+        <div className="flex items-end justify-between border-b border-black/10 dark:border-white/10 pb-6">
           <div className="space-y-1">
-            <span className="text-xs uppercase font-mono tracking-widest text-[#a0a0a0]">
+            <span className="text-xs uppercase font-mono tracking-widest text-zinc-500 dark:text-[#a0a0a0]">
               05 / Calendrier Sportif
             </span>
-            <h2 className="text-2xl sm:text-4xl font-light text-white tracking-tight">
+            <h2 className="text-2xl sm:text-4xl font-light text-zinc-950 dark:text-white tracking-tight">
               Compétitions &amp; Grands Matchs
             </h2>
           </div>
           <Link
             href="/sports"
-            className="text-xs font-medium text-[#a0a0a0] hover:text-white transition-colors flex items-center gap-1"
+            className="text-xs font-medium text-zinc-600 dark:text-[#a0a0a0] hover:text-black dark:hover:text-white transition-colors flex items-center gap-1"
           >
             <span>Programme Sportif Intégral</span>
             <Icon icon="ph:arrow-right" width={13} />
@@ -339,34 +339,34 @@ export default function HomePage() {
           {CURATED_LIVE_MATCHES.slice(0, 2).map((match) => (
             <div
               key={match.id}
-              className="p-6 rounded-3xl bg-[#151515] border border-white/10 flex flex-col justify-between space-y-6"
+              className="p-6 rounded-3xl bg-white dark:bg-[#151515] border border-black/10 dark:border-white/10 shadow-md shadow-black/5 dark:shadow-none flex flex-col justify-between space-y-6"
             >
-              <div className="flex items-center justify-between border-b border-white/5 pb-3">
-                <span className="text-xs font-mono text-[#a0a0a0] uppercase">
+              <div className="flex items-center justify-between border-b border-black/5 dark:border-white/5 pb-3">
+                <span className="text-xs font-mono text-zinc-500 dark:text-[#a0a0a0] uppercase">
                   {match.competition}
                 </span>
                 {match.status === "LIVE" ? (
-                  <span className="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-white text-black text-[10px] font-bold">
+                  <span className="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-black text-white dark:bg-white dark:text-black text-[10px] font-bold">
                     LIVE {match.minute}
                   </span>
                 ) : (
-                  <span className="text-xs font-mono text-[#a0a0a0]">
+                  <span className="text-xs font-mono text-zinc-500 dark:text-[#a0a0a0]">
                     {match.kickoffTime}
                   </span>
                 )}
               </div>
 
-              <div className="flex items-center justify-between text-base sm:text-lg font-light text-white">
+              <div className="flex items-center justify-between text-base sm:text-lg font-light text-zinc-950 dark:text-white">
                 <span className="truncate pr-2">{match.homeTeam.name}</span>
-                <span className="font-mono text-xs px-2.5 py-1 rounded-lg bg-white/5 text-[#a0a0a0]">
+                <span className="font-mono text-xs px-2.5 py-1 rounded-lg bg-black/5 dark:bg-white/5 text-zinc-700 dark:text-[#a0a0a0]">
                   VS
                 </span>
                 <span className="truncate pl-2 text-right">{match.awayTeam.name}</span>
               </div>
 
-              <div className="flex items-center justify-between text-xs text-[#a0a0a0] pt-2 border-t border-white/5">
+              <div className="flex items-center justify-between text-xs text-zinc-500 dark:text-[#a0a0a0] pt-2 border-t border-black/5 dark:border-white/5">
                 <span>{match.venue}</span>
-                <span className="text-white font-mono text-[11px]">{match.channelBroadcast}</span>
+                <span className="text-zinc-950 dark:text-white font-mono text-[11px]">{match.channelBroadcast}</span>
               </div>
             </div>
           ))}
@@ -376,13 +376,13 @@ export default function HomePage() {
       {/* 06. Subscription Plans — Redesigned Compact Monochromatic Cards */}
       <section id="pricing" className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 space-y-10">
         <div className="text-center max-w-2xl mx-auto space-y-3">
-          <span className="text-xs uppercase font-mono tracking-widest text-[#a0a0a0]">
+          <span className="text-xs uppercase font-mono tracking-widest text-zinc-500 dark:text-[#a0a0a0]">
             06 / Formules
           </span>
-          <h2 className="text-2xl sm:text-4xl font-light text-white tracking-tight">
+          <h2 className="text-2xl sm:text-4xl font-light text-zinc-950 dark:text-white tracking-tight">
             Nos Abonnements
           </h2>
-          <p className="text-xs sm:text-sm text-[#a0a0a0] font-light leading-relaxed">
+          <p className="text-xs sm:text-sm text-zinc-600 dark:text-[#a0a0a0] font-light leading-relaxed">
             Formules compactes, claires et sans engagement. Provisionnement et activation de votre flux en moins de 3 minutes.
           </p>
         </div>
@@ -397,15 +397,15 @@ export default function HomePage() {
       {/* 07. Devices — Minimal Ecosystem Strip */}
       <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 space-y-6">
         <div className="text-center space-y-2">
-          <span className="text-xs uppercase font-mono tracking-widest text-[#a0a0a0]">
+          <span className="text-xs uppercase font-mono tracking-widest text-zinc-500 dark:text-[#a0a0a0]">
             07 / Compatibilité
           </span>
-          <h3 className="text-xl sm:text-2xl font-light text-white">
+          <h3 className="text-xl sm:text-2xl font-light text-zinc-950 dark:text-white">
             Écosystème Matériel Universel
           </h3>
         </div>
 
-        <div className="flex flex-wrap items-center justify-center gap-3 text-xs text-[#a0a0a0]">
+        <div className="flex flex-wrap items-center justify-center gap-3 text-xs text-zinc-600 dark:text-[#a0a0a0]">
           {[
             "Apple TV 4K",
             "Amazon Fire TV Stick",
@@ -419,7 +419,7 @@ export default function HomePage() {
             <Link
               key={device}
               href="/devices"
-              className="px-4 py-2 rounded-full bg-[#151515] border border-white/10 hover:border-white/30 text-white/90 text-xs transition-colors"
+              className="px-4 py-2 rounded-full bg-white dark:bg-[#151515] border border-black/10 dark:border-white/10 hover:border-black/30 dark:hover:border-white/30 text-zinc-800 dark:text-white/90 text-xs shadow-sm transition-colors"
             >
               {device}
             </Link>
@@ -429,14 +429,14 @@ export default function HomePage() {
 
       {/* 08. Contact — Direct Concierge CTA */}
       <section className="max-w-5xl mx-auto px-6 sm:px-10">
-        <div className="p-8 sm:p-14 rounded-3xl bg-[#151515] border border-white/15 text-center space-y-6">
-          <span className="text-xs uppercase font-mono tracking-widest text-[#a0a0a0]">
+        <div className="p-8 sm:p-14 rounded-3xl bg-white dark:bg-[#151515] border border-black/10 dark:border-white/15 text-center space-y-6 shadow-2xl shadow-black/5 dark:shadow-none">
+          <span className="text-xs uppercase font-mono tracking-widest text-zinc-500 dark:text-[#a0a0a0]">
             08 / Accès &amp; Assistance
           </span>
-          <h2 className="text-2xl sm:text-4xl font-light tracking-tight text-white max-w-xl mx-auto">
+          <h2 className="text-2xl sm:text-4xl font-light tracking-tight text-zinc-950 dark:text-white max-w-xl mx-auto">
             Découvrez le Streaming Cinématographique NOUDINE.
           </h2>
-          <p className="text-xs sm:text-sm text-[#a0a0a0] max-w-md mx-auto font-light leading-relaxed">
+          <p className="text-xs sm:text-sm text-zinc-600 dark:text-[#a0a0a0] max-w-md mx-auto font-light leading-relaxed">
             Contactez notre conciergerie pour recevoir vos identifiants ou demander votre accès de démonstration gratuit 24h.
           </p>
 
@@ -445,14 +445,14 @@ export default function HomePage() {
               href={generateWhatsAppContactUrl("Activation Immédiate")}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-7 py-3 rounded-full bg-white text-black hover:bg-[#f2f2f2] text-xs font-semibold tracking-wide transition-all shadow-lg active:scale-95 inline-flex items-center gap-2"
+              className="px-7 py-3 rounded-full bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-[#f2f2f2] text-xs font-semibold tracking-wide transition-all shadow-lg active:scale-95 inline-flex items-center gap-2"
             >
               <Icon icon="ph:paper-plane-tilt" width={16} />
               <span>Contacter la Conciergerie VIP</span>
             </a>
             <Link
               href="/essai-gratuit"
-              className="px-6 py-3 rounded-full bg-white/10 hover:bg-white/15 text-white text-xs font-medium border border-white/15 transition-all inline-flex items-center gap-2"
+              className="px-6 py-3 rounded-full bg-black/5 hover:bg-black/10 text-zinc-900 dark:bg-white/10 dark:hover:bg-white/15 dark:text-white text-xs font-medium border border-black/10 dark:border-white/15 transition-all inline-flex items-center gap-2"
             >
               <Icon icon="ph:timer" width={14} />
               <span>Demander un Essai Gratuit 24H</span>

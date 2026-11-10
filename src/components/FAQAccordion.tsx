@@ -37,8 +37,8 @@ export function FAQAccordion() {
               onClick={() => setSelectedCategory(cat)}
               className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
                 selectedCategory === cat
-                  ? "bg-white text-black font-bold shadow-md"
-                  : "bg-white/5 text-zinc-400 hover:text-white"
+                  ? "bg-black text-white dark:bg-white dark:text-black font-bold shadow-md"
+                  : "bg-black/5 dark:bg-white/5 text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white"
               }`}
             >
               {cat}
@@ -56,8 +56,8 @@ export function FAQAccordion() {
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search questions..."
-            className="w-full bg-white/5 border border-white/10 rounded-full pl-9 pr-4 py-1.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-orange-500"
+            placeholder="Rechercher une question..."
+            className="w-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-full pl-9 pr-4 py-1.5 text-xs text-zinc-950 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:border-black/30 dark:focus:border-white/40"
           />
         </div>
       </div>
@@ -71,8 +71,8 @@ export function FAQAccordion() {
               key={faq.id}
               className={`rounded-2xl transition-all border ${
                 isOpen
-                  ? "bg-white/[0.04] border-orange-500/30 shadow-lg"
-                  : "bg-white/[0.02] border-white/5 hover:border-white/15"
+                  ? "bg-white dark:bg-white/[0.04] border-black/20 dark:border-white/20 shadow-lg"
+                  : "bg-white/80 dark:bg-white/[0.02] border-black/5 dark:border-white/5 hover:border-black/15 dark:hover:border-white/15"
               }`}
             >
               <button
@@ -81,16 +81,16 @@ export function FAQAccordion() {
                 aria-expanded={isOpen}
               >
                 <div className="space-y-1">
-                  <span className="text-[10px] uppercase font-bold tracking-wider text-orange-400">
+                  <span className="text-[10px] uppercase font-bold tracking-wider text-zinc-500 dark:text-zinc-400">
                     {faq.category}
                   </span>
-                  <h3 className="text-sm sm:text-base font-semibold text-white">
+                  <h3 className="text-sm sm:text-base font-semibold text-zinc-950 dark:text-white">
                     {faq.question}
                   </h3>
                 </div>
                 <div
-                  className={`w-7 h-7 rounded-full bg-white/5 flex items-center justify-center shrink-0 text-zinc-400 transition-transform duration-200 ${
-                    isOpen ? "rotate-180 bg-orange-500/20 text-orange-400" : ""
+                  className={`w-7 h-7 rounded-full bg-black/5 dark:bg-white/5 flex items-center justify-center shrink-0 text-zinc-500 dark:text-zinc-400 transition-transform duration-200 ${
+                    isOpen ? "rotate-180 bg-black/10 dark:bg-white/10 text-zinc-950 dark:text-white" : ""
                   }`}
                 >
                   <Icon icon="ph:caret-down-bold" width={14} />
@@ -98,7 +98,7 @@ export function FAQAccordion() {
               </button>
 
               {isOpen && (
-                <div className="px-5 pb-5 text-xs sm:text-sm text-zinc-300 leading-relaxed border-t border-white/5 pt-3 animate-in fade-in duration-200">
+                <div className="px-5 pb-5 text-xs sm:text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed border-t border-black/5 dark:border-white/5 pt-3 animate-in fade-in duration-200">
                   <p>{faq.answer}</p>
                 </div>
               )}

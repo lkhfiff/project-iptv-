@@ -4,6 +4,14 @@
 
 @layer base {
   :root {
+    --background: #faf9f6;
+    --foreground: #121214;
+    --soft-black: #ffffff;
+    --neutral-gray: #666666;
+    --light-gray: #1a1a1a;
+  }
+
+  html.dark {
     --background: #080808;
     --foreground: #ffffff;
     --soft-black: #151515;
@@ -11,33 +19,20 @@
     --light-gray: #f2f2f2;
   }
 
-  html.light {
-    --background: #f7f7f8;
-    --foreground: #0c0c0e;
-    --soft-black: #ffffff;
-    --neutral-gray: #555555;
-    --light-gray: #1a1a1a;
-  }
-
   * {
-    border-color: rgba(255, 255, 255, 0.08);
-  }
-
-  html.light * {
     border-color: rgba(0, 0, 0, 0.08);
   }
 
+  html.dark * {
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
   body {
-    background-color: #080808;
-    color: #ffffff;
+    background-color: var(--background);
+    color: var(--foreground);
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     overflow-x: hidden;
     transition: background-color 0.3s ease, color 0.3s ease;
-  }
-
-  html.light body {
-    background-color: #f7f7f8;
-    color: #0c0c0e;
   }
 }
 

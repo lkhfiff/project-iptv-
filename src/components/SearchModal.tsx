@@ -61,46 +61,46 @@ export function SearchModal({ isOpen, onClose, onSelectMedia }: SearchModalProps
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 px-4 bg-black/85 backdrop-blur-xl animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 px-4 bg-black/60 dark:bg-black/85 backdrop-blur-xl animate-in fade-in duration-200">
       <div className="absolute inset-0" onClick={onClose} />
 
-      <div className="relative w-full max-w-3xl rounded-3xl bg-zinc-950 border border-white/10 shadow-2xl overflow-hidden flex flex-col max-h-[80vh] z-10">
+      <div className="relative w-full max-w-3xl rounded-3xl bg-white dark:bg-zinc-950 border border-black/10 dark:border-white/10 shadow-2xl overflow-hidden flex flex-col max-h-[80vh] z-10 transition-colors">
         {/* Search Header */}
-        <div className="flex items-center gap-3 px-6 py-4 border-b border-white/10 bg-white/[0.02]">
-          <Icon icon="ph:magnifying-glass-bold" width={20} className="text-white/80 shrink-0" />
+        <div className="flex items-center gap-3 px-6 py-4 border-b border-black/10 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.02]">
+          <Icon icon="ph:magnifying-glass-bold" width={20} className="text-zinc-600 dark:text-white/80 shrink-0" />
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search 28,000+ channels, 4K movies, TV series, or sports..."
-            className="w-full bg-transparent text-white placeholder-zinc-500 text-sm sm:text-base focus:outline-none"
+            placeholder="Rechercher parmi 28 500+ chaînes, films 4K, séries ou sports..."
+            className="w-full bg-transparent text-zinc-950 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 text-sm sm:text-base focus:outline-none"
             autoFocus
           />
           {query && (
             <button
               onClick={() => setQuery("")}
-              className="text-zinc-400 hover:text-white p-1 cursor-pointer"
+              className="text-zinc-400 hover:text-black dark:hover:text-white p-1 cursor-pointer"
             >
               <Icon icon="ph:x-bold" width={16} />
             </button>
           )}
           <button
             onClick={onClose}
-            className="text-xs font-semibold px-2.5 py-1 rounded-md bg-white/10 text-zinc-300 hover:text-white cursor-pointer"
+            className="text-xs font-semibold px-2.5 py-1 rounded-md bg-black/5 dark:bg-white/10 text-zinc-700 dark:text-zinc-300 hover:text-black dark:hover:text-white cursor-pointer"
           >
             ESC
           </button>
         </div>
 
         {/* Filter Pills */}
-        <div className="flex items-center gap-2 px-6 py-3 border-b border-white/5 overflow-x-auto no-scrollbar text-xs">
+        <div className="flex items-center gap-2 px-6 py-3 border-b border-black/5 dark:border-white/5 overflow-x-auto no-scrollbar text-xs">
           {(
             [
-              { id: "all", label: "All Catalog" },
-              { id: "movie", label: "4K Movies" },
-              { id: "series", label: "TV Series" },
-              { id: "sport", label: "Live Sports" },
-              { id: "channel", label: "TV Channels" },
+              { id: "all", label: "Tout le Catalogue" },
+              { id: "movie", label: "Films 4K" },
+              { id: "series", label: "Séries TV" },
+              { id: "sport", label: "Sports en Direct" },
+              { id: "channel", label: "Chaînes TV" },
             ] as const
           ).map((tab) => (
             <button
@@ -108,8 +108,8 @@ export function SearchModal({ isOpen, onClose, onSelectMedia }: SearchModalProps
               onClick={() => setSelectedFilter(tab.id)}
               className={`px-3 py-1.5 rounded-full transition-all shrink-0 cursor-pointer ${
                 selectedFilter === tab.id
-                  ? "bg-white text-black font-bold shadow-md"
-                  : "bg-white/5 text-zinc-400 hover:text-white"
+                  ? "bg-black text-white dark:bg-white dark:text-black font-bold shadow-md"
+                  : "bg-black/5 dark:bg-white/5 text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white"
               }`}
             >
               {tab.label}
@@ -121,10 +121,10 @@ export function SearchModal({ isOpen, onClose, onSelectMedia }: SearchModalProps
         <div className="flex-1 overflow-y-auto p-6 space-y-6">
           {filteredResults.length === 0 && filteredChannels.length === 0 ? (
             <div className="py-16 text-center space-y-3">
-              <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mx-auto text-zinc-500">
+              <div className="w-12 h-12 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center mx-auto text-zinc-500">
                 <Icon icon="ph:magnifying-glass" width={24} />
               </div>
-              <p className="text-zinc-400 font-medium">No direct match found for &ldquo;{query}&rdquo;</p>
+              <p className="text-zinc-600 dark:text-zinc-400 font-medium">Aucun résultat trouvé pour &ldquo;{query}&rdquo;</p>
               <p className="text-xs text-zinc-500 max-w-sm mx-auto">
                 Demandez n&apos;importe quel contenu directement à notre conciergerie VIP !
               </p>
@@ -133,8 +133,8 @@ export function SearchModal({ isOpen, onClose, onSelectMedia }: SearchModalProps
             <>
               {filteredResults.length > 0 && (
                 <div className="space-y-3">
-                  <h4 className="text-xs font-bold tracking-wider uppercase text-zinc-400">
-                    Cinema & Broadcast ({filteredResults.length})
+                  <h4 className="text-xs font-bold tracking-wider uppercase text-zinc-500 dark:text-zinc-400">
+                    Cinéma &amp; Médias ({filteredResults.length})
                   </h4>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {filteredResults.map((item) => (
@@ -146,9 +146,9 @@ export function SearchModal({ isOpen, onClose, onSelectMedia }: SearchModalProps
                             onClose();
                           }
                         }}
-                        className="group flex gap-3 p-2.5 rounded-2xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/5 hover:border-white/30 transition-all cursor-pointer"
+                        className="group flex gap-3 p-2.5 rounded-2xl bg-black/[0.02] dark:bg-white/[0.03] hover:bg-black/[0.05] dark:hover:bg-white/[0.08] border border-black/5 dark:border-white/5 hover:border-black/20 dark:hover:border-white/30 transition-all cursor-pointer"
                       >
-                        <div className="relative w-16 h-20 rounded-xl overflow-hidden shrink-0 bg-zinc-900">
+                        <div className="relative w-16 h-20 rounded-xl overflow-hidden shrink-0 bg-black">
                           <Image
                             src={item.posterUrl}
                             alt={item.title}
@@ -159,22 +159,22 @@ export function SearchModal({ isOpen, onClose, onSelectMedia }: SearchModalProps
                         </div>
                         <div className="flex-1 min-w-0 flex flex-col justify-between py-0.5">
                           <div>
-                            <div className="flex items-center gap-1.5 text-[10px] text-zinc-400 font-medium mb-0.5">
-                              <span className="px-1.5 py-0.5 rounded bg-white/10 text-white font-bold">
+                            <div className="flex items-center gap-1.5 text-[10px] text-zinc-500 dark:text-zinc-400 font-medium mb-0.5">
+                              <span className="px-1.5 py-0.5 rounded bg-black/10 dark:bg-white/10 text-zinc-900 dark:text-white font-bold">
                                 {item.quality}
                               </span>
                               <span>{item.year}</span>
                               <span>•</span>
-                              <span className="text-white flex items-center gap-1 font-mono">
-                                <Icon icon="ph:star-fill" width={10} />
+                              <span className="text-zinc-900 dark:text-white flex items-center gap-1 font-mono">
+                                <Icon icon="ph:star-fill" width={10} className="text-amber-500" />
                                 {item.rating}
                               </span>
                             </div>
-                            <h5 className="text-sm font-semibold text-white truncate group-hover:text-white transition-colors">
+                            <h5 className="text-sm font-semibold text-zinc-950 dark:text-white truncate">
                               {item.title}
                             </h5>
                           </div>
-                          <p className="text-xs text-zinc-400 truncate">{item.category}</p>
+                          <p className="text-xs text-zinc-500 dark:text-zinc-400 truncate">{item.category}</p>
                         </div>
                       </div>
                     ))}

@@ -74,34 +74,34 @@ export default function RevendeurPage() {
   };
 
   return (
-    <div className="pt-28 pb-20 space-y-16 max-w-7xl mx-auto px-6 sm:px-10 text-white">
+    <div className="pt-28 pb-20 space-y-16 max-w-7xl mx-auto px-6 sm:px-10 text-zinc-900 dark:text-white transition-colors">
       {/* 1. Header Hero */}
       <div className="text-center max-w-3xl mx-auto space-y-4">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/15 text-white text-xs font-mono tracking-wider">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/5 dark:bg-white/10 border border-black/10 dark:border-white/15 text-zinc-900 dark:text-white text-xs font-mono tracking-wider">
           <Icon icon="ph:briefcase" width={14} />
           <span>Espace Revendeur Officiel • Panneau de Contrôle Xtream</span>
         </div>
 
-        <h1 className="text-3xl sm:text-5xl font-light text-white tracking-tight">
+        <h1 className="text-3xl sm:text-5xl font-light text-zinc-950 dark:text-white tracking-tight">
           Devenez Revendeur IPTV
         </h1>
 
-        <p className="text-[#a0a0a0] text-xs sm:text-sm max-w-xl mx-auto font-light leading-relaxed">
+        <p className="text-zinc-600 dark:text-[#a0a0a0] text-xs sm:text-sm max-w-xl mx-auto font-light leading-relaxed">
           Générez des revenus récurrents et bâtissez votre propre marque de streaming grâce à notre panneau revendeur puissant, notre infrastructure Anti-Freeze™ 9.9 et nos marges supérieures à 300%.
         </p>
 
         {/* Reseller stats */}
-        <div className="pt-2 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-xs font-mono text-[#f2f2f2]">
+        <div className="pt-2 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-xs font-mono text-zinc-800 dark:text-[#f2f2f2]">
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-white" />
+            <span className="w-2 h-2 rounded-full bg-zinc-900 dark:bg-white" />
             <span>Marge Nette : &gt; 300%</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-white" />
+            <span className="w-2 h-2 rounded-full bg-zinc-900 dark:bg-white" />
             <span>Tests Gratuits Illimités</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-white" />
+            <span className="w-2 h-2 rounded-full bg-zinc-900 dark:bg-white" />
             <span>100% Marque Blanche</span>
           </div>
         </div>
@@ -110,13 +110,13 @@ export default function RevendeurPage() {
       {/* 2. Credit Packs Pricing */}
       <div className="space-y-6">
         <div className="text-center space-y-1">
-          <span className="text-xs uppercase font-mono tracking-widest text-[#a0a0a0]">
+          <span className="text-xs uppercase font-mono tracking-widest text-zinc-500 dark:text-[#a0a0a0]">
             Tarifs Grossiste
           </span>
-          <h2 className="text-2xl sm:text-3xl font-light text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-light text-zinc-950 dark:text-white tracking-tight">
             Choisissez Votre Pack de Crédits
           </h2>
-          <p className="text-xs text-[#a0a0a0] font-light max-w-md mx-auto">
+          <p className="text-xs text-zinc-600 dark:text-[#a0a0a0] font-light max-w-md mx-auto">
             1 Crédit = 1 Mois d&apos;abonnement. Vos crédits n&apos;expirent jamais et restent disponibles jusqu&apos;à leur utilisation.
           </p>
         </div>
@@ -127,8 +127,8 @@ export default function RevendeurPage() {
               key={pack.id}
               className={`relative rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 ${
                 pack.isPopular
-                  ? "bg-[#181818] border border-white/50 shadow-2xl ring-1 ring-white/30"
-                  : "bg-[#151515] border border-white/10 hover:border-white/25 shadow-xl"
+                  ? "bg-white dark:bg-[#181818] border-2 border-zinc-950 dark:border-white/50 shadow-2xl ring-1 ring-zinc-950/20 dark:ring-white/30"
+                  : "bg-white/80 dark:bg-[#151515] border border-black/10 dark:border-white/10 hover:border-black/25 dark:hover:border-white/25 shadow-xl shadow-black/5 dark:shadow-none"
               }`}
             >
               {/* Badge */}
@@ -136,8 +136,8 @@ export default function RevendeurPage() {
                 <span
                   className={`px-3 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider shadow-md ${
                     pack.isPopular
-                      ? "bg-white text-black"
-                      : "bg-white/10 text-white/80 border border-white/15 backdrop-blur-md"
+                      ? "bg-black text-white dark:bg-white dark:text-black"
+                      : "bg-black/5 dark:bg-white/10 text-zinc-800 dark:text-white/80 border border-black/10 dark:border-white/15 backdrop-blur-md"
                   }`}
                 >
                   {pack.badge}
@@ -146,21 +146,21 @@ export default function RevendeurPage() {
 
               <div className="space-y-4">
                 <div className="space-y-1">
-                  <h3 className="text-base font-semibold text-white">{pack.name}</h3>
+                  <h3 className="text-base font-semibold text-zinc-950 dark:text-white">{pack.name}</h3>
                   <div className="flex items-baseline gap-2 pt-1">
-                    <span className="text-3xl sm:text-4xl font-light text-white">{pack.price}</span>
-                    <span className="text-xs text-[#a0a0a0] font-mono">({pack.pricePerCredit})</span>
+                    <span className="text-3xl sm:text-4xl font-light text-zinc-950 dark:text-white">{pack.price}</span>
+                    <span className="text-xs text-zinc-500 dark:text-[#a0a0a0] font-mono">({pack.pricePerCredit})</span>
                   </div>
-                  <p className="text-xs text-[#a0a0a0] font-mono">
+                  <p className="text-xs text-zinc-600 dark:text-[#a0a0a0] font-mono">
                     {pack.credits} Crédits Inclus
                   </p>
                 </div>
 
                 {/* Benefits */}
-                <div className="pt-4 border-t border-white/10 space-y-2.5">
+                <div className="pt-4 border-t border-black/5 dark:border-white/10 space-y-2.5">
                   {pack.benefits.map((b, i) => (
-                    <div key={i} className="flex items-start gap-2 text-xs text-[#f2f2f2]/90 font-light">
-                      <span className="w-3.5 h-3.5 rounded-full bg-white/10 text-white flex items-center justify-center shrink-0 mt-0.5">
+                    <div key={i} className="flex items-start gap-2 text-xs text-zinc-700 dark:text-[#f2f2f2]/90 font-light">
+                      <span className="w-3.5 h-3.5 rounded-full bg-black/5 dark:bg-white/10 text-zinc-900 dark:text-white flex items-center justify-center shrink-0 mt-0.5">
                         <Icon icon="ph:check" width={10} />
                       </span>
                       <span>{b}</span>
@@ -170,14 +170,14 @@ export default function RevendeurPage() {
               </div>
 
               {/* Action Button */}
-              <div className="pt-6 border-t border-white/10 mt-6">
+              <div className="pt-6 border-t border-black/5 dark:border-white/10 mt-6">
                 <button
                   type="button"
                   onClick={() => handleJoinReseller(pack.name, pack.credits, pack.price)}
                   className={`w-full py-3 px-4 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md active:scale-95 ${
                     pack.isPopular
-                      ? "bg-white text-black hover:bg-[#f2f2f2]"
-                      : "bg-white/10 hover:bg-white/20 text-white border border-white/15"
+                      ? "bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-[#f2f2f2]"
+                      : "bg-black/5 hover:bg-black/10 text-zinc-900 border border-black/10 dark:bg-white/10 dark:hover:bg-white/20 dark:text-white dark:border-white/15"
                   }`}
                 >
                   <Icon icon="ph:arrow-up-right" width={16} />
@@ -192,71 +192,71 @@ export default function RevendeurPage() {
       {/* 3. Reseller Benefits Grid */}
       <div className="space-y-8 max-w-5xl mx-auto pt-8">
         <div className="text-center space-y-1">
-          <span className="text-xs uppercase font-mono tracking-widest text-[#a0a0a0]">
+          <span className="text-xs uppercase font-mono tracking-widest text-zinc-500 dark:text-[#a0a0a0]">
             Avantages Clés
           </span>
-          <h2 className="text-2xl sm:text-3xl font-light text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-light text-zinc-950 dark:text-white tracking-tight">
             Pourquoi Choisir Notre Plateforme Revendeur ?
           </h2>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          <div className="p-5 rounded-2xl bg-[#151515] border border-white/10 space-y-2">
-            <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center text-white">
+          <div className="p-5 rounded-2xl bg-white dark:bg-[#151515] border border-black/10 dark:border-white/10 shadow-sm space-y-2">
+            <div className="w-8 h-8 rounded-xl bg-black/5 dark:bg-white/10 flex items-center justify-center text-zinc-900 dark:text-white">
               <Icon icon="ph:gauge" width={18} />
             </div>
-            <h4 className="text-sm font-medium text-white">Panneau Ultra-Rapide</h4>
-            <p className="text-xs text-[#a0a0a0] font-light leading-relaxed">
+            <h4 className="text-sm font-medium text-zinc-950 dark:text-white">Panneau Ultra-Rapide</h4>
+            <p className="text-xs text-zinc-600 dark:text-[#a0a0a0] font-light leading-relaxed">
               Créez, modifiez ou suspendez des comptes IPTV en quelques secondes depuis votre ordinateur ou smartphone.
             </p>
           </div>
 
-          <div className="p-5 rounded-2xl bg-[#151515] border border-white/10 space-y-2">
-            <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center text-white">
+          <div className="p-5 rounded-2xl bg-white dark:bg-[#151515] border border-black/10 dark:border-white/10 shadow-sm space-y-2">
+            <div className="w-8 h-8 rounded-xl bg-black/5 dark:bg-white/10 flex items-center justify-center text-zinc-900 dark:text-white">
               <Icon icon="ph:sparkle" width={18} />
             </div>
-            <h4 className="text-sm font-medium text-white">Tests 24h Illimités</h4>
-            <p className="text-xs text-[#a0a0a0] font-light leading-relaxed">
+            <h4 className="text-sm font-medium text-zinc-950 dark:text-white">Tests 24h Illimités</h4>
+            <p className="text-xs text-zinc-600 dark:text-[#a0a0a0] font-light leading-relaxed">
               Générez autant de tests 24 heures gratuits que vous le souhaitez pour convaincre vos prospects sans dépenser de crédits.
             </p>
           </div>
 
-          <div className="p-5 rounded-2xl bg-[#151515] border border-white/10 space-y-2">
-            <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center text-white">
+          <div className="p-5 rounded-2xl bg-white dark:bg-[#151515] border border-black/10 dark:border-white/10 shadow-sm space-y-2">
+            <div className="w-8 h-8 rounded-xl bg-black/5 dark:bg-white/10 flex items-center justify-center text-zinc-900 dark:text-white">
               <Icon icon="ph:shield-check" width={18} />
             </div>
-            <h4 className="text-sm font-medium text-white">Anti-Freeze™ 9.9 Stable</h4>
-            <p className="text-xs text-[#a0a0a0] font-light leading-relaxed">
+            <h4 className="text-sm font-medium text-zinc-950 dark:text-white">Anti-Freeze™ 9.9 Stable</h4>
+            <p className="text-xs text-zinc-600 dark:text-[#a0a0a0] font-light leading-relaxed">
               Vos clients bénéficient d&apos;une stabilité garantie même lors des grands matchs de football et soirées Ligue des Champions.
             </p>
           </div>
 
-          <div className="p-5 rounded-2xl bg-[#151515] border border-white/10 space-y-2">
-            <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center text-white">
+          <div className="p-5 rounded-2xl bg-white dark:bg-[#151515] border border-black/10 dark:border-white/10 shadow-sm space-y-2">
+            <div className="w-8 h-8 rounded-xl bg-black/5 dark:bg-white/10 flex items-center justify-center text-zinc-900 dark:text-white">
               <Icon icon="ph:tag" width={18} />
             </div>
-            <h4 className="text-sm font-medium text-white">100% Marque Blanche</h4>
-            <p className="text-xs text-[#a0a0a0] font-light leading-relaxed">
+            <h4 className="text-sm font-medium text-zinc-950 dark:text-white">100% Marque Blanche</h4>
+            <p className="text-xs text-zinc-600 dark:text-[#a0a0a0] font-light leading-relaxed">
               Notre nom n&apos;apparaît nulle part. Vous commercialisez vos abonnements sous votre propre nom avec votre propre marque.
             </p>
           </div>
 
-          <div className="p-5 rounded-2xl bg-[#151515] border border-white/10 space-y-2">
-            <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center text-white">
+          <div className="p-5 rounded-2xl bg-white dark:bg-[#151515] border border-black/10 dark:border-white/10 shadow-sm space-y-2">
+            <div className="w-8 h-8 rounded-xl bg-black/5 dark:bg-white/10 flex items-center justify-center text-zinc-900 dark:text-white">
               <Icon icon="ph:device-mobile-camera" width={18} />
             </div>
-            <h4 className="text-sm font-medium text-white">Toutes Applications Supportées</h4>
-            <p className="text-xs text-[#a0a0a0] font-light leading-relaxed">
+            <h4 className="text-sm font-medium text-zinc-950 dark:text-white">Toutes Applications Supportées</h4>
+            <p className="text-xs text-zinc-600 dark:text-[#a0a0a0] font-light leading-relaxed">
               Compatible IPTV Smarters, TiviMate, IBO Player, XCIPTV, Smart IPTV, Formuler, MAG et liens M3U universels.
             </p>
           </div>
 
-          <div className="p-5 rounded-2xl bg-[#151515] border border-white/10 space-y-2">
-            <div className="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center text-white">
+          <div className="p-5 rounded-2xl bg-white dark:bg-[#151515] border border-black/10 dark:border-white/10 shadow-sm space-y-2">
+            <div className="w-8 h-8 rounded-xl bg-black/5 dark:bg-white/10 flex items-center justify-center text-zinc-900 dark:text-white">
               <Icon icon="ph:headset" width={18} />
             </div>
-            <h4 className="text-sm font-medium text-white">Support VIP Revendeur 24/7</h4>
-            <p className="text-xs text-[#a0a0a0] font-light leading-relaxed">
+            <h4 className="text-sm font-medium text-zinc-950 dark:text-white">Support VIP Revendeur 24/7</h4>
+            <p className="text-xs text-zinc-600 dark:text-[#a0a0a0] font-light leading-relaxed">
               Un interlocuteur technique dédié pour vous accompagner, répondre à vos questions et résoudre vos demandes.
             </p>
           </div>
@@ -264,11 +264,11 @@ export default function RevendeurPage() {
       </div>
 
       {/* 4. Bottom CTA Banner */}
-      <div className="rounded-3xl bg-[#151515] border border-white/10 p-8 sm:p-12 text-center space-y-4 max-w-4xl mx-auto">
-        <h3 className="text-2xl sm:text-3xl font-light text-white tracking-tight">
+      <div className="rounded-3xl bg-white dark:bg-[#151515] border border-black/10 dark:border-white/10 p-8 sm:p-12 text-center space-y-4 max-w-4xl mx-auto shadow-2xl shadow-black/5 dark:shadow-none">
+        <h3 className="text-2xl sm:text-3xl font-light text-zinc-950 dark:text-white tracking-tight">
           Prêt à Lancer Votre Activité Revendeur ?
         </h3>
-        <p className="text-xs sm:text-sm text-[#a0a0a0] max-w-lg mx-auto font-light leading-relaxed">
+        <p className="text-xs sm:text-sm text-zinc-600 dark:text-[#a0a0a0] max-w-lg mx-auto font-light leading-relaxed">
           Contactez directement notre responsable revendeur pour poser vos questions, tester le panneau de démonstration ou commander votre premier pack.
         </p>
 
@@ -279,7 +279,7 @@ export default function RevendeurPage() {
             )}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-8 py-3.5 rounded-full bg-white text-black hover:bg-[#f2f2f2] text-xs font-semibold tracking-wide transition-all shadow-xl active:scale-95 flex items-center gap-2"
+            className="px-8 py-3.5 rounded-full bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-[#f2f2f2] text-xs font-semibold tracking-wide transition-all shadow-xl active:scale-95 flex items-center gap-2"
           >
             <Icon icon="ph:paper-plane-tilt" width={18} />
             <span>Contacter le Responsable Revendeur</span>

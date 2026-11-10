@@ -63,7 +63,7 @@ function GalleryCard({
         zIndex,
       }}
       onClick={onClick}
-      className={`group relative shrink-0 cursor-pointer select-none rounded-2xl md:rounded-3xl overflow-hidden border border-white/20 hover:border-white/60 transition-all duration-500 hover:!scale-105 hover:!rotate-0 hover:!z-50 shadow-2xl shadow-black/90 w-32 sm:w-40 md:w-48 lg:w-52 ${heightClass} ${item.bgClass} flex items-center justify-center`}
+      className={`group relative shrink-0 cursor-pointer select-none rounded-2xl md:rounded-3xl overflow-hidden border border-black/10 hover:border-black/30 dark:border-white/20 dark:hover:border-white/60 transition-all duration-500 hover:!scale-105 hover:!rotate-0 hover:!z-50 shadow-2xl shadow-black/10 dark:shadow-black/90 w-32 sm:w-40 md:w-48 lg:w-52 ${heightClass} ${item.bgClass} flex items-center justify-center`}
     >
       {/* Pure Brand Image (600x900 portrait card artwork with the exact matching brand background color) */}
       <div className="relative w-full h-full flex items-center justify-center">
@@ -189,14 +189,14 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
   };
 
   return (
-    <div className="hero-cinema relative w-full min-h-screen flex flex-col justify-between overflow-hidden bg-[#080808] pt-28 pb-12">
+    <div className="hero-cinema relative w-full min-h-screen flex flex-col justify-between overflow-hidden bg-[#faf9f6] dark:bg-[#080808] transition-colors duration-300 pt-28 pb-12">
       {/* 2. Hero Headline & Subtitle matching Flowblox reference structure */}
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-4 pt-10 sm:pt-14">
         <motion.h1
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="text-3xl sm:text-5xl md:text-6xl font-light tracking-tight text-white leading-[1.15]"
+          className="text-3xl sm:text-5xl md:text-6xl font-light tracking-tight text-zinc-950 dark:text-white leading-[1.15]"
         >
           <span className="font-serif italic font-normal block sm:inline">L&apos;Excellence Cinématographique, </span>
           <span className="font-sans font-bold block sm:inline">Sublimée en 4K Ultra HD</span>
@@ -206,7 +206,7 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="text-xs sm:text-sm md:text-base text-[#a0a0a0] max-w-xl mx-auto font-light leading-relaxed"
+          className="text-xs sm:text-sm md:text-base text-zinc-600 dark:text-[#a0a0a0] max-w-xl mx-auto font-light leading-relaxed"
         >
           Plus de 28 500 chaînes directes mondiales, 135 000 films et séries en 4K HDR avec la technologie Anti-Freeze™ 9.9 — activés en 3 minutes.
         </motion.p>
@@ -220,10 +220,10 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
         >
           <Link
             href="/essai-gratuit"
-            className="inline-flex items-center gap-3 pl-6 pr-2 py-2 rounded-full bg-white text-black font-semibold text-xs sm:text-sm hover:bg-[#f2f2f2] shadow-2xl transition-all active:scale-95 group"
+            className="inline-flex items-center gap-3 pl-6 pr-2 py-2 rounded-full bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-[#f2f2f2] font-semibold text-xs sm:text-sm shadow-2xl transition-all active:scale-95 group"
           >
             <span>Demander un Essai Gratuit 24H</span>
-            <span className="w-7 h-7 rounded-full bg-black text-white flex items-center justify-center group-hover:translate-x-0.5 transition-transform">
+            <span className="w-7 h-7 rounded-full bg-white text-black dark:bg-black dark:text-white flex items-center justify-center group-hover:translate-x-0.5 transition-transform">
               <Icon icon="ph:arrow-right" width={13} />
             </span>
           </Link>
@@ -245,28 +245,28 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
       </div>
 
       {/* 4. Three Feature Columns directly below the cards (Matching reference layout) */}
-      <div className="relative z-10 max-w-6xl mx-auto px-6 sm:px-10 pt-4 pb-2 grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 text-center border-t border-white/5">
+      <div className="relative z-10 max-w-6xl mx-auto px-6 sm:px-10 pt-4 pb-2 grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 text-center border-t border-black/5 dark:border-white/5">
         <div className="space-y-1.5">
-          <h3 className="text-sm sm:text-base font-semibold text-white tracking-tight">
+          <h3 className="text-sm sm:text-base font-semibold text-zinc-950 dark:text-white tracking-tight">
             Diffusion 4K &amp; Dolby Atmos
           </h3>
-          <p className="text-xs text-[#a0a0a0] font-light leading-relaxed">
+          <p className="text-xs text-zinc-600 dark:text-[#a0a0a0] font-light leading-relaxed">
             Flux non compressés en 60 FPS avec son spatial immersif sur l&apos;ensemble de vos téléviseurs et boîtiers.
           </p>
         </div>
         <div className="space-y-1.5">
-          <h3 className="text-sm sm:text-base font-semibold text-white tracking-tight">
+          <h3 className="text-sm sm:text-base font-semibold text-zinc-950 dark:text-white tracking-tight">
             Technologie Anti-Freeze™ 9.9
           </h3>
-          <p className="text-xs text-[#a0a0a0] font-light leading-relaxed">
+          <p className="text-xs text-zinc-600 dark:text-[#a0a0a0] font-light leading-relaxed">
             Cluster CDN privé ultra-rapide garantissant 99.9% de disponibilité sans coupure pendant les grands événements sportifs.
           </p>
         </div>
         <div className="space-y-1.5">
-          <h3 className="text-sm sm:text-base font-semibold text-white tracking-tight">
+          <h3 className="text-sm sm:text-base font-semibold text-zinc-950 dark:text-white tracking-tight">
             Activation VIP en 3 Minutes
           </h3>
-          <p className="text-xs text-[#a0a0a0] font-light leading-relaxed">
+          <p className="text-xs text-zinc-600 dark:text-[#a0a0a0] font-light leading-relaxed">
             Vos identifiants Xtream Codes et liens M3U générés immédiatement par notre conciergerie active 24/7.
           </p>
         </div>
