@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { HomeHero } from "@/components/home/HomeHero";
+import { HeroMinimal } from "@/components/HeroMinimal";
+import { useMediaModal } from "@/components/SiteLayout";
 import { LogosMarquee } from "@/components/home/LogosMarquee";
 import { StatsCounters } from "@/components/home/StatsCounters";
 import { FeaturesGrid } from "@/components/home/FeaturesGrid";
@@ -14,39 +15,42 @@ import { HomeFAQ } from "@/components/home/HomeFAQ";
 import { FinalCTA } from "@/components/home/FinalCTA";
 
 export default function HomePage() {
+  const { openModal } = useMediaModal();
+
   return (
     <div className="w-full bg-[#07070a] text-white overflow-hidden">
-      {/* 1. HERO */}
-      <HomeHero />
+      {/* 0. HERO SECTION — Kept untouched, pixel for pixel */}
+      <HeroMinimal onSelectMedia={openModal} />
 
-      {/* 2. LOGOS MARQUEE */}
+      {/* SECTIONS BELOW THE HERO (in exact requested order) */}
+      {/* 1. Logos/categories marquee */}
       <LogosMarquee />
 
-      {/* 3. STATS COUNTERS */}
+      {/* 2. Stats counters */}
       <StatsCounters />
 
-      {/* 4. FEATURES GRID */}
+      {/* 3. Features grid (6 cards) */}
       <FeaturesGrid />
 
-      {/* 5. CHANNELS SHOWCASE */}
+      {/* 4. Channels showcase */}
       <ChannelsShowcase />
 
-      {/* 6. DEVICES SECTION */}
+      {/* 5. Devices section */}
       <DevicesSection />
 
-      {/* 7. HOW IT WORKS */}
+      {/* 6. How it works */}
       <HowItWorks />
 
-      {/* 8. PRICING */}
+      {/* 7. Pricing */}
       <PricingSection />
 
-      {/* 9. TESTIMONIALS */}
+      {/* 8. Testimonials */}
       <TestimonialsSection />
 
-      {/* 10. FAQ */}
+      {/* 9. FAQ */}
       <HomeFAQ />
 
-      {/* 11. FINAL CTA BANNER */}
+      {/* 10. Final CTA banner */}
       <FinalCTA />
     </div>
   );
