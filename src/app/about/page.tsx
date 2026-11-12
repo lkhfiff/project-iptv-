@@ -19,14 +19,14 @@ export default function AboutPage() {
       </div>
 
       {/* Visual Infrastructure Story */}
-      <div className="relative rounded-3xl overflow-hidden bg-[#151515] border border-white/10 p-8 sm:p-12 lg:p-16">
+      <div data-animate="section" className="relative rounded-3xl overflow-hidden bg-[#151515] border border-white/10 p-8 sm:p-12 lg:p-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
           <div className="space-y-6">
             <span className="text-xs font-mono uppercase tracking-widest text-[#a0a0a0]">
               Architecture CDN Décentralisée
             </span>
-            <h2 className="text-2xl sm:text-4xl font-light text-white tracking-tight leading-tight">
-              18 Centres de Données sur 3 Continents.
+            <h2 data-animate="title" className="text-2xl sm:text-4xl font-light text-white tracking-tight leading-tight">
+              <span data-animate="counter" data-target="18">18</span> Centres de Données sur 3 Continents.
             </h2>
             <p className="text-[#f2f2f2] text-sm sm:text-base font-light leading-relaxed">
               Les fournisseurs IPTV conventionnels fonctionnent sur des serveurs virtuels mutualisés qui s&apos;effondrent lors des grands événements sportifs.

@@ -32,16 +32,16 @@ export default function AbonnementsPage() {
       </div>
 
       {/* 2. 4 Compact Pricing Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
+      <div data-animate="pricing-grid" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
         {SUBSCRIPTION_PLANS.map((plan) => (
           <PricingCard key={plan.id} plan={plan} />
         ))}
       </div>
 
       {/* 3. Comparison Matrix Table */}
-      <div className="rounded-3xl bg-white dark:bg-[#151515] border border-black/10 dark:border-white/10 p-6 sm:p-10 space-y-6 shadow-xl shadow-black/5 dark:shadow-none">
+      <div data-animate="section" className="rounded-3xl bg-white dark:bg-[#151515] border border-black/10 dark:border-white/10 p-6 sm:p-10 space-y-6 shadow-xl shadow-black/5 dark:shadow-none">
         <div className="space-y-1">
-          <h2 className="text-xl sm:text-2xl font-light text-zinc-950 dark:text-white tracking-tight">
+          <h2 data-animate="title" className="text-xl sm:text-2xl font-light text-zinc-950 dark:text-white tracking-tight">
             Tableau Comparatif Détaillé
           </h2>
           <p className="text-xs text-zinc-600 dark:text-[#a0a0a0] font-light">

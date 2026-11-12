@@ -19,6 +19,8 @@ export function PricingCard({ plan }: PricingCardProps) {
 
   return (
     <div
+      data-animate="pricing-card"
+      data-pricing-recommended={plan.isRecommended ? "true" : "false"}
       className={`relative h-full rounded-2xl flex flex-col justify-between p-6 transition-all duration-300 ${
         plan.isRecommended
           ? "bg-white dark:bg-[#151515] border-2 border-zinc-950 dark:border-white/40 shadow-2xl shadow-black/10 dark:shadow-black/80 ring-1 ring-zinc-950/20 dark:ring-white/30"

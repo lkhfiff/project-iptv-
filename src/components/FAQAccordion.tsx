@@ -89,19 +89,26 @@ export function FAQAccordion() {
                   </h3>
                 </div>
                 <div
-                  className={`w-7 h-7 rounded-full bg-black/5 dark:bg-white/5 flex items-center justify-center shrink-0 text-zinc-500 dark:text-zinc-400 transition-transform duration-200 ${
-                    isOpen ? "rotate-180 bg-black/10 dark:bg-white/10 text-zinc-950 dark:text-white" : ""
+                  className={`w-7 h-7 rounded-full bg-black/5 dark:bg-white/5 flex items-center justify-center shrink-0 text-zinc-500 dark:text-zinc-400 transition-transform duration-300 ease-out ${
+                    isOpen ? "rotate-45 bg-black/10 dark:bg-white/10 text-zinc-950 dark:text-white" : "rotate-0"
                   }`}
                 >
-                  <Icon icon="ph:caret-down-bold" width={14} />
+                  <Icon icon="ph:plus-bold" width={14} />
                 </div>
               </button>
 
-              {isOpen && (
-                <div className="px-5 pb-5 text-xs sm:text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed border-t border-black/5 dark:border-white/5 pt-3 animate-in fade-in duration-200">
-                  <p>{faq.answer}</p>
+              <div
+                data-faq-panel
+                data-open={isOpen ? "true" : "false"}
+                aria-hidden={!isOpen}
+                className="faq-accordion-panel"
+              >
+                <div className="faq-accordion-inner">
+                  <div className="px-5 pb-5 text-xs sm:text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed border-t border-black/5 dark:border-white/5 pt-3">
+                    <p>{faq.answer}</p>
+                  </div>
                 </div>
-              )}
+              </div>
             </div>
           );
         })}

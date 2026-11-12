@@ -9,7 +9,10 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-[#f4f2ec] text-zinc-600 dark:bg-[#080808] dark:text-[#a0a0a0] border-t border-black/10 dark:border-white/10 pt-16 pb-12 overflow-hidden transition-colors duration-300">
+    <footer
+      data-animate="footer"
+      className="relative bg-[#f4f2ec] text-zinc-600 dark:bg-[#080808] dark:text-[#a0a0a0] border-t border-black/10 dark:border-white/10 pt-16 pb-12 overflow-hidden transition-colors duration-300"
+    >
       <div className="max-w-7xl mx-auto px-6 sm:px-10 space-y-12">
         {/* Main Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
@@ -27,7 +30,13 @@ export function Footer() {
 
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-zinc-900 dark:text-white text-xs font-mono">
               <span className="h-1.5 w-1.5 rounded-full bg-zinc-900 dark:bg-white" />
-              <span>18 Nœuds CDN Actifs • 99.99% Uptime Garanti</span>
+              <span>
+                <span data-animate="counter" data-target="18">18</span> Nœuds CDN Actifs •{" "}
+                <span data-animate="counter" data-target="99.99" data-decimals="2" data-decimal-sep=".">
+                  99.99
+                </span>
+                % Uptime Garanti
+              </span>
             </div>
 
             <div className="pt-2">

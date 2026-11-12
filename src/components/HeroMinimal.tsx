@@ -3,9 +3,10 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Icon } from "@iconify/react";
 import { CURATED_TMDB_MOVIES, CURATED_TMDB_SERIES, TMDBMovie, getTMDBImageUrl } from "@/services/tmdb";
+import { useTheme } from "@/context/ThemeContext";
 import { MediaItem } from "@/data/media";
 
 interface HeroMinimalProps {
@@ -28,47 +29,116 @@ interface GalleryCardItem {
 interface RealBrandIcon {
   name: string;
   logo?: string;
+  lightLogo?: string;
   icon?: string;
-  width?: number;
-  height?: number;
+  padded?: boolean;
 }
 
 const ROW_1_ICONS: RealBrandIcon[] = [
-  { name: "Netflix", logo: "/brands/netflix-transparent.png", width: 85, height: 28 },
-  { name: "Canal+", logo: "/brands/canalplus.png", width: 95, height: 28 },
-  { name: "Disney+", logo: "/brands/disneyplus-transparent.png", width: 75, height: 32 },
-  { name: "Apple TV+", logo: "/brands/appletv-transparent.png", width: 55, height: 32 },
-  { name: "Prime Video", logo: "/brands/primevideo.png", width: 85, height: 26 },
-  { name: "HBO Max", logo: "/brands/hbomax.png", width: 85, height: 24 },
-  { name: "Paramount+", icon: "simple-icons:paramountplus", width: 32, height: 32 },
-  { name: "Peacock", icon: "simple-icons:peacock", width: 32, height: 32 },
-  { name: "Hulu", icon: "simple-icons:hulu", width: 44, height: 22 },
+  { name: "Netflix", logo: "/brands/netflix-transparent.png" },
+  { name: "Canal+", logo: "/brands/canalplus.png" },
+  { name: "Disney+", logo: "/brands/disneyplus-transparent.png", lightLogo: "/brands/disneyplus-light.png", padded: true },
+  { name: "Apple TV+", logo: "/brands/appletv-transparent.png", lightLogo: "/brands/appletv-light.png", padded: true },
+  { name: "Prime Video", logo: "/brands/primevideo.png", lightLogo: "/brands/primevideo-light.png" },
+  { name: "HBO Max", logo: "/brands/hbomax.png", lightLogo: "/brands/hbomax-light.png" },
+  { name: "Paramount+", icon: "simple-icons:paramountplus" },
+  { name: "Starz", icon: "simple-icons:starz" },
+  { name: "Hulu", icon: "simple-icons:hulu" },
 ];
 
 const ROW_2_ICONS: RealBrandIcon[] = [
-  { name: "beIN SPORTS", logo: "/brands/beinsports-transparent.png", width: 75, height: 32 },
-  { name: "DAZN", icon: "simple-icons:dazn", width: 34, height: 34 },
-  { name: "Formula 1", icon: "simple-icons:f1", width: 48, height: 26 },
-  { name: "UFC", icon: "simple-icons:ufc", width: 50, height: 24 },
-  { name: "ESPN", icon: "simple-icons:espn", width: 52, height: 24 },
-  { name: "NBA", icon: "simple-icons:nba", width: 34, height: 34 },
-  { name: "Canal+", logo: "/brands/canalplus.png", width: 95, height: 28 },
-  { name: "WWE", icon: "simple-icons:wwe", width: 36, height: 36 },
-  { name: "Eurosport", icon: "ph:trophy-bold", width: 30, height: 30 },
+  { name: "beIN SPORTS", logo: "/brands/beinsports-transparent.png", lightLogo: "/brands/beinsports-light.png", padded: true },
+  { name: "DAZN", icon: "simple-icons:dazn" },
+  { name: "Formula 1", icon: "simple-icons:f1" },
+  { name: "UFC", icon: "simple-icons:ufc" },
+  { name: "Premier League", icon: "simple-icons:premierleague" },
+  { name: "NBA", icon: "simple-icons:nba" },
+  { name: "Canal+", logo: "/brands/canalplus.png" },
+  { name: "WWE", icon: "simple-icons:wwe" },
+  { name: "Eurosport", icon: "ph:trophy-bold" },
 ];
 
 const ROW_3_ICONS: RealBrandIcon[] = [
-  { name: "YouTube", icon: "simple-icons:youtube", width: 38, height: 38 },
-  { name: "Twitch", icon: "simple-icons:twitch", width: 30, height: 30 },
-  { name: "Spotify", icon: "simple-icons:spotify", width: 30, height: 30 },
-  { name: "Crunchyroll", icon: "simple-icons:crunchyroll", width: 32, height: 32 },
-  { name: "Warner Bros", icon: "simple-icons:warnerbros", width: 34, height: 34 },
-  { name: "PlayStation", icon: "simple-icons:playstation", width: 34, height: 34 },
-  { name: "Netflix", logo: "/brands/netflix-transparent.png", width: 85, height: 28 },
-  { name: "Apple TV+", logo: "/brands/appletv-transparent.png", width: 55, height: 32 },
-  { name: "Prime Video", logo: "/brands/primevideo.png", width: 85, height: 26 },
-  { name: "Disney+", logo: "/brands/disneyplus-transparent.png", width: 75, height: 32 },
+  { name: "YouTube", icon: "simple-icons:youtube" },
+  { name: "Twitch", icon: "simple-icons:twitch" },
+  { name: "Spotify", icon: "simple-icons:spotify" },
+  { name: "Crunchyroll", icon: "simple-icons:crunchyroll" },
+  { name: "Warner Bros", icon: "simple-icons:warnerbros" },
+  { name: "PlayStation", icon: "simple-icons:playstation" },
+  { name: "Netflix", logo: "/brands/netflix-transparent.png" },
+  { name: "Apple TV+", logo: "/brands/appletv-transparent.png", lightLogo: "/brands/appletv-light.png", padded: true },
+  { name: "Prime Video", logo: "/brands/primevideo.png", lightLogo: "/brands/primevideo-light.png" },
+  { name: "Disney+", logo: "/brands/disneyplus-transparent.png", lightLogo: "/brands/disneyplus-light.png", padded: true },
 ];
+
+function MarqueeGroup({
+  items,
+  rowKey,
+  ariaHidden = false,
+}: {
+  items: RealBrandIcon[];
+  rowKey: string;
+  ariaHidden?: boolean;
+}) {
+  const { theme } = useTheme();
+  const isLight = theme === "light";
+
+  // Repeat 3x per group so a single group always exceeds 100vw up to 2560px+
+  const repeatedItems = [...items, ...items, ...items];
+
+  return (
+    <ul className="marquee__group" aria-hidden={ariaHidden || undefined}>
+      {repeatedItems.map((brand, idx) => {
+        const logoSrc = isLight && brand.lightLogo ? brand.lightLogo : brand.logo;
+        const applyPadded = !isLight && brand.padded;
+
+        return (
+          <li key={`${rowKey}-${idx}`} className="marquee__item">
+            {logoSrc ? (
+              <Image
+                src={logoSrc}
+                alt={ariaHidden ? "" : brand.name}
+                width={160}
+                height={64}
+                loading="eager"
+                unoptimized
+                className={`marquee__logo-img filter dark:brightness-100 ${
+                  applyPadded ? "marquee__logo-img--padded" : ""
+                }`}
+              />
+            ) : (
+              <span className="marquee__logo-svg text-zinc-700 dark:text-zinc-300 hover:text-black dark:hover:text-white">
+                <Icon icon={brand.icon || "ph:television-bold"} />
+              </span>
+            )}
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
+function MarqueeRow({
+  items,
+  duration,
+  rowKey,
+}: {
+  items: RealBrandIcon[];
+  duration: string;
+  rowKey: string;
+}) {
+  return (
+    <div className="marquee">
+      <div
+        className="marquee__track marquee__track--reverse"
+        style={{ "--duration": duration } as React.CSSProperties}
+      >
+        <MarqueeGroup items={items} rowKey={`${rowKey}-a`} />
+        <MarqueeGroup items={items} rowKey={`${rowKey}-b`} ariaHidden />
+      </div>
+    </div>
+  );
+}
 
 function GalleryCard({
   item,
@@ -97,7 +167,7 @@ function GalleryCard({
         zIndex,
       } as React.CSSProperties}
       onClick={onClick}
-      className="card group relative shrink-0 cursor-pointer select-none rounded-[20px] overflow-hidden w-32 sm:w-40 md:w-48 lg:w-52 flex items-center justify-center"
+      className="card group shrink-0 cursor-pointer select-none overflow-hidden flex items-center justify-center"
     >
       {/* Pure Transparent Logo sitting directly on the card's background */}
       <div className="relative w-full h-full flex items-center justify-center p-3">
@@ -115,7 +185,11 @@ function GalleryCard({
   );
 }
 
+const HERO_SERIF_WORDS = ["L\u2019Excellence", "Cinématographique,"];
+const HERO_SANS_WORDS = ["Sublimée", "en", "4K", "Ultra", "HD"];
+
 export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
+  const prefersReducedMotion = useReducedMotion();
   // 7 pure cinematic brand cards with concave panoramic amphitheater curve
   const galleryItems: GalleryCardItem[] = [
     {
@@ -230,23 +304,74 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
   };
 
   return (
-    <div className="hero-cinema relative w-full min-h-screen flex flex-col justify-between overflow-hidden bg-[#faf9f6] dark:bg-[#080808] transition-colors duration-300 pt-28 pb-12">
+    <div className="hero-cinema relative w-full min-h-[100dvh] flex flex-col justify-between overflow-hidden bg-[#faf9f6] dark:bg-[#080808] transition-colors duration-300 pt-28 pb-12">
       {/* 2. Hero Headline & Subtitle matching Flowblox reference structure */}
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-4 pt-10 sm:pt-14">
-        <motion.h1
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="text-3xl sm:text-5xl md:text-6xl font-light tracking-tight text-zinc-950 dark:text-white leading-[1.15]"
-        >
-          <span className="font-serif italic font-normal block sm:inline">L&apos;Excellence Cinématographique, </span>
-          <span className="font-sans font-bold block sm:inline">Sublimée en 4K Ultra HD</span>
-        </motion.h1>
+        {/* Subtle ambient cinema spotlight behind headline (non-intrusive, GPU only) */}
+        <motion.div
+          aria-hidden="true"
+          initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.85 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          className="hero-title-glow pointer-events-none absolute left-1/2 top-8 sm:top-10 -translate-x-1/2 w-[280px] sm:w-[520px] h-[120px] sm:h-[170px] rounded-full blur-3xl -z-10"
+        />
+
+        <h1 className="text-3xl sm:text-5xl md:text-6xl font-light tracking-tight text-zinc-950 dark:text-white leading-[1.15] [perspective:800px]">
+          <span className="font-serif italic font-normal block sm:inline">
+            {HERO_SERIF_WORDS.map((word, idx) => (
+              <React.Fragment key={word}>
+                <span className="inline-block overflow-hidden align-bottom px-[0.06em] -mx-[0.06em] pt-[0.08em] -mt-[0.08em] pb-[0.14em] -mb-[0.14em]">
+                  <motion.span
+                    className="inline-block will-change-transform"
+                    initial={
+                      prefersReducedMotion
+                        ? false
+                        : { y: "115%", opacity: 0, rotateX: 28, filter: "blur(6px)" }
+                    }
+                    animate={{ y: "0%", opacity: 1, rotateX: 0, filter: "blur(0px)" }}
+                    transition={{
+                      duration: 0.75,
+                      delay: 0.02 + idx * 0.09,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                  >
+                    {word}
+                  </motion.span>
+                </span>{" "}
+              </React.Fragment>
+            ))}
+          </span>
+          <span className="font-sans font-bold block sm:inline">
+            {HERO_SANS_WORDS.map((word, idx) => (
+              <React.Fragment key={word}>
+                <span className="inline-block overflow-hidden align-bottom px-[0.04em] -mx-[0.04em] pt-[0.08em] -mt-[0.08em] pb-[0.14em] -mb-[0.14em]">
+                  <motion.span
+                    className="inline-block will-change-transform"
+                    initial={
+                      prefersReducedMotion
+                        ? false
+                        : { y: "115%", opacity: 0, rotateX: 28, filter: "blur(6px)" }
+                    }
+                    animate={{ y: "0%", opacity: 1, rotateX: 0, filter: "blur(0px)" }}
+                    transition={{
+                      duration: 0.75,
+                      delay: 0.2 + idx * 0.065,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                  >
+                    {word}
+                  </motion.span>
+                </span>
+                {idx < HERO_SANS_WORDS.length - 1 ? " " : ""}
+              </React.Fragment>
+            ))}
+          </span>
+        </h1>
 
         <motion.p
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          initial={prefersReducedMotion ? false : { opacity: 0, y: 16, filter: "blur(4px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{ duration: 0.75, delay: 0.48, ease: [0.16, 1, 0.3, 1] }}
           className="text-xs sm:text-sm md:text-base text-zinc-600 dark:text-[#a0a0a0] max-w-xl mx-auto font-light leading-relaxed"
         >
           Plus de 28 500 chaînes directes mondiales, 135 000 films et séries en 4K HDR avec la technologie Anti-Freeze™ 9.9 — activés en 3 minutes.
@@ -254,26 +379,30 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
 
         {/* Single Center Pill CTA Button with arrow matching reference */}
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          initial={prefersReducedMotion ? false : { opacity: 0, y: 16, scale: 0.92 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{
+            duration: 0.7,
+            delay: 0.62,
+            ease: [0.16, 1, 0.3, 1],
+          }}
           className="pt-2 flex justify-center"
         >
           <Link
             href="/essai-gratuit"
-            className="inline-flex items-center gap-3 pl-6 pr-2 py-2 rounded-full bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-[#f2f2f2] font-semibold text-xs sm:text-sm shadow-2xl transition-all active:scale-95 group"
+            className="hero-cta-btn relative overflow-hidden inline-flex items-center gap-3 pl-6 pr-2 py-2 rounded-full bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-[#f2f2f2] font-semibold text-xs sm:text-sm shadow-2xl transition-all duration-300 hover:-translate-y-0.5 active:scale-95 group"
           >
-            <span>Demander un Essai Gratuit 24H</span>
-            <span className="w-7 h-7 rounded-full bg-white text-black dark:bg-black dark:text-white flex items-center justify-center group-hover:translate-x-0.5 transition-transform">
+            <span className="relative z-10">Demander un Essai Gratuit 24H</span>
+            <span className="relative z-10 w-7 h-7 rounded-full bg-white text-black dark:bg-black dark:text-white flex items-center justify-center transition-transform duration-300 group-hover:translate-x-0.5 group-hover:scale-105">
               <Icon icon="ph:arrow-right" width={13} />
             </span>
           </Link>
         </motion.div>
       </div>
 
-      {/* 3. Concave Panoramic 3D Cards Arc (Exact geometry matching Flowblox reference) */}
-      <div className="relative z-10 w-full pt-10 sm:pt-14 pb-6 overflow-hidden perspective-container">
-        <div className="w-full flex items-center justify-center gap-3 sm:gap-4 md:gap-5 px-4 sm:px-8 overflow-x-auto no-scrollbar scroll-smooth py-8 [transform-style:preserve-3d]">
+      {/* 3. Concave Panoramic 3D Cards Arc (Exact geometry centered on viewport) */}
+      <div className="carousel-section perspective-container relative z-10 mt-6 sm:mt-8">
+        <div className="carousel-track">
           {galleryItems.map((item, idx) => (
             <GalleryCard
               key={item.id}
@@ -286,92 +415,11 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
       </div>
 
       {/* 4. IPTV Brands 3-Line Infinite Scrolling (Without BG, Without P, Pure Real Icons) */}
-      <div className="relative z-10 w-full pt-8 pb-4 overflow-hidden border-t border-black/5 dark:border-white/5 space-y-4 sm:space-y-5">
-        <div className="relative w-full overflow-hidden">
-          {/* Edge fade gradients */}
-          <div className="absolute inset-y-0 left-0 w-16 sm:w-32 bg-gradient-to-r from-[#faf9f6] dark:from-[#080808] to-transparent z-10 pointer-events-none" />
-          <div className="absolute inset-y-0 right-0 w-16 sm:w-32 bg-gradient-to-l from-[#faf9f6] dark:from-[#080808] to-transparent z-10 pointer-events-none" />
-
-          {/* LINE 1: Normal Speed */}
-          <div className="animate-marquee-right-normal flex items-center gap-10 sm:gap-14 md:gap-16 py-1 select-none">
-            {[...ROW_1_ICONS, ...ROW_1_ICONS, ...ROW_1_ICONS, ...ROW_1_ICONS].map((brand, idx) => (
-              <div
-                key={`row1-${brand.name}-${idx}`}
-                className="flex items-center justify-center shrink-0 opacity-75 hover:opacity-100 transition-all duration-300 hover:scale-110"
-              >
-                {brand.logo ? (
-                  <div className="relative h-6 sm:h-7 w-auto flex items-center justify-center">
-                    <Image
-                      src={brand.logo}
-                      alt={brand.name}
-                      width={brand.width || 80}
-                      height={brand.height || 28}
-                      unoptimized
-                      className="object-contain filter dark:brightness-100 max-h-7 sm:max-h-8 w-auto"
-                    />
-                  </div>
-                ) : (
-                  <div className="flex items-center justify-center text-zinc-700 dark:text-zinc-300 hover:text-black dark:hover:text-white">
-                    <Icon icon={brand.icon || "ph:television-bold"} width={brand.width || 32} height={brand.height || 32} />
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-
-          {/* LINE 2: Slightly Slower Speed */}
-          <div className="animate-marquee-right-slow flex items-center gap-10 sm:gap-14 md:gap-16 py-1 select-none">
-            {[...ROW_2_ICONS, ...ROW_2_ICONS, ...ROW_2_ICONS, ...ROW_2_ICONS].map((brand, idx) => (
-              <div
-                key={`row2-${brand.name}-${idx}`}
-                className="flex items-center justify-center shrink-0 opacity-75 hover:opacity-100 transition-all duration-300 hover:scale-110"
-              >
-                {brand.logo ? (
-                  <div className="relative h-6 sm:h-7 w-auto flex items-center justify-center">
-                    <Image
-                      src={brand.logo}
-                      alt={brand.name}
-                      width={brand.width || 80}
-                      height={brand.height || 28}
-                      unoptimized
-                      className="object-contain filter dark:brightness-100 max-h-7 sm:max-h-8 w-auto"
-                    />
-                  </div>
-                ) : (
-                  <div className="flex items-center justify-center text-zinc-700 dark:text-zinc-300 hover:text-black dark:hover:text-white">
-                    <Icon icon={brand.icon || "ph:television-bold"} width={brand.width || 32} height={brand.height || 32} />
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-
-          {/* LINE 3: Slightly Faster Speed */}
-          <div className="animate-marquee-right-fast flex items-center gap-10 sm:gap-14 md:gap-16 py-1 select-none">
-            {[...ROW_3_ICONS, ...ROW_3_ICONS, ...ROW_3_ICONS, ...ROW_3_ICONS].map((brand, idx) => (
-              <div
-                key={`row3-${brand.name}-${idx}`}
-                className="flex items-center justify-center shrink-0 opacity-75 hover:opacity-100 transition-all duration-300 hover:scale-110"
-              >
-                {brand.logo ? (
-                  <div className="relative h-6 sm:h-7 w-auto flex items-center justify-center">
-                    <Image
-                      src={brand.logo}
-                      alt={brand.name}
-                      width={brand.width || 80}
-                      height={brand.height || 28}
-                      unoptimized
-                      className="object-contain filter dark:brightness-100 max-h-7 sm:max-h-8 w-auto"
-                    />
-                  </div>
-                ) : (
-                  <div className="flex items-center justify-center text-zinc-700 dark:text-zinc-300 hover:text-black dark:hover:text-white">
-                    <Icon icon={brand.icon || "ph:television-bold"} width={brand.width || 32} height={brand.height || 32} />
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
+      <div className="marquee-section relative z-10 w-full pt-10 sm:pt-12 pb-6 sm:pb-8 overflow-hidden border-t border-black/5 dark:border-white/5">
+        <div className="space-y-6 sm:space-y-8">
+          <MarqueeRow items={ROW_1_ICONS} duration="34s" rowKey="row1" />
+          <MarqueeRow items={ROW_2_ICONS} duration="42s" rowKey="row2" />
+          <MarqueeRow items={ROW_3_ICONS} duration="26s" rowKey="row3" />
         </div>
       </div>
     </div>

@@ -27,7 +27,9 @@ export default function FAQPage() {
         </div>
       </div>
 
-      <FAQAccordion />
+      <div data-animate="section">
+        <FAQAccordion />
+      </div>
     </div>
   );
 }

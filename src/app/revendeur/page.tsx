@@ -185,12 +185,12 @@ export default function RevendeurPage() {
       </div>
 
       {/* 3. Reseller Benefits Grid */}
-      <div className="space-y-8 max-w-5xl mx-auto pt-8">
+      <div data-animate="section" className="space-y-8 max-w-5xl mx-auto pt-8">
         <div className="text-center space-y-1">
           <span className="text-xs uppercase font-mono tracking-widest text-zinc-500 dark:text-[#a0a0a0]">
             Avantages Clés
           </span>
-          <h2 className="text-2xl sm:text-3xl font-light text-zinc-950 dark:text-white tracking-tight">
+          <h2 data-animate="title" className="text-2xl sm:text-3xl font-light text-zinc-950 dark:text-white tracking-tight">
             Pourquoi Choisir Notre Plateforme Revendeur ?
           </h2>
         </div>
