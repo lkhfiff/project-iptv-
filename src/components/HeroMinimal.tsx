@@ -143,11 +143,9 @@ function MarqueeRow({
 function GalleryCard({
   item,
   idx,
-  onClick,
 }: {
   item: GalleryCardItem;
   idx: number;
-  onClick: () => void;
 }) {
   const i = idx - 3;
   const iAbs = Math.abs(i);
@@ -166,8 +164,7 @@ function GalleryCard({
         "--card-bg": item.cardBg,
         zIndex,
       } as React.CSSProperties}
-      onClick={onClick}
-      className="card group shrink-0 cursor-pointer select-none overflow-hidden flex items-center justify-center"
+      className="card group shrink-0 cursor-default select-none overflow-hidden flex items-center justify-center"
     >
       {/* Pure Transparent Logo sitting directly on the card's background */}
       <div className="relative w-full h-full flex items-center justify-center p-3">
@@ -278,31 +275,6 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
     },
   ];
 
-  const handleCardClick = (item: GalleryCardItem) => {
-    if (!onSelectMedia) return;
-    const m = item.movie;
-    const media: MediaItem = {
-      id: `hero-gal-${m.id}`,
-      title: m.title || m.name || item.title,
-      type: m.media_type === "tv" ? "series" : "movie",
-      category: item.category,
-      genres: m.genres ? m.genres.map((g: { id?: number; name: string }) => g.name) : ["Cinéma"],
-      year: m.release_date
-        ? new Date(m.release_date).getFullYear()
-        : m.first_air_date
-        ? new Date(m.first_air_date).getFullYear()
-        : 2024,
-      rating: m.vote_average ? `${m.vote_average.toFixed(1)} / 10` : "8.5 / 10",
-      duration: m.runtime ? `${m.runtime}m` : "4K UHD",
-      quality: "4K UHD",
-      audio: "Dolby Atmos",
-      posterUrl: item.poster,
-      backdropUrl: item.backdrop,
-      synopsis: m.overview,
-    };
-    onSelectMedia(media);
-  };
-
   return (
     <div className="hero-cinema relative w-full min-h-[100dvh] flex flex-col justify-between overflow-hidden bg-[#faf9f6] dark:bg-[#080808] transition-colors duration-300 pt-28 pb-12">
       {/* 2. Hero Headline & Subtitle matching Flowblox reference structure */}
@@ -408,7 +380,6 @@ export function HeroMinimal({ onSelectMedia }: HeroMinimalProps) {
               key={item.id}
               item={item}
               idx={idx}
-              onClick={() => handleCardClick(item)}
             />
           ))}
         </div>

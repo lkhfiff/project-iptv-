@@ -43,6 +43,10 @@
     overflow-x: clip;
     transition: background-color 0.3s ease, color 0.3s ease;
   }
+
+  .font-outfit {
+    font-family: var(--font-outfit), "Outfit", sans-serif;
+  }
 }
 
 /* Custom Minimal Scrollbar */
@@ -523,15 +527,41 @@ html.light .bg-\[\#1a1a1a\] {
   border-color: rgba(0, 0, 0, 0.08) !important;
 }
 
-html.light section .text-white,
-html.light footer .text-white,
-html.light div:not(.hero-cinema) > h2.text-white,
-html.light div:not(.hero-cinema) > h3.text-white,
-html.light div:not(.hero-cinema) > h4.text-white {
+/* In light mode, convert standalone headings/paragraphs with text-white to dark text,
+   strictly excluding buttons, links, ribbons, badges, or elements inside dark containers */
+html.light :is(h1, h2, h3, h4, h5, h6, p):not(
+  [class*="bg-black"], [class*="bg-black"] *,
+  [class*="bg-zinc-900"], [class*="bg-zinc-900"] *,
+  [class*="bg-zinc-950"], [class*="bg-zinc-950"] *,
+  [class*="bg-zinc-800"], [class*="bg-zinc-800"] *,
+  a, a *, button, button *,
+  .hero-cinema *, .bento-morph-netflix *
+).text-white {
   color: #0c0c0e !important;
 }
 
-html.light section .text-\[\#a0a0a0\],
+/* Strictly preserve crisp white text for black/dark buttons, badges, and ribbons in light mode */
+html.light :is(a, button, [role="button"], span):is([class*="bg-black"], [class*="bg-black"] *, [class*="bg-zinc-900"], [class*="bg-zinc-900"] *).text-white,
+html.light [class*="bg-black"] .text-white,
+html.light [class*="bg-black"] span,
+html.light .bento-morph-netflix h3,
+html.light .bento-morph-netflix .text-white {
+  color: #ffffff !important;
+}
+
+/* Ensure white arrow circles inside black buttons retain white background and dark arrow */
+html.light [class*="bg-black"] .bg-white {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+html.light [class*="bg-black"] .bg-white * {
+  color: #000000 !important;
+}
+
+html.light section :not(
+  [class*="bg-black"], [class*="bg-black"] *,
+  a, a *, button, button *
+).text-\[\#a0a0a0\],
 html.light footer .text-\[\#a0a0a0\] {
   color: #555555 !important;
 }
@@ -609,36 +639,6 @@ html.light .scroll-progress-bar {
   background: linear-gradient(90deg, #18181b 0%, #f59e0b 65%, #ea580c 100%);
 }
 
-/* Bento Row 1 Morph: Netflix starts equal to Grey card (1 : 2.065), expands to win on scroll (2.065 : 1) */
-.bento-morph-row {
-  --morph: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-}
-
-@media (min-width: 640px) {
-  .bento-morph-row {
-    gap: 1.5rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .bento-morph-row {
-    flex-direction: row;
-    align-items: stretch;
-  }
-
-  .bento-morph-netflix {
-    flex: calc(1 + var(--morph, 0) * 1.065) 1 0%;
-    min-width: 0;
-  }
-
-  .bento-morph-grey {
-    flex: calc(2.065 - var(--morph, 0) * 1.065) 1 0%;
-    min-width: 0;
-  }
-}
 
 html.light section .bento-morph-netflix h3,
 html.light section .bento-morph-netflix .text-white {
@@ -769,9 +769,6 @@ html.dark .hero-cta-btn::after {
     display: none !important;
   }
 
-  .bento-morph-row {
-    --morph: 1 !important;
-  }
 
   .bento-card-hover:hover {
     transform: none !important;

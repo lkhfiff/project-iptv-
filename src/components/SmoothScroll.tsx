@@ -82,13 +82,13 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     if (motionQuery.matches) return;
 
     const lenis = new Lenis({
-      duration: 1.1,
+      duration: 0.7,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: "vertical",
       gestureOrientation: "vertical",
       smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 2,
+      wheelMultiplier: 1.1,
+      touchMultiplier: 1.5,
     });
 
     lenis.on("scroll", ScrollTrigger.update);
@@ -97,7 +97,6 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
       lenis.raf(time * 1000);
     };
     gsap.ticker.add(rafCallback);
-    gsap.ticker.lagSmoothing(0);
 
     return () => {
       gsap.ticker.remove(rafCallback);
@@ -126,77 +125,6 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
         });
       }
 
-      // 2. Bento Row 1 Width/Height Morph (Netflix starts size of Grey -> Grey starts big -> Netflix wins on scroll)
-      document.querySelectorAll<HTMLElement>("[data-bento-morph]").forEach((morphRow) => {
-        const netflixCard = morphRow.querySelector<HTMLElement>("[data-morph-netflix]");
-        const greyCard = morphRow.querySelector<HTMLElement>("[data-morph-grey]");
-        const netflixBg = morphRow.querySelector<HTMLElement>("[data-morph-bg]");
-        if (!netflixCard || !greyCard) return;
-
-        if (isDesktop) {
-          gsap.fromTo(
-            morphRow,
-            { "--morph": 0 },
-            {
-              "--morph": 1,
-              ease: "none",
-              scrollTrigger: {
-                trigger: morphRow,
-                start: "top 82%",
-                end: "top 24%",
-                scrub: 0.5,
-              },
-            }
-          );
-        } else {
-          // On narrow screens where Row 1 stacks vertically, morph card heights smoothly
-          gsap.fromTo(
-            netflixCard,
-            { minHeight: 220 },
-            {
-              minHeight: 360,
-              ease: "none",
-              scrollTrigger: {
-                trigger: morphRow,
-                start: "top 85%",
-                end: "top 30%",
-                scrub: 0.5,
-              },
-            }
-          );
-          gsap.fromTo(
-            greyCard,
-            { minHeight: 340 },
-            {
-              minHeight: 230,
-              ease: "none",
-              scrollTrigger: {
-                trigger: morphRow,
-                start: "top 85%",
-                end: "top 30%",
-                scrub: 0.5,
-              },
-            }
-          );
-        }
-
-        if (netflixBg && isDesktop) {
-          gsap.fromTo(
-            netflixBg,
-            { scale: 1, willChange: "transform" },
-            {
-              scale: 1.1,
-              ease: "none",
-              scrollTrigger: {
-                trigger: morphRow,
-                start: "top 85%",
-                end: "bottom 20%",
-                scrub: true,
-              },
-            }
-          );
-        }
-      });
 
       // 3. Bento Cards Reveal + Icon Pop + Text Stagger
       const bentoCards = gsap.utils.toArray<HTMLElement>('[data-animate="bento-card"]');
@@ -421,9 +349,6 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     };
 
     mm.add("(prefers-reduced-motion: reduce)", () => {
-      document.querySelectorAll<HTMLElement>("[data-bento-morph]").forEach((el) => {
-        el.style.setProperty("--morph", "1");
-      });
       return () => {};
     });
 

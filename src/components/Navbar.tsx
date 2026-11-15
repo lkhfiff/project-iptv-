@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
 import { Icon } from "@iconify/react";
 import { SITE_CONFIG, generateDirectContactUrl } from "@/data/config";
 import { useTheme } from "@/context/ThemeContext";
@@ -183,11 +184,19 @@ export function Navbar({ onSelectMedia }: NavbarProps) {
 
             <button
               onClick={toggleTheme}
-              className="text-zinc-600 dark:text-[#a0a0a0] hover:text-black dark:hover:text-white p-1 rounded-full hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer transition-colors"
+              className="text-zinc-600 dark:text-[#a0a0a0] hover:text-black dark:hover:text-white p-1.5 rounded-full hover:bg-black/5 dark:hover:bg-white/10 cursor-pointer transition-colors flex items-center justify-center overflow-hidden"
               aria-label="Thème"
               title={theme === "dark" ? "Mode Clair" : "Mode Sombre"}
             >
-              <Icon icon={theme === "dark" ? "ph:sun-dim" : "ph:moon"} width={16} />
+              <motion.span
+                key={theme}
+                initial={{ rotate: -90, scale: 0.6, opacity: 0 }}
+                animate={{ rotate: 0, scale: 1, opacity: 1 }}
+                transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                className="inline-flex items-center justify-center"
+              >
+                <Icon icon={theme === "dark" ? "ph:sun-dim" : "ph:moon"} width={16} />
+              </motion.span>
             </button>
 
             {/* Pill CTA button with arrow inside circle */}
@@ -206,10 +215,18 @@ export function Navbar({ onSelectMedia }: NavbarProps) {
           <div className="flex lg:hidden items-center gap-2">
             <button
               onClick={toggleTheme}
-              className="w-8 h-8 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-zinc-900 dark:text-white flex items-center justify-center"
+              className="w-8 h-8 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-zinc-900 dark:text-white flex items-center justify-center cursor-pointer transition-colors overflow-hidden"
               aria-label="Thème"
             >
-              <Icon icon={theme === "dark" ? "ph:sun-dim" : "ph:moon"} width={15} />
+              <motion.span
+                key={theme}
+                initial={{ rotate: -90, scale: 0.6, opacity: 0 }}
+                animate={{ rotate: 0, scale: 1, opacity: 1 }}
+                transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                className="inline-flex items-center justify-center"
+              >
+                <Icon icon={theme === "dark" ? "ph:sun-dim" : "ph:moon"} width={15} />
+              </motion.span>
             </button>
 
             <button

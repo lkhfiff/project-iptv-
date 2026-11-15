@@ -1,6 +1,12 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useCallback,
+} from "react";
 
 type Theme = "dark" | "light";
 
@@ -14,21 +20,9 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<Theme>("dark");
-  const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    // Check saved theme or system preference
-    const saved = localStorage.getItem("noudine-theme") as Theme | null;
-    if (saved === "light" || saved === "dark") {
-      setThemeState(saved);
-      applyTheme(saved);
-    } else {
-      applyTheme("dark");
-    }
-    setMounted(true);
-  }, []);
-
-  const applyTheme = (t: Theme) => {
+  const applyTheme = useCallback((t: Theme) => {
+    if (typeof document === "undefined") return;
     const root = document.documentElement;
     if (t === "dark") {
       root.classList.add("dark");
@@ -39,18 +33,36 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       root.classList.add("light");
       root.style.colorScheme = "light";
     }
-  };
+  }, []);
 
-  const setTheme = (t: Theme) => {
-    setThemeState(t);
-    localStorage.setItem("noudine-theme", t);
-    applyTheme(t);
-  };
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("noudine-theme") as Theme | null;
+      if (saved === "light" || saved === "dark") {
+        setThemeState(saved);
+        applyTheme(saved);
+      } else {
+        applyTheme("dark");
+      }
+    } catch {
+      applyTheme("dark");
+    }
+  }, [applyTheme]);
 
-  const toggleTheme = () => {
-    const next = theme === "dark" ? "light" : "dark";
-    setTheme(next);
-  };
+  const setTheme = useCallback(
+    (t: Theme) => {
+      setThemeState(t);
+      try {
+        localStorage.setItem("noudine-theme", t);
+      } catch {}
+      applyTheme(t);
+    },
+    [applyTheme]
+  );
+
+  const toggleTheme = useCallback(() => {
+    setTheme(theme === "dark" ? "light" : "dark");
+  }, [theme, setTheme]);
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme, setTheme }}>
@@ -62,12 +74,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 export function useTheme() {
   const context = useContext(ThemeContext);
   if (!context) {
-    return {
-      theme: "dark" as Theme,
-      toggleTheme: () => {},
-      setTheme: () => {},
-    };
+    throw new Error("useTheme must be used within a ThemeProvider");
   }
   return context;
 }
-

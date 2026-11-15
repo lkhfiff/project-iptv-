@@ -2,163 +2,164 @@
 
 import React from "react";
 import Link from "next/link";
-import { Icon } from "@iconify/react";
 import { SITE_CONFIG, generateDirectContactUrl } from "@/data/config";
+
+interface FooterLink {
+  label: string;
+  href: string;
+  external?: boolean;
+}
+
+interface FooterColumn {
+  title: string;
+  links: FooterLink[];
+}
+
+interface FooterData {
+  brand: string;
+  description: string;
+  columns: FooterColumn[];
+  copyright: string;
+  credits: string;
+  wordmark: string;
+}
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
+  const data: FooterData = {
+    brand: SITE_CONFIG.brandName,
+    description:
+      "Plateforme de divertissement ultra-premium. Accédez à plus de 28 500 chaînes directes mondiales, 135 000 films et séries en 4K UHD, retransmissions sportives et technologie Anti-Freeze™ 9.9.",
+    columns: [
+      {
+        title: "Navigation",
+        links: [
+          { label: "Accueil", href: "/" },
+          { label: "Abonnements VIP", href: "/abonnements" },
+          { label: "Essai Gratuit 24h", href: "/essai-gratuit" },
+          { label: "Contact Conciergerie", href: "/contact" },
+        ],
+      },
+      {
+        title: "Catalogue 4K",
+        links: [
+          { label: "Chaînes Directes (28k+)", href: "/live-tv" },
+          { label: "Films 4K Ultra HD", href: "/movies" },
+          { label: "Séries & Saisons VOD", href: "/series" },
+          { label: "Sports & Matchs en Direct", href: "/sports" },
+        ],
+      },
+      {
+        title: "Plateforme",
+        links: [
+          { label: "Technologie Anti-Freeze™", href: "/#bento" },
+          { label: "Appareils Compatibles", href: "/devices" },
+          { label: "Packs Revendeur IPTV", href: "/revendeur" },
+          { label: "Centre d'Aide & FAQ", href: "/faq" },
+        ],
+      },
+      {
+        title: "Communauté & VIP",
+        links: [
+          {
+            label: "WhatsApp VIP Direct",
+            href: generateDirectContactUrl("Contact Direct Conciergerie"),
+            external: true,
+          },
+          { label: "Telegram Officiel", href: "https://t.me", external: true },
+          { label: "Instagram VIP", href: "https://instagram.com", external: true },
+          { label: "Twitter / X", href: "https://twitter.com", external: true },
+        ],
+      },
+    ],
+    copyright: `© ${currentYear} ${SITE_CONFIG.brandName}. Tous droits réservés.`,
+    credits: "Infrastructure Privée 4K UHD • Transport Chiffré SSL",
+    wordmark: SITE_CONFIG.brandName,
+  };
+
   return (
     <footer
       data-animate="footer"
-      className="relative bg-[#f4f2ec] text-zinc-600 dark:bg-[#080808] dark:text-[#a0a0a0] border-t border-black/10 dark:border-white/10 pt-16 pb-12 overflow-hidden transition-colors duration-300"
+      className="relative w-full bg-[#0b0b0b] text-[#9ca3af] font-outfit overflow-hidden select-none transition-colors duration-300"
     >
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 space-y-12">
-        {/* Main Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
+      <div className="max-w-[1320px] mx-auto px-6 sm:px-10 lg:px-12 pt-20 sm:pt-24 lg:pt-28 pb-12 sm:pb-16">
+        {/* Main Upper Row: Brand & Columns */}
+        <div className="flex flex-col lg:flex-row justify-between items-start gap-12 lg:gap-16">
           {/* Brand Info */}
-          <div className="lg:col-span-2 space-y-4">
-            <Link href="/" className="inline-flex items-center gap-2 group">
-              <span className="text-2xl font-light tracking-[0.25em] text-zinc-950 dark:text-white font-sans">
-                NOUDINE
+          <div className="max-w-[340px] space-y-4">
+            <Link
+              href="/"
+              className="inline-block group focus:outline-none focus:ring-1 focus:ring-white/20 rounded-md"
+            >
+              <span className="text-[28px] sm:text-[32px] font-bold text-white tracking-tight uppercase">
+                {data.brand}
               </span>
             </Link>
-
-            <p className="text-xs sm:text-sm text-zinc-600 dark:text-[#a0a0a0] leading-relaxed max-w-sm font-light">
-              {SITE_CONFIG.brandDescription}
+            <p className="text-[14px] sm:text-[15px] leading-relaxed text-[#9ca3af]">
+              {data.description}
             </p>
-
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-zinc-900 dark:text-white text-xs font-mono">
-              <span className="h-1.5 w-1.5 rounded-full bg-zinc-900 dark:bg-white" />
-              <span>
-                <span data-animate="counter" data-target="18">18</span> Nœuds CDN Actifs •{" "}
-                <span data-animate="counter" data-target="99.99" data-decimals="2" data-decimal-sep=".">
-                  99.99
-                </span>
-                % Uptime Garanti
-              </span>
-            </div>
-
-            <div className="pt-2">
-              <a
-                href={generateDirectContactUrl("Contact Direct Conciergerie")}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-[#f2f2f2] text-xs font-semibold tracking-wide transition-all shadow-md active:scale-95"
-              >
-                <Icon icon="ph:paper-plane-tilt" width={15} />
-                <span>Contacter la Conciergerie VIP</span>
-              </a>
-            </div>
           </div>
 
-          {/* Entertainment */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-zinc-950 dark:text-white">
-              Catalogue &amp; Médias
-            </h4>
-            <ul className="space-y-2 text-xs font-light">
-              <li>
-                <Link href="/live-tv" className="hover:text-black dark:hover:text-white transition-colors">
-                  Chaînes Directes (28k+)
-                </Link>
-              </li>
-              <li>
-                <Link href="/movies" className="hover:text-black dark:hover:text-white transition-colors">
-                  Films 4K Ultra HD
-                </Link>
-              </li>
-              <li>
-                <Link href="/series" className="hover:text-black dark:hover:text-white transition-colors">
-                  Séries &amp; Épisodes Complets
-                </Link>
-              </li>
-              <li>
-                <Link href="/sports" className="hover:text-black dark:hover:text-white transition-colors">
-                  Sports en Direct &amp; Derbies
-                </Link>
-              </li>
-              <li>
-                <Link href="/devices" className="hover:text-black dark:hover:text-white transition-colors">
-                  Appareils Compatibles
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Navigation Rapide */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-zinc-950 dark:text-white">
-              Navigation
-            </h4>
-            <ul className="space-y-2 text-xs font-light">
-              <li>
-                <Link href="/" className="hover:text-black dark:hover:text-white transition-colors">
-                  Accueil
-                </Link>
-              </li>
-              <li>
-                <Link href="/abonnements" className="hover:text-black dark:hover:text-white transition-colors">
-                  Nos Abonnements
-                </Link>
-              </li>
-              <li>
-                <Link href="/essai-gratuit" className="hover:text-black dark:hover:text-white font-medium underline underline-offset-4">
-                  Essai Gratuit 24H
-                </Link>
-              </li>
-              <li>
-                <Link href="/revendeur" className="hover:text-black dark:hover:text-white transition-colors">
-                  Revendeur IPTV (Packs Grossiste)
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="hover:text-black dark:hover:text-white transition-colors">
-                  Contact Conciergerie
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Concierge Info */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-zinc-950 dark:text-white">
-              Ligne Directe VIP
-            </h4>
-            <div className="space-y-2 text-xs font-light">
-              <p className="text-zinc-600 dark:text-[#a0a0a0]">
-                Activation instantanée, aide à la configuration à distance et assistance prioritaire 7j/7.
-              </p>
-              <div className="pt-1">
-                <span className="text-zinc-400 dark:text-[#a0a0a0]/60 block text-[11px] font-mono">Ligne Client :</span>
-                <span className="font-mono text-zinc-950 dark:text-white text-xs font-semibold">
-                  {SITE_CONFIG.whatsappFormattedPhone}
-                </span>
+          {/* 4 Clean Columns */}
+          <div className="w-full lg:w-auto grid grid-cols-2 sm:grid-cols-4 gap-8 sm:gap-12 lg:gap-16 xl:gap-20">
+            {data.columns.map((column) => (
+              <div key={column.title} className="space-y-4">
+                <h4 className="text-white font-medium text-[15px] sm:text-[16px] tracking-tight">
+                  {column.title}
+                </h4>
+                <ul className="space-y-3 list-none p-0 m-0">
+                  {column.links.map((link) => (
+                    <li key={link.label}>
+                      {link.external ? (
+                        <a
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[#9ca3af] hover:text-white transition-colors duration-200 text-[14px] sm:text-[15px] leading-relaxed block"
+                        >
+                          {link.label}
+                        </a>
+                      ) : (
+                        <Link
+                          href={link.href}
+                          className="text-[#9ca3af] hover:text-white transition-colors duration-200 text-[14px] sm:text-[15px] leading-relaxed block"
+                        >
+                          {link.label}
+                        </Link>
+                      )}
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <div className="pt-1">
-                <span className="text-zinc-400 dark:text-[#a0a0a0]/60 block text-[11px] font-mono">Disponibilité :</span>
-                <span className="text-zinc-950 dark:text-white font-medium">24h / 24 • 7j / 7 Mondial</span>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
 
-        {/* Bottom Disclaimer */}
-        <div className="pt-8 border-t border-black/10 dark:border-white/10 space-y-4">
-          <p className="text-[11px] text-zinc-500 dark:text-[#a0a0a0]/60 leading-relaxed font-light">
-            Avertissement : {SITE_CONFIG.businessName} est une interface de divertissement. Les métadonnées et affiches sont fournies par The Movie Database (TMDB). Tous les logos et marques appartiennent à leurs propriétaires respectifs.
-          </p>
+        {/* Bottom Bar: Copyright & Credits */}
+        <div className="mt-20 sm:mt-24 lg:mt-28 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-[13px] sm:text-[14px] text-[#71717a]">
+          <p className="font-normal">{data.copyright}</p>
+          <p className="font-normal">{data.credits}</p>
+        </div>
+      </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-600 dark:text-[#a0a0a0]">
-            <p className="font-light">
-              &copy; {currentYear} {SITE_CONFIG.brandName}. Tous droits réservés.
-            </p>
-            <div className="flex items-center gap-4 text-[11px] font-mono text-zinc-500 dark:text-[#a0a0a0]/70">
-              <span>Anti-Freeze™ 9.9</span>
-              <span>•</span>
-              <span>Transport Chiffré SSL</span>
-            </div>
-          </div>
+      {/* Signature Radiant White Giant Wordmark */}
+      <div className="w-full overflow-hidden flex justify-center items-end select-none pointer-events-none pb-2 sm:pb-4">
+        <div
+          className="font-outfit font-extrabold uppercase tracking-[-0.04em] leading-[0.78] text-center whitespace-nowrap"
+          style={{
+            fontSize: "clamp(90px, 19.5vw, 320px)",
+            background:
+              "radial-gradient(ellipse 75% 85% at 50% 60%, #ffffff 0%, rgba(255, 255, 255, 0.95) 30%, rgba(255, 255, 255, 0.55) 55%, rgba(255, 255, 255, 0.2) 78%, rgba(255, 255, 255, 0.03) 94%, transparent 100%)",
+            WebkitBackgroundClip: "text",
+            backgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            color: "transparent",
+            display: "inline-block",
+            maxWidth: "100%",
+          }}
+        >
+          {data.wordmark}
         </div>
       </div>
     </footer>

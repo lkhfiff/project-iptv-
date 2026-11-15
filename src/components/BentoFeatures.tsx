@@ -28,15 +28,13 @@ export function BentoFeatures() {
 
       {/* 2. Asymmetric 4-Card Bento Grid (Matching Flowblox Reference Structure) */}
       <div className="space-y-5 sm:space-y-6">
-        {/* ROW 1: Morphing Row — Netflix starts same width as Grey (1fr), expands on scroll (2fr) to reclaim wide layout */}
-        <div data-bento-morph className="bento-morph-row">
-          {/* Card 1: Cinema Image Card (starts small 33% -> expands to 67% on scroll) */}
+        {/* ROW 1: Asymmetric Bento Row (Netflix 67% + Anti-Freeze 33%) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch">
+          {/* Card 1: Cinema Image Card (8 columns = 67%) */}
           <div
-            data-morph-netflix
-            className="bento-morph-netflix bento-card-hover group relative rounded-[28px] overflow-hidden bg-black min-h-[260px] sm:min-h-[340px] lg:h-[390px] flex flex-col justify-end p-8 sm:p-10 border border-black/10 dark:border-white/10 shadow-xl shadow-black/5 dark:shadow-none cursor-pointer"
+            className="lg:col-span-8 bento-card-hover group relative rounded-[28px] overflow-hidden bg-black min-h-[300px] sm:min-h-[340px] lg:h-[390px] flex flex-col justify-end p-8 sm:p-10 border border-black/10 dark:border-white/10 shadow-xl shadow-black/5 dark:shadow-none cursor-pointer"
           >
             <Image
-              data-morph-bg
               src="/bento-cinema-opt.jpg"
               alt="Cinéma & Séries 4K Ultra HD"
               fill
@@ -63,10 +61,9 @@ export function BentoFeatures() {
             </div>
           </div>
 
-          {/* Card 2: Oatmeal / Grey Card (starts big 67% -> shrinks to 33% on scroll) */}
+          {/* Card 2: Oatmeal / Grey Card (4 columns = 33%) */}
           <div
-            data-morph-grey
-            className="bento-morph-grey bento-card-hover rounded-[28px] bg-[#ebe5dd] dark:bg-[#1a1c1e] p-8 sm:p-10 flex flex-col justify-between min-h-[320px] sm:min-h-[360px] lg:h-[390px] border border-black/5 dark:border-white/10 shadow-lg shadow-black/5 dark:shadow-none"
+            className="lg:col-span-4 bento-card-hover rounded-[28px] bg-[#ebe5dd] dark:bg-[#1a1c1e] p-8 sm:p-10 flex flex-col justify-between min-h-[300px] sm:min-h-[340px] lg:h-[390px] border border-black/5 dark:border-white/10 shadow-lg shadow-black/5 dark:shadow-none"
           >
             <div
               data-animate="bento-icon"

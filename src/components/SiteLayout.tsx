@@ -38,7 +38,7 @@ export function SiteLayout({ children }: SiteLayoutProps) {
           aria-hidden="true"
           className="scroll-progress-bar"
         />
-        <div className="relative min-h-screen bg-[#050508] text-[#f4f4f6] flex flex-col font-sans selection:bg-orange-500 selection:text-black">
+        <div className="relative min-h-screen bg-[#faf9f6] text-zinc-900 dark:bg-[#080808] dark:text-white flex flex-col font-sans transition-colors duration-300">
           {/* Navigation */}
           <Navbar onSelectMedia={openModal} />
 
