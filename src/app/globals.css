@@ -535,18 +535,27 @@ html.light :is(h1, h2, h3, h4, h5, h6, p):not(
   [class*="bg-zinc-950"], [class*="bg-zinc-950"] *,
   [class*="bg-zinc-800"], [class*="bg-zinc-800"] *,
   a, a *, button, button *,
-  .hero-cinema *, .bento-morph-netflix *
+  .hero-cinema *, .bento-morph-netflix *, #live-tv *
 ).text-white {
   color: #0c0c0e !important;
 }
 
 /* Strictly preserve crisp white text for black/dark buttons, badges, and ribbons in light mode */
-html.light :is(a, button, [role="button"], span):is([class*="bg-black"], [class*="bg-black"] *, [class*="bg-zinc-900"], [class*="bg-zinc-900"] *).text-white,
-html.light [class*="bg-black"] .text-white,
-html.light [class*="bg-black"] span,
+html.light :is(a, button, [role="button"]):is([class~="bg-black"], [class~="bg-zinc-900"], [class~="bg-zinc-950"]).text-white,
+html.light :is(a, button, [role="button"]):is([class~="bg-black"], [class~="bg-zinc-900"], [class~="bg-zinc-950"]).text-white :is(span, p, strong),
+html.light [class~="bg-black"].text-white,
+html.light [class~="bg-black"].text-white :is(span, p, strong),
 html.light .bento-morph-netflix h3,
 html.light .bento-morph-netflix .text-white {
   color: #ffffff !important;
+}
+
+/* Explicitly ensure transparent light badges/buttons (bg-black/5, bg-black/10, etc.) keep dark text in light mode */
+html.light [class*="bg-black/"] {
+  color: #121214 !important;
+}
+html.light [class*="bg-black/"] :is(span, p, strong, svg, [data-icon]) {
+  color: #121214 !important;
 }
 
 /* Ensure white arrow circles inside black buttons retain white background and dark arrow */

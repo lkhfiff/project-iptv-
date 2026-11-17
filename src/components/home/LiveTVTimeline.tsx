@@ -8,7 +8,9 @@ import {
   useSpring,
   useTransform,
   useReducedMotion,
+  useInView,
 } from "framer-motion";
+import { useTheme } from "@/context/ThemeContext";
 
 interface TimelineStep {
   stepNumber: string;
@@ -55,9 +57,29 @@ const TIMELINE_STEPS: TimelineStep[] = [
 
 export function LiveTVTimeline() {
   const prefersReducedMotion = useReducedMotion();
+  const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  const sectionRef = useRef<HTMLElement>(null);
   const timelineRef = useRef<HTMLDivElement>(null);
   const stepRefs = useRef<(HTMLLIElement | null)[]>([]);
   const [activeStep, setActiveStep] = useState<number>(0);
+
+  // InView detection to trigger the section background animation
+  const isInView = useInView(sectionRef, {
+    margin: "-5% 0px -5% 0px",
+    amount: 0.05,
+  });
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Theme inversion logic:
+  // In LIGHT MODE: The background changes with animation to BLACK (isDarkSection = true)
+  // In DARK MODE: The background changes with animation to WHITE (isDarkSection = false)
+  const isLightMode = mounted ? theme === "light" : false;
+  const isDarkSection = isLightMode ? isInView : !isInView;
 
   // Scroll Progress linked to the timeline container
   const { scrollYProgress } = useScroll({
@@ -103,19 +125,27 @@ export function LiveTVTimeline() {
     return () => observer.disconnect();
   }, []);
 
+  // Determine section background and text classes
+  const sectionBgClass = isDarkSection
+    ? "bg-black text-white"
+    : isLightMode
+    ? "bg-[#faf9f6] text-[#0a0a0a]"
+    : "bg-white text-[#0a0a0a]";
+
   return (
     <section
+      ref={sectionRef}
       id="live-tv"
       aria-label="Chaînes en direct et satellites"
-      className="relative w-full bg-white text-[#0a0a0a] font-outfit py-28 sm:py-36 px-6 sm:px-10 lg:px-16 overflow-hidden select-none"
+      className={`relative w-full font-outfit py-28 sm:py-36 px-6 sm:px-10 lg:px-16 overflow-hidden select-none transition-colors duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${sectionBgClass}`}
     >
       {/* 1. Section Header (Centered Intro) */}
       <div className="max-w-5xl mx-auto text-center space-y-4 mb-20 sm:mb-28">
-        <span className="text-xs sm:text-sm uppercase font-mono tracking-[0.28em] text-[#777] block font-semibold">
-          05 / FLUX TÉLÉVISÉS
-        </span>
-
-        <h2 className="text-[clamp(48px,9vw,120px)] font-extrabold text-[#0a0a0a] leading-[1] tracking-[-0.03em] max-w-5xl mx-auto">
+        <h2
+          className={`text-[clamp(48px,9vw,120px)] font-extrabold leading-[1] tracking-[-0.03em] max-w-5xl mx-auto transition-colors duration-700 ${
+            isDarkSection ? "text-white" : "text-[#0a0a0a]"
+          }`}
+        >
           Chaînes en direct, zéro coupure.
         </h2>
       </div>
@@ -125,33 +155,46 @@ export function LiveTVTimeline() {
         {/* Continuous Center Track (Mobile: Left side 24px / Desktop: Center 50%) */}
         <div
           aria-hidden="true"
-          className="absolute top-4 bottom-4 left-6 md:left-1/2 -translate-x-1/2 w-[2px] bg-[#e5e5e5] pointer-events-none"
+          className={`absolute top-4 bottom-4 left-6 md:left-1/2 -translate-x-1/2 w-[2px] pointer-events-none transition-colors duration-700 ${
+            isDarkSection ? "bg-white/20" : "bg-[#e5e5e5]"
+          }`}
         >
-          {/* Top Anchor Big Black Dot (12px) */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-[#0a0a0a]" />
+          {/* Top Anchor Big Dot (12px) */}
+          <div
+            className={`absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full transition-colors duration-700 ${
+              isDarkSection ? "bg-white" : "bg-[#0a0a0a]"
+            }`}
+          />
 
-          {/* Bottom Anchor Big Black Dot (12px) */}
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-3 h-3 rounded-full bg-[#0a0a0a]" />
+          {/* Bottom Anchor Big Dot (12px) */}
+          <div
+            className={`absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-3 h-3 rounded-full transition-colors duration-700 ${
+              isDarkSection ? "bg-white" : "bg-[#0a0a0a]"
+            }`}
+          />
 
-          {/* Dynamic Scroll-Filled Black Line Progress */}
+          {/* Dynamic Scroll-Filled Line Progress */}
           <motion.div
             style={{ height: lineProgressHeight }}
-            className="absolute top-0 left-0 w-full bg-[#0a0a0a] origin-top"
+            className={`absolute top-0 left-0 w-full origin-top transition-colors duration-700 ${
+              isDarkSection ? "bg-white" : "bg-[#0a0a0a]"
+            }`}
           />
 
           {/* Traveling Progress Dot that tracks user's scroll */}
           <motion.div
             style={{ top: travelDotTop }}
-            className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-[#0a0a0a] ring-4 ring-white shadow-md z-20 pointer-events-none"
+            className={`absolute left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full ring-4 shadow-md z-20 pointer-events-none transition-all duration-700 ${
+              isDarkSection
+                ? "bg-white ring-black"
+                : "bg-[#0a0a0a] ring-white"
+            }`}
           />
         </div>
 
         {/* 3. Steps Ordered List (Semantic <ol>) */}
         <ol className="relative space-y-16 sm:space-y-24 list-none m-0 p-0">
           {TIMELINE_STEPS.map((step, idx) => {
-            // Desktop alternation:
-            // Even indices (0, 2) -> text on RIGHT of line, left-aligned
-            // Odd indices (1, 3) -> text on LEFT of line, right-aligned
             const isRightSide = idx % 2 === 0;
             const isActive = activeStep === idx;
 
@@ -170,8 +213,14 @@ export function LiveTVTimeline() {
                   className="absolute left-6 md:left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 z-10 pointer-events-none"
                 >
                   <div
-                    className={`w-3 h-3 rounded-full transition-all duration-400 ease-out ${
-                      isActive
+                    className={`w-3 h-3 rounded-full transition-all duration-500 ease-out ${
+                      isDarkSection
+                        ? isActive
+                          ? "bg-white scale-125 ring-4 ring-black"
+                          : idx < activeStep
+                          ? "bg-white scale-100"
+                          : "bg-black border-2 border-white/30 scale-90"
+                        : isActive
                         ? "bg-[#0a0a0a] scale-125 ring-4 ring-white"
                         : idx < activeStep
                         ? "bg-[#0a0a0a] scale-100"
@@ -180,7 +229,7 @@ export function LiveTVTimeline() {
                   />
                 </div>
 
-                {/* Step Content Block (Animated on viewport entry & active opacity) */}
+                {/* Step Content Block */}
                 <motion.div
                   initial={
                     prefersReducedMotion
@@ -199,41 +248,63 @@ export function LiveTVTimeline() {
                     duration: 0.8,
                     ease: [0.16, 1, 0.3, 1],
                   }}
-                  className={`w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center pl-16 md:pl-0 transition-opacity duration-500`}
+                  className="w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center pl-16 md:pl-0 transition-opacity duration-500"
                 >
                   {/* Left Column (Desktop) */}
                   <div
                     className={`${
                       isRightSide
-                        ? "hidden md:block" // Empty column on desktop for right-side steps
+                        ? "hidden md:block"
                         : "md:col-start-1 md:text-right"
                     } space-y-4`}
                   >
                     {!isRightSide && (
                       <div className="space-y-4 md:ml-auto md:max-w-lg">
-                        {/* 1. Small Label with mirrored line on left side: "— 02" */}
-                        <div className="flex items-center gap-2 md:justify-end text-sm font-mono font-semibold tracking-wider text-[#777]">
+                        {/* 1. Small Label: "— 02" */}
+                        <div
+                          className={`flex items-center gap-2 md:justify-end text-sm font-mono font-semibold tracking-wider transition-colors duration-700 ${
+                            isDarkSection ? "text-zinc-400" : "text-[#777]"
+                          }`}
+                        >
                           <span className="hidden md:inline">—</span>
                           <span>{step.stepNumber}</span>
                           <span className="md:hidden">—</span>
                         </div>
 
                         {/* 2. Giant Bold Title */}
-                        <h3 className="text-[clamp(36px,5.5vw,76px)] font-extrabold text-[#0a0a0a] tracking-[-0.03em] leading-[1.05]">
+                        <h3
+                          className={`text-[clamp(36px,5.5vw,76px)] font-extrabold tracking-[-0.03em] leading-[1.05] transition-colors duration-700 ${
+                            isDarkSection ? "text-white" : "text-[#0a0a0a]"
+                          }`}
+                        >
                           {step.title}
                         </h3>
 
-                        {/* 3. Gray Description Paragraph */}
-                        <p className="text-[#555] text-base sm:text-lg leading-[1.7] max-w-[420px] md:ml-auto">
+                        {/* 3. Description Paragraph */}
+                        <p
+                          className={`text-base sm:text-lg leading-[1.7] max-w-[420px] md:ml-auto transition-colors duration-700 ${
+                            isDarkSection ? "text-zinc-300" : "text-[#555]"
+                          }`}
+                        >
                           {step.description}
                         </p>
 
                         {/* 4. Small Pill Row Below */}
                         <div className="pt-2 flex items-center gap-3 md:justify-end">
-                          <span className="text-xs font-mono font-semibold tracking-wider text-[#777] uppercase">
+                          <span
+                            className={`text-xs font-mono font-semibold tracking-wider uppercase transition-colors duration-700 ${
+                              isDarkSection ? "text-zinc-400" : "text-[#777]"
+                            }`}
+                          >
                             {step.category}
                           </span>
-                          <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#0a0a0a] text-white text-xs font-bold uppercase tracking-wider shadow-sm">
+                          <span
+                            className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm transition-all duration-700 ${
+                              isDarkSection
+                                ? "bg-white text-black"
+                                : "bg-[#0a0a0a] text-white"
+                            }`}
+                          >
                             {step.badge}
                           </span>
                         </div>
@@ -246,32 +317,54 @@ export function LiveTVTimeline() {
                     className={`${
                       isRightSide
                         ? "md:col-start-2 md:text-left"
-                        : "md:hidden" // Hidden on desktop when placed on left column
+                        : "md:hidden"
                     } space-y-4 text-left`}
                   >
                     <div className="space-y-4 md:mr-auto md:max-w-lg">
                       {/* 1. Small Label: "01 —" */}
-                      <div className="flex items-center gap-2 text-sm font-mono font-semibold tracking-wider text-[#777]">
+                      <div
+                        className={`flex items-center gap-2 text-sm font-mono font-semibold tracking-wider transition-colors duration-700 ${
+                          isDarkSection ? "text-zinc-400" : "text-[#777]"
+                        }`}
+                      >
                         <span>{step.stepNumber}</span>
                         <span>—</span>
                       </div>
 
                       {/* 2. Giant Bold Title */}
-                      <h3 className="text-[clamp(36px,5.5vw,76px)] font-extrabold text-[#0a0a0a] tracking-[-0.03em] leading-[1.05]">
+                      <h3
+                        className={`text-[clamp(36px,5.5vw,76px)] font-extrabold tracking-[-0.03em] leading-[1.05] transition-colors duration-700 ${
+                          isDarkSection ? "text-white" : "text-[#0a0a0a]"
+                        }`}
+                      >
                         {step.title}
                       </h3>
 
-                      {/* 3. Gray Description Paragraph */}
-                      <p className="text-[#555] text-base sm:text-lg leading-[1.7] max-w-[420px]">
+                      {/* 3. Description Paragraph */}
+                      <p
+                        className={`text-base sm:text-lg leading-[1.7] max-w-[420px] transition-colors duration-700 ${
+                          isDarkSection ? "text-zinc-300" : "text-[#555]"
+                        }`}
+                      >
                         {step.description}
                       </p>
 
                       {/* 4. Small Pill Row Below */}
                       <div className="pt-2 flex items-center gap-3">
-                        <span className="text-xs font-mono font-semibold tracking-wider text-[#777] uppercase">
+                        <span
+                          className={`text-xs font-mono font-semibold tracking-wider uppercase transition-colors duration-700 ${
+                            isDarkSection ? "text-zinc-400" : "text-[#777]"
+                          }`}
+                        >
                           {step.category}
                         </span>
-                        <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#0a0a0a] text-white text-xs font-bold uppercase tracking-wider shadow-sm">
+                        <span
+                          className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm transition-all duration-700 ${
+                            isDarkSection
+                              ? "bg-white text-black"
+                              : "bg-[#0a0a0a] text-white"
+                          }`}
+                        >
                           {step.badge}
                         </span>
                       </div>
@@ -288,7 +381,11 @@ export function LiveTVTimeline() {
       <div className="mt-24 sm:mt-32 text-center flex justify-center">
         <Link
           href="/live-tv"
-          className="group inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-4 rounded-full bg-[#0a0a0a] text-white hover:bg-white hover:text-[#0a0a0a] border-2 border-[#0a0a0a] text-sm sm:text-base font-bold tracking-wide transition-all duration-300 shadow-xl active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#0a0a0a] focus:ring-offset-2"
+          className={`group inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-4 rounded-full text-sm sm:text-base font-bold tracking-wide transition-all duration-700 shadow-xl active:scale-95 focus:outline-none ${
+            isDarkSection
+              ? "bg-white text-black hover:bg-zinc-200 border-2 border-white"
+              : "bg-[#0a0a0a] text-white hover:bg-zinc-800 border-2 border-[#0a0a0a]"
+          }`}
         >
           <span>Ouvrir le Lecteur Live TV</span>
           <span

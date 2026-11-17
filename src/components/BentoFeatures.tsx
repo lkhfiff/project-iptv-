@@ -32,7 +32,8 @@ export function BentoFeatures() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch">
           {/* Card 1: Cinema Image Card (8 columns = 67%) */}
           <div
-            className="lg:col-span-8 bento-card-hover group relative rounded-[28px] overflow-hidden bg-black min-h-[300px] sm:min-h-[340px] lg:h-[390px] flex flex-col justify-end p-8 sm:p-10 border border-black/10 dark:border-white/10 shadow-xl shadow-black/5 dark:shadow-none cursor-pointer"
+            data-animate="bento-card"
+            className="bento-card-hover lg:col-span-8 group relative rounded-[28px] overflow-hidden bg-black min-h-[300px] sm:min-h-[340px] lg:h-[390px] flex flex-col justify-end p-8 sm:p-10 border border-black/10 dark:border-white/10 shadow-xl shadow-black/5 dark:shadow-none cursor-pointer"
           >
             <Image
               src="/bento-cinema-opt.jpg"
@@ -47,10 +48,16 @@ export function BentoFeatures() {
 
             {/* Content Overlaid at Bottom-Left */}
             <div className="relative z-10 space-y-2 max-w-xl">
-              <h3 className="text-2xl sm:text-3xl font-semibold text-white tracking-tight">
+              <h3
+                data-animate="bento-text"
+                className="text-2xl sm:text-3xl font-semibold text-white tracking-tight"
+              >
                 Cinéma &amp; Séries en 4K Ultra HD
               </h3>
-              <p className="text-xs sm:text-sm text-zinc-200 font-light leading-relaxed">
+              <p
+                data-animate="bento-text"
+                className="text-xs sm:text-sm text-zinc-200 font-light leading-relaxed"
+              >
                 Plus de{" "}
                 <span data-animate="counter" data-target="135000" data-thousand-sep=" ">
                   135 000
@@ -63,7 +70,8 @@ export function BentoFeatures() {
 
           {/* Card 2: Oatmeal / Grey Card (4 columns = 33%) */}
           <div
-            className="lg:col-span-4 bento-card-hover rounded-[28px] bg-[#ebe5dd] dark:bg-[#1a1c1e] p-8 sm:p-10 flex flex-col justify-between min-h-[300px] sm:min-h-[340px] lg:h-[390px] border border-black/5 dark:border-white/10 shadow-lg shadow-black/5 dark:shadow-none"
+            data-animate="bento-card"
+            className="bento-card-hover lg:col-span-4 rounded-[28px] bg-[#ebe5dd] dark:bg-[#1a1c1e] p-8 sm:p-10 flex flex-col justify-between min-h-[300px] sm:min-h-[340px] lg:h-[390px] border border-black/5 dark:border-white/10 shadow-lg shadow-black/5 dark:shadow-none"
           >
             <div
               data-animate="bento-icon"
@@ -73,10 +81,16 @@ export function BentoFeatures() {
             </div>
 
             <div className="space-y-2 max-w-sm">
-              <h3 className="text-xl sm:text-2xl font-semibold text-zinc-950 dark:text-white tracking-tight">
+              <h3
+                data-animate="bento-text"
+                className="text-xl sm:text-2xl font-semibold text-zinc-950 dark:text-white tracking-tight"
+              >
                 Technologie Anti-Freeze™ 9.9
               </h3>
-              <p className="text-xs sm:text-sm text-zinc-600 dark:text-[#a0a0a0] font-light leading-relaxed">
+              <p
+                data-animate="bento-text"
+                className="text-xs sm:text-sm text-zinc-600 dark:text-[#a0a0a0] font-light leading-relaxed"
+              >
                 Cluster CDN mondial dédié éliminant les latences et coupures lors des plus grands directs sportifs et finales européennes.
               </p>
             </div>
